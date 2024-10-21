@@ -1,0 +1,32 @@
+{
+  "name": "acuvity",
+  "version": "0.0.1",
+  "description": "The official Acuvity JavaScript SDK.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acuvity/acuvity-node.git"
+  },
+  "keywords": [
+    "security",
+    "genai",
+    "ai",
+    "prompt_detection",
+    "jailbreak"
+  ],
+  "author": "Acuvity, Inc. <info@acuvity.ai>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/acuvity/acuvity-node/issues"
+  },
+  "homepage": "https://acuvity.ai/",
+  "devDependencies": {
+    "@types/node": "^22.7.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
