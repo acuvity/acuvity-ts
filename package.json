@@ -1,8 +1,13 @@
 {
   "name": "acuvity",
   "version": "0.0.1",
+  "private": false,
   "description": "The official Acuvity JavaScript SDK.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +21,10 @@
     "genai",
     "ai",
     "prompt_detection",
-    "jailbreak"
+    "jailbreak",
+    "typescript",
+    "library",
+    "nodejs"
   ],
   "author": "Acuvity, Inc. <info@acuvity.ai>",
   "license": "Apache-2.0",
