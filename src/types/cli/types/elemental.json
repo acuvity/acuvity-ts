@@ -1,0 +1,32 @@
+{
+  "operation": {
+    "enum": [
+      "retrieve-many",
+      "retrieve",
+      "create",
+      "update",
+      "delete",
+      "patch",
+      "info"
+    ]
+  },
+  "eventtype": {
+    "enum": [
+      "create",
+      "update",
+      "delete"
+    ]
+  },
+  "identifiable": {
+    "type": "object",
+    "properties": {
+      "ID": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": true,
+    "required": [
+      "ID"
+    ]
+  }
+}
