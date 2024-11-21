@@ -25,7 +25,7 @@ async function main(inDir: string, outDir: string) {
     return fs.readJson(path.resolve(inDir, filename)).then((spec: ISpec) => ({ ...spec, $id: filename }));
   }
 
-  fs.copySync('src/utils/elemental/cli/types', inDir); // For json-schema-to-typescript
+  fs.copySync('src/types/cli/types', inDir); // For json-schema-to-typescript
   const modelJson = fs.readJsonSync(path.resolve(inDir, '_models.json')) as IModelsJSON;
   let listJson = fs.readJsonSync(path.resolve(inDir, '_lists.json'));
   listJson = { ...listJson, $id: '_lists.json' };

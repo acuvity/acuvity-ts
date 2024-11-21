@@ -89,7 +89,7 @@ export async function compileTypeDef(
 
       return fs.writeFile(
         path.join(outDir, `${modelName}.ts`),
-        nunjucks.render("src/utils/elemental/cli/templates/model.ts.njk", {
+        nunjucks.render("src/types/cli/templates/model.ts.njk", {
           // In the JSON  Schema, we have `additionalProperties: true` for all the models
           // because the backend can send additional properties,
           // and we don't want to reject the object because of it.
@@ -121,7 +121,7 @@ export async function compileTypeDef(
 export const writeElementalInfo = async (specs: ISpec[], outDir: string) => {
   return fs.writeFile(
     path.join(outDir, "@elemental-info.ts"),
-    nunjucks.render("src/utils/elemental/cli/templates/elemental-info.ts.njk", {
+    nunjucks.render("src/types/cli/templates/elemental-info.ts.njk", {
       models: _.sortBy(specs, "$modelName"),
     })
   );

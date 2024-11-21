@@ -2,7 +2,7 @@
 
 # Specify where the specification files of your bahamut backend are.
 # Note: you can override this env var if needed.
-SPECIFICATIONS_DIRECTORY="${SPECIFICATIONS_DIRECTORY-../../../../acuvity/backend/pkgs/api/apex/jsonschema}"
+SPECIFICATIONS_DIRECTORY="${SPECIFICATIONS_DIRECTORY-../acuvity/backend/pkgs/api/apex/jsonschema}"
 
 # Determine the path to your elemental folder in the frontend codebase.
 ELEMENTAL_DIR="./src/types"
