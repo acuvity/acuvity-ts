@@ -2,8 +2,8 @@ speakeasyVersion: 1.453.8
 sources:
     Acuvity-OAS:
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:c68115c44b6d2397401a3d2c7d897a8354076f651ef0b36958c0f79df9b33954
-        sourceBlobDigest: sha256:f49f1f54ec10ad77472910d1f6a9166450da58ea8f01b70e0adc7cb1827bf0d8
+        sourceRevisionDigest: sha256:27a7963d3f41289f2510099e055fd6c33d4d6a40715561f07750d69fd21fcd30
+        sourceBlobDigest: sha256:6f748f231b94cdce68983e1ad23342f3b5bb2388cc454db6501100dd0bc2d2a6
         tags:
             - latest
             - "1.0"
@@ -25,10 +25,10 @@ targets:
     typescript:
         source: Acuvity-OAS
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:c68115c44b6d2397401a3d2c7d897a8354076f651ef0b36958c0f79df9b33954
-        sourceBlobDigest: sha256:f49f1f54ec10ad77472910d1f6a9166450da58ea8f01b70e0adc7cb1827bf0d8
+        sourceRevisionDigest: sha256:27a7963d3f41289f2510099e055fd6c33d4d6a40715561f07750d69fd21fcd30
+        sourceBlobDigest: sha256:6f748f231b94cdce68983e1ad23342f3b5bb2388cc454db6501100dd0bc2d2a6
         codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:8050d39b32bd9f88c1ef80af55efe9e610a6cd6c96c2cafc7802462601109486
+        codeSamplesRevisionDigest: sha256:c120dba3aa6b2b11db2360ddbc3524ff3571114e5a43a07146d0592194a31afa
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -39,26 +39,10 @@ workflow:
             registry:
                 location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas
     targets:
-        golang:
-            target: go
-            source: Acuvity-OAS
-            output: acuvity-go
-            codeSamples:
-                registry:
-                    location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-go-code-samples
-                blocking: false
-        python:
-            target: python
-            source: Acuvity-OAS
-            output: acuvity-python
-            codeSamples:
-                registry:
-                    location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-python-code-samples
-                blocking: false
         typescript:
             target: typescript
             source: Acuvity-OAS
-            output: acuvity-ts
+            output: .
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-typescript-code-samples

@@ -5,7 +5,7 @@ Represents a textual detection done by policy.
 ## Example Usage
 
 ```typescript
-import { Textualdetection } from "acuvity/models/components";
+import { Textualdetection } from "@acuvity/acuvity/models/components";
 
 let value: Textualdetection = {};
 ```

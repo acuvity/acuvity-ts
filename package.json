@@ -1,6 +1,6 @@
 {
-  "name": "acuvity",
-  "version": "0.1.0",
+  "name": "@acuvity/acuvity",
+  "version": "0.2.0",
   "author": "Acuvity, Inc.",
   "tshy": {
     "exports": {

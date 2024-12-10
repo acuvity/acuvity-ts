@@ -5,7 +5,7 @@ Describes the principal information of an application.
 ## Example Usage
 
 ```typescript
-import { Principalapp } from "acuvity/models/components";
+import { Principalapp } from "@acuvity/acuvity/models/components";
 
 let value: Principalapp = {
   labels: [

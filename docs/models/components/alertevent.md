@@ -5,7 +5,7 @@ Represents an alert event raised by a policy.
 ## Example Usage
 
 ```typescript
-import { Alertevent } from "acuvity/models/components";
+import { Alertevent } from "@acuvity/acuvity/models/components";
 
 let value: Alertevent = {
   alertDefinition: "warning-notification",

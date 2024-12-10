@@ -5,7 +5,7 @@ Represents an analyzer.
 ## Example Usage
 
 ```typescript
-import { Analyzer } from "acuvity/models/components";
+import { Analyzer } from "@acuvity/acuvity/models/components";
 
 let value: Analyzer = {
   triggers: [

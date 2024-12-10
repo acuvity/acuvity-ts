@@ -5,7 +5,7 @@ This is a scan response.
 ## Example Usage
 
 ```typescript
-import { Scanresponse } from "acuvity/models/components";
+import { Scanresponse } from "@acuvity/acuvity/models/components";
 
 let value: Scanresponse = {
   alerts: [

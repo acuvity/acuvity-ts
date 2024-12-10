@@ -5,7 +5,7 @@ Represents the extraction that the user wants to extract.
 ## Example Usage
 
 ```typescript
-import { Extractionrequest } from "acuvity/models/components";
+import { Extractionrequest } from "@acuvity/acuvity/models/components";
 
 let value: Extractionrequest = {};
 ```

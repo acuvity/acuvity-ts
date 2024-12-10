@@ -21,11 +21,6 @@ import {
 } from "./textualdetection.js";
 
 /**
- * The language of the classification.
- */
-export type AdditionalProperties = {};
-
-/**
  * The secrets found during classification.
  */
 export type Secrets = {};
@@ -96,7 +91,7 @@ export type Extraction = {
   /**
    * The language of the classification.
    */
-  additionalProperties?: AdditionalProperties | undefined;
+  languages?: { [k: string]: number } | undefined;
   /**
    * The modalities of data detected in the data.
    */
@@ -118,54 +113,6 @@ export type Extraction = {
    */
   topics?: Topics | undefined;
 };
-
-/** @internal */
-export const AdditionalProperties$inboundSchema: z.ZodType<
-  AdditionalProperties,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type AdditionalProperties$Outbound = {};
-
-/** @internal */
-export const AdditionalProperties$outboundSchema: z.ZodType<
-  AdditionalProperties$Outbound,
-  z.ZodTypeDef,
-  AdditionalProperties
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AdditionalProperties$ {
-  /** @deprecated use `AdditionalProperties$inboundSchema` instead. */
-  export const inboundSchema = AdditionalProperties$inboundSchema;
-  /** @deprecated use `AdditionalProperties$outboundSchema` instead. */
-  export const outboundSchema = AdditionalProperties$outboundSchema;
-  /** @deprecated use `AdditionalProperties$Outbound` instead. */
-  export type Outbound = AdditionalProperties$Outbound;
-}
-
-export function additionalPropertiesToJSON(
-  additionalProperties: AdditionalProperties,
-): string {
-  return JSON.stringify(
-    AdditionalProperties$outboundSchema.parse(additionalProperties),
-  );
-}
-
-export function additionalPropertiesFromJSON(
-  jsonString: string,
-): SafeParseResult<AdditionalProperties, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdditionalProperties$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdditionalProperties' from JSON`,
-  );
-}
 
 /** @internal */
 export const Secrets$inboundSchema: z.ZodType<Secrets, z.ZodTypeDef, unknown> =
@@ -267,8 +214,7 @@ export const Extraction$inboundSchema: z.ZodType<
   internal: z.boolean().optional(),
   keywords: z.record(z.number()).optional(),
   label: z.string().optional(),
-  additionalProperties: z.lazy(() => AdditionalProperties$inboundSchema)
-    .optional(),
+  languages: z.record(z.number()).optional(),
   modalities: z.array(Modality$inboundSchema).optional(),
   redactions: z.array(Textualdetection$inboundSchema).optional(),
   relevance: z.number().optional(),
@@ -294,7 +240,7 @@ export type Extraction$Outbound = {
   internal?: boolean | undefined;
   keywords?: { [k: string]: number } | undefined;
   label?: string | undefined;
-  additionalProperties?: AdditionalProperties$Outbound | undefined;
+  languages?: { [k: string]: number } | undefined;
   modalities?: Array<Modality$Outbound> | undefined;
   redactions?: Array<Textualdetection$Outbound> | undefined;
   relevance?: number | undefined;
@@ -320,8 +266,7 @@ export const Extraction$outboundSchema: z.ZodType<
   internal: z.boolean().optional(),
   keywords: z.record(z.number()).optional(),
   label: z.string().optional(),
-  additionalProperties: z.lazy(() => AdditionalProperties$outboundSchema)
-    .optional(),
+  languages: z.record(z.number()).optional(),
   modalities: z.array(Modality$outboundSchema).optional(),
   redactions: z.array(Textualdetection$outboundSchema).optional(),
   relevance: z.number().optional(),

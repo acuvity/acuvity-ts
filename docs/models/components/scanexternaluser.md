@@ -5,7 +5,7 @@ ScanExternalUser holds the information about the remote user for a ScanRequest.
 ## Example Usage
 
 ```typescript
-import { Scanexternaluser } from "acuvity/models/components";
+import { Scanexternaluser } from "@acuvity/acuvity/models/components";
 
 let value: Scanexternaluser = {
   claims: [

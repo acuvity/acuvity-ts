@@ -5,7 +5,7 @@ Represent a detector an analyzer can use.
 ## Example Usage
 
 ```typescript
-import { Detector } from "acuvity/models/components";
+import { Detector } from "@acuvity/acuvity/models/components";
 
 let value: Detector = {};
 ```

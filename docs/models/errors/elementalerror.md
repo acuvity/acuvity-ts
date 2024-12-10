@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Elementalerror } from "acuvity/models/errors";
+import { Elementalerror } from "@acuvity/acuvity/models/errors";
 
 // No examples available for this model
 ```

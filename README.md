@@ -86,7 +86,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 Now you can submit a scan request using the Scan API.
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -120,7 +120,7 @@ run();
 Now you can list all available analyzers that can be used in the Scan API.
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -183,7 +183,7 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -215,7 +215,7 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   retryConfig: {
@@ -268,8 +268,11 @@ In addition, when custom error responses are specified for an operation, the SDK
 | errors.APIError       | 4XX, 5XX      | \*/\*            |
 
 ```typescript
-import { Acuvity } from "acuvity";
-import { Elementalerror, SDKValidationError } from "acuvity/models/errors";
+import { Acuvity } from "@acuvity/acuvity";
+import {
+  Elementalerror,
+  SDKValidationError,
+} from "@acuvity/acuvity/models/errors";
 
 const acuvity = new Acuvity({
   security: {
@@ -325,7 +328,7 @@ The default server `https://{apex_domain}:{apex_port}` contains variables and is
 
 The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   serverURL: "https://apex.acuvity.ai:443",
@@ -364,8 +367,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { Acuvity } from "acuvity";
-import { HTTPClient } from "acuvity/lib/http";
+import { Acuvity } from "@acuvity/acuvity";
+import { HTTPClient } from "@acuvity/acuvity/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -409,7 +412,7 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -440,7 +443,7 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const sdk = new Acuvity({ debugLogger: console });
 ```

@@ -180,9 +180,9 @@ components:
             A means of distinguishing what was extracted, such as prompt, input file or
             code.
           type: string
-        additionalProperties:
+        languages:
           description: The language of the classification.
-          items:
+          additionalProperties:
             format: float
             type: number
           type: object

@@ -5,7 +5,7 @@ The topic of the classification.
 ## Example Usage
 
 ```typescript
-import { Topics } from "acuvity/models/components";
+import { Topics } from "@acuvity/acuvity/models/components";
 
 let value: Topics = {};
 ```

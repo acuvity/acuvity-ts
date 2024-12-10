@@ -5,7 +5,7 @@ Describe the principal.
 ## Example Usage
 
 ```typescript
-import { Principal } from "acuvity/models/components";
+import { Principal } from "@acuvity/acuvity/models/components";
 
 let value: Principal = {
   app: {

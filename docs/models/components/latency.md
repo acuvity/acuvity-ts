@@ -5,7 +5,7 @@ Holds information about latencies introduced by Apex.
 ## Example Usage
 
 ```typescript
-import { Latency } from "acuvity/models/components";
+import { Latency } from "@acuvity/acuvity/models/components";
 
 let value: Latency = {};
 ```

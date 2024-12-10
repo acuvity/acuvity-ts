@@ -5,7 +5,7 @@ This is a scan request.
 ## Example Usage
 
 ```typescript
-import { Scanrequest } from "acuvity/models/components";
+import { Scanrequest } from "@acuvity/acuvity/models/components";
 
 let value: Scanrequest = {
   bypassHash: "Alice",

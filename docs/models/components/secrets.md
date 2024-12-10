@@ -5,7 +5,7 @@ The secrets found during classification.
 ## Example Usage
 
 ```typescript
-import { Secrets } from "acuvity/models/components";
+import { Secrets } from "@acuvity/acuvity/models/components";
 
 let value: Secrets = {};
 ```

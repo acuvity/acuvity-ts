@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Security } from "acuvity/models/components";
+import { Security } from "@acuvity/acuvity/models/components";
 
 let value: Security = {};
 ```

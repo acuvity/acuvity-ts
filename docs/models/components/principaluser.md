@@ -5,7 +5,7 @@ Describes the principal information of a user.
 ## Example Usage
 
 ```typescript
-import { Principaluser } from "acuvity/models/components";
+import { Principaluser } from "@acuvity/acuvity/models/components";
 
 let value: Principaluser = {
   name: "user@company.com",

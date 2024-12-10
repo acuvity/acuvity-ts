@@ -19,9 +19,9 @@ specific category of applications.
 ## Example
 
 ```typescript
-import { AcuvityCore } from "acuvity/core.js";
-import { apexListAnalyzers } from "acuvity/funcs/apexListAnalyzers.js";
-import { SDKValidationError } from "acuvity/models/errors/sdkvalidationerror.js";
+import { AcuvityCore } from "@acuvity/acuvity/core.js";
+import { apexListAnalyzers } from "@acuvity/acuvity/funcs/apexListAnalyzers.js";
+import { SDKValidationError } from "@acuvity/acuvity/models/errors/sdkvalidationerror.js";
 
 // Use `AcuvityCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

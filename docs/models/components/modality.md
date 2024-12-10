@@ -5,7 +5,7 @@ Represents the modality of a some data.
 ## Example Usage
 
 ```typescript
-import { Modality } from "acuvity/models/components";
+import { Modality } from "@acuvity/acuvity/models/components";
 
 let value: Modality = {
   group: "image",

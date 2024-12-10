@@ -5,7 +5,7 @@ The type of text.
 ## Example Usage
 
 ```typescript
-import { Type } from "acuvity/models/components";
+import { Type } from "@acuvity/acuvity/models/components";
 
 let value: Type = "Output";
 ```

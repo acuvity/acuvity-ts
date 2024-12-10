@@ -4,7 +4,7 @@
 Now you can submit a scan request using the Scan API.
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -38,7 +38,7 @@ run();
 Now you can list all available analyzers that can be used in the Scan API.
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {

@@ -5,7 +5,7 @@ Additional error data
 ## Example Usage
 
 ```typescript
-import { Data } from "acuvity/models/errors";
+import { Data } from "@acuvity/acuvity/models/errors";
 
 let value: Data = {};
 ```

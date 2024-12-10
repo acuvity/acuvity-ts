@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: 0ea251e50d0b82675ed642274f22ff6a
+  docChecksum: 2aa47ea85121f08c3ccc81c8f89edc1f
   docVersion: "1.0"
   speakeasyVersion: 1.453.8
   generationVersion: 2.474.15
-  releaseVersion: 0.1.0
-  configChecksum: a28c41ab785b43e55a5001061d60c01d
+  releaseVersion: 0.2.0
+  configChecksum: 8e29528085cec3647e333cd86c1c5cbc
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -34,7 +34,6 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
-  - docs/models/components/additionalproperties.md
   - docs/models/components/alertevent.md
   - docs/models/components/analyzer.md
   - docs/models/components/analyzermodel.md

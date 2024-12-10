@@ -17,7 +17,7 @@ List of all available analyzers.
 ### Example Usage
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -40,8 +40,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { AcuvityCore } from "acuvity/core.js";
-import { apexListAnalyzers } from "acuvity/funcs/apexListAnalyzers.js";
+import { AcuvityCore } from "@acuvity/acuvity/core.js";
+import { apexListAnalyzers } from "@acuvity/acuvity/funcs/apexListAnalyzers.js";
 
 // Use `AcuvityCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -93,7 +93,7 @@ Processes the scan request.
 ### Example Usage
 
 ```typescript
-import { Acuvity } from "acuvity";
+import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
   security: {
@@ -126,8 +126,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { AcuvityCore } from "acuvity/core.js";
-import { apexScan } from "acuvity/funcs/apexScan.js";
+import { AcuvityCore } from "@acuvity/acuvity/core.js";
+import { apexScan } from "@acuvity/acuvity/funcs/apexScan.js";
 
 // Use `AcuvityCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

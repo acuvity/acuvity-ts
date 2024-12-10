@@ -41,7 +41,7 @@ typescript:
   methodArguments: require-security-and-request
   moduleFormat: dual
   outputModelSuffix: output
-  packageName: @acuvity/acuvity
+  packageName: '@acuvity/acuvity'
   responseFormat: flat
   templateVersion: v2
   useIndexModules: true
