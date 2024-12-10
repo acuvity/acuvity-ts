@@ -11,6 +11,9 @@ targets:
         target: typescript
         source: Acuvity-OAS
         output: .
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-typescript-code-samples
