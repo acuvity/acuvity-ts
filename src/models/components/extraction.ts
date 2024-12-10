@@ -21,16 +21,6 @@ import {
 } from "./textualdetection.js";
 
 /**
- * The secrets found during classification.
- */
-export type Secrets = {};
-
-/**
- * The topic of the classification.
- */
-export type Topics = {};
-
-/**
  * Represents the extracted information to log.
  */
 export type Extraction = {
@@ -107,94 +97,12 @@ export type Extraction = {
   /**
    * The secrets found during classification.
    */
-  secrets?: Secrets | undefined;
+  secrets?: { [k: string]: number } | undefined;
   /**
    * The topic of the classification.
    */
-  topics?: Topics | undefined;
+  topics?: { [k: string]: number } | undefined;
 };
-
-/** @internal */
-export const Secrets$inboundSchema: z.ZodType<Secrets, z.ZodTypeDef, unknown> =
-  z.object({});
-
-/** @internal */
-export type Secrets$Outbound = {};
-
-/** @internal */
-export const Secrets$outboundSchema: z.ZodType<
-  Secrets$Outbound,
-  z.ZodTypeDef,
-  Secrets
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Secrets$ {
-  /** @deprecated use `Secrets$inboundSchema` instead. */
-  export const inboundSchema = Secrets$inboundSchema;
-  /** @deprecated use `Secrets$outboundSchema` instead. */
-  export const outboundSchema = Secrets$outboundSchema;
-  /** @deprecated use `Secrets$Outbound` instead. */
-  export type Outbound = Secrets$Outbound;
-}
-
-export function secretsToJSON(secrets: Secrets): string {
-  return JSON.stringify(Secrets$outboundSchema.parse(secrets));
-}
-
-export function secretsFromJSON(
-  jsonString: string,
-): SafeParseResult<Secrets, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Secrets$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Secrets' from JSON`,
-  );
-}
-
-/** @internal */
-export const Topics$inboundSchema: z.ZodType<Topics, z.ZodTypeDef, unknown> = z
-  .object({});
-
-/** @internal */
-export type Topics$Outbound = {};
-
-/** @internal */
-export const Topics$outboundSchema: z.ZodType<
-  Topics$Outbound,
-  z.ZodTypeDef,
-  Topics
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Topics$ {
-  /** @deprecated use `Topics$inboundSchema` instead. */
-  export const inboundSchema = Topics$inboundSchema;
-  /** @deprecated use `Topics$outboundSchema` instead. */
-  export const outboundSchema = Topics$outboundSchema;
-  /** @deprecated use `Topics$Outbound` instead. */
-  export type Outbound = Topics$Outbound;
-}
-
-export function topicsToJSON(topics: Topics): string {
-  return JSON.stringify(Topics$outboundSchema.parse(topics));
-}
-
-export function topicsFromJSON(
-  jsonString: string,
-): SafeParseResult<Topics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Topics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Topics' from JSON`,
-  );
-}
 
 /** @internal */
 export const Extraction$inboundSchema: z.ZodType<
@@ -218,8 +126,8 @@ export const Extraction$inboundSchema: z.ZodType<
   modalities: z.array(Modality$inboundSchema).optional(),
   redactions: z.array(Textualdetection$inboundSchema).optional(),
   relevance: z.number().optional(),
-  secrets: z.lazy(() => Secrets$inboundSchema).optional(),
-  topics: z.lazy(() => Topics$inboundSchema).optional(),
+  secrets: z.record(z.number()).optional(),
+  topics: z.record(z.number()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "PIIs": "piIs",
@@ -244,8 +152,8 @@ export type Extraction$Outbound = {
   modalities?: Array<Modality$Outbound> | undefined;
   redactions?: Array<Textualdetection$Outbound> | undefined;
   relevance?: number | undefined;
-  secrets?: Secrets$Outbound | undefined;
-  topics?: Topics$Outbound | undefined;
+  secrets?: { [k: string]: number } | undefined;
+  topics?: { [k: string]: number } | undefined;
 };
 
 /** @internal */
@@ -270,8 +178,8 @@ export const Extraction$outboundSchema: z.ZodType<
   modalities: z.array(Modality$outboundSchema).optional(),
   redactions: z.array(Textualdetection$outboundSchema).optional(),
   relevance: z.number().optional(),
-  secrets: z.lazy(() => Secrets$outboundSchema).optional(),
-  topics: z.lazy(() => Topics$outboundSchema).optional(),
+  secrets: z.record(z.number()).optional(),
+  topics: z.record(z.number()).optional(),
 }).transform((v) => {
   return remap$(v, {
     piIs: "PIIs",

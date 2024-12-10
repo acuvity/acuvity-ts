@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: 2aa47ea85121f08c3ccc81c8f89edc1f
+  docChecksum: 4865d6638281ccecab77002781133c1f
   docVersion: "1.0"
   speakeasyVersion: 1.453.8
   generationVersion: 2.474.15
-  releaseVersion: 0.2.1
-  configChecksum: fdfe416cf1d69ba14fbf5de8c82dba87
+  releaseVersion: 0.2.2
+  configChecksum: 6ef8b974f8fe2d42d34b101cc03efa3c
   published: true
 features:
   typescript:
@@ -54,11 +54,9 @@ generatedFiles:
   - docs/models/components/scanrequest.md
   - docs/models/components/scanresponse.md
   - docs/models/components/scanresponsetype.md
-  - docs/models/components/secrets.md
   - docs/models/components/security.md
   - docs/models/components/textualdetection.md
   - docs/models/components/textualdetectiontype.md
-  - docs/models/components/topics.md
   - docs/models/components/type.md
   - docs/models/errors/data.md
   - docs/models/errors/elementalerror.md
