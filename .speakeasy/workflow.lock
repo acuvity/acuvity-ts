@@ -1,0 +1,49 @@
+speakeasyVersion: 1.453.8
+sources:
+    Acuvity-OAS:
+        sourceNamespace: acuvity-oas
+        sourceRevisionDigest: sha256:88d6bc79f2b834198164a808299ca7b99e0ece02bf963bab768f695593c501a1
+        sourceBlobDigest: sha256:6f748f231b94cdce68983e1ad23342f3b5bb2388cc454db6501100dd0bc2d2a6
+        tags:
+            - latest
+            - "1.0"
+targets:
+    golang:
+        source: Acuvity-OAS
+        sourceNamespace: acuvity-oas
+        sourceRevisionDigest: sha256:0088817be043c3d9141dee545d0682ade71d41025f87f49b20f8d6165d4a2891
+        sourceBlobDigest: sha256:d3f13e557b9d90559e7f476966006d55b5892c2c336be3bcc5792c37caffb3ac
+        codeSamplesNamespace: acuvity-oas-code-samples
+        codeSamplesRevisionDigest: sha256:3e106bfa8c48b7c167f82a991e91e82c82f95206dd6907f927d24efdbca9aa97
+    python:
+        source: Acuvity-OAS
+        sourceNamespace: acuvity-oas
+        sourceRevisionDigest: sha256:b3cf90f87453e0199781caa2b0b47cab9ea09e43b3f31a2e20f942d14d8000ac
+        sourceBlobDigest: sha256:f49f1f54ec10ad77472910d1f6a9166450da58ea8f01b70e0adc7cb1827bf0d8
+        codeSamplesNamespace: acuvity-oas-python-code-samples
+        codeSamplesRevisionDigest: sha256:3328ae0de9d0ae5756344b126ece49f467babb26f351f7858cb95c7e67332d91
+    typescript:
+        source: Acuvity-OAS
+        sourceNamespace: acuvity-oas
+        sourceRevisionDigest: sha256:88d6bc79f2b834198164a808299ca7b99e0ece02bf963bab768f695593c501a1
+        sourceBlobDigest: sha256:6f748f231b94cdce68983e1ad23342f3b5bb2388cc454db6501100dd0bc2d2a6
+        codeSamplesNamespace: acuvity-oas-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:d2345ffbdff5b462fbb913e6c0d1a2cead9fe4997f6d6e677151c10534c1365b
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Acuvity-OAS:
+            inputs:
+                - location: ./apex-openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas
+    targets:
+        typescript:
+            target: typescript
+            source: Acuvity-OAS
+            output: .
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-typescript-code-samples
+                blocking: false

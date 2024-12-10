@@ -1,0 +1,20 @@
+# Extractionrequest
+
+Represents the extraction that the user wants to extract.
+
+## Example Usage
+
+```typescript
+import { Extractionrequest } from "@acuvity/acuvity/models/components";
+
+let value: Extractionrequest = {};
+```
+
+## Fields
+
+| Field                                                                                                                                                    | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `annotations`                                                                                                                                            | Record<string, *string*>                                                                                                                                 | :heavy_minus_sign:                                                                                                                                       | Annotations attached to the extraction.                                                                                                                  |
+| `data`                                                                                                                                                   | *string*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                       | The binary data to request extraction for.                                                                                                               |
+| `internal`                                                                                                                                               | *boolean*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                       | If true, this extraction is for internal use only. This can be used by agentic<br/>systems to mark an extraction as internal only as opposed to user facing. |
+| `label`                                                                                                                                                  | *string*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                       | A means of distinguishing what was extracted, such as prompt, input file or<br/>code.                                                                    |

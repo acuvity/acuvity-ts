@@ -1,0 +1,139 @@
+lockVersion: 2.0.0
+id: b95067c6-660d-4241-9d59-04829c592eb4
+management:
+  docChecksum: 2aa47ea85121f08c3ccc81c8f89edc1f
+  docVersion: "1.0"
+  speakeasyVersion: 1.453.8
+  generationVersion: 2.474.15
+  releaseVersion: 0.2.0
+  configChecksum: 8e29528085cec3647e333cd86c1c5cbc
+features:
+  typescript:
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.11
+    core: 3.18.9
+    defaultEnabledRetries: 0.1.0
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.1.2
+    examples: 2.81.4
+    globalSecurity: 2.82.11
+    globalSecurityCallbacks: 0.1.0
+    globalServerURLs: 2.82.4
+    nameOverrides: 2.81.2
+    nullables: 0.1.0
+    operationTimeout: 0.2.0
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.2.0
+generatedFiles:
+  - .eslintrc.cjs
+  - .gitattributes
+  - .npmignore
+  - CONTRIBUTING.md
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/components/alertevent.md
+  - docs/models/components/analyzer.md
+  - docs/models/components/analyzermodel.md
+  - docs/models/components/anonymization.md
+  - docs/models/components/authtype.md
+  - docs/models/components/decision.md
+  - docs/models/components/detector.md
+  - docs/models/components/extraction.md
+  - docs/models/components/extractionrequest.md
+  - docs/models/components/latency.md
+  - docs/models/components/modality.md
+  - docs/models/components/principal.md
+  - docs/models/components/principalapp.md
+  - docs/models/components/principaltype.md
+  - docs/models/components/principaluser.md
+  - docs/models/components/scanexternaluser.md
+  - docs/models/components/scanrequest.md
+  - docs/models/components/scanresponse.md
+  - docs/models/components/scanresponsetype.md
+  - docs/models/components/secrets.md
+  - docs/models/components/security.md
+  - docs/models/components/textualdetection.md
+  - docs/models/components/textualdetectiontype.md
+  - docs/models/components/topics.md
+  - docs/models/components/type.md
+  - docs/models/errors/data.md
+  - docs/models/errors/elementalerror.md
+  - docs/sdks/acuvity/README.md
+  - docs/sdks/apex/README.md
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/apexListAnalyzers.ts
+  - src/funcs/apexScan.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/models/components/alertevent.ts
+  - src/models/components/analyzer.ts
+  - src/models/components/analyzermodel.ts
+  - src/models/components/detector.ts
+  - src/models/components/extraction.ts
+  - src/models/components/extractionrequest.ts
+  - src/models/components/index.ts
+  - src/models/components/latency.ts
+  - src/models/components/modality.ts
+  - src/models/components/principal.ts
+  - src/models/components/principalapp.ts
+  - src/models/components/principaluser.ts
+  - src/models/components/scanexternaluser.ts
+  - src/models/components/scanrequest.ts
+  - src/models/components/scanresponse.ts
+  - src/models/components/security.ts
+  - src/models/components/textualdetection.ts
+  - src/models/errors/apierror.ts
+  - src/models/errors/elementalerror.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/sdk/apex.ts
+  - src/sdk/index.ts
+  - src/sdk/sdk.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  get-all-Analyzers:
+    speakeasy-default-get-all-analyzers:
+      responses:
+        "200":
+          application/json: [{"triggers": ["Code/*"]}, {"triggers": ["Code/*"]}]
+        "400": {}
+  create-ScanRequest-as-ScanResponse:
+    speakeasy-default-create-scan-request-as-scan-response:
+      requestBody:
+        application/json: {"bypassHash": "Alice", "user": {"claims": ["@org=acuvity.ai", "given_name=John", "family_name=Doe"], "name": "Alice"}}
+      responses:
+        "200":
+          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "extractions": [{"categories": [], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
+        "400": {}
+generatedTests: {}
