@@ -12,7 +12,6 @@ This SDK is intended to be used in JavaScript runtimes that support the followin
 
 Runtime environments that are explicitly supported are:
 
-- Evergreen browsers which include: Chrome, Safari, Edge, Firefox
 - Node.js active and maintenance LTS releases
   - Currently, this is v18 and v20
 - Bun v1 and above
@@ -20,3 +19,5 @@ Runtime environments that are explicitly supported are:
   - Note that Deno does not currently have native support for streaming file uploads backed by the filesystem ([issue link][deno-file-streaming])
 
 [deno-file-streaming]: https://github.com/denoland/deno/issues/11018
+
+**NOTE:** This SDK is currently not intended to be used in frontend applications or running in browsers in general.

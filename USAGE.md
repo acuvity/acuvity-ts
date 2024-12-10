@@ -1,28 +1,20 @@
-<!-- Start SDK Example Usage [usage] -->
+<!-- No SDK Example Usage [usage] -->
 ### Process a scan request
 
 Now you can submit a scan request using the Scan API.
 
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
-  const result = await acuvity.apex.scanRequest({
-    bypassHash: "Alice",
-    user: {
-      claims: [
-        "@org=acuvity.ai",
-        "given_name=John",
-        "family_name=Doe",
-      ],
-      name: "Alice",
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
     },
+  }));
+
+  const result = await acuvity.apex.scan({
+    messages: ["Using a weather forecasting service, provide me with a weather forecast for the next ten days for Sunnyvale, CA."],
   });
 
   // Handle the result
@@ -38,15 +30,15 @@ run();
 Now you can list all available analyzers that can be used in the Scan API.
 
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
   const result = await acuvity.apex.listAnalyzers();
 
   // Handle the result
@@ -56,4 +48,4 @@ async function run() {
 run();
 
 ```
-<!-- End SDK Example Usage [usage] -->
+<!-- No SDK Example Usage [usage] -->
