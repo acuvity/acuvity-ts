@@ -2,7 +2,7 @@ speakeasyVersion: 1.453.8
 sources:
     Acuvity-OAS:
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:88d6bc79f2b834198164a808299ca7b99e0ece02bf963bab768f695593c501a1
+        sourceRevisionDigest: sha256:5fbd4689510ddadb55bb9560c30c72dfd41c29b623c377ef78b9fc1385c151e5
         sourceBlobDigest: sha256:6f748f231b94cdce68983e1ad23342f3b5bb2388cc454db6501100dd0bc2d2a6
         tags:
             - latest
@@ -25,10 +25,10 @@ targets:
     typescript:
         source: Acuvity-OAS
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:88d6bc79f2b834198164a808299ca7b99e0ece02bf963bab768f695593c501a1
+        sourceRevisionDigest: sha256:5fbd4689510ddadb55bb9560c30c72dfd41c29b623c377ef78b9fc1385c151e5
         sourceBlobDigest: sha256:6f748f231b94cdce68983e1ad23342f3b5bb2388cc454db6501100dd0bc2d2a6
         codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:d2345ffbdff5b462fbb913e6c0d1a2cead9fe4997f6d6e677151c10534c1365b
+        codeSamplesRevisionDigest: sha256:a5ba5bd58771610048b09adc8076d5a03bd2f6f8a3bf7442a98b4e783ff18842
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -43,6 +43,9 @@ workflow:
             target: typescript
             source: Acuvity-OAS
             output: .
+            publish:
+                npm:
+                    token: $npm_token
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-typescript-code-samples
