@@ -1,0 +1,47 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: Acuvity
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
+typescript:
+  version: 0.1.0
+  additionalDependencies:
+    dependencies:
+      jwt-decode: ^4.0.0
+    devDependencies:
+      '@types/deno': ^2.0.0
+      '@types/node': ^18.0.0
+  additionalPackageJSON: {}
+  author: Acuvity, Inc.
+  clientServerStatusCodesAsErrors: true
+  defaultErrorName: APIError
+  enableReactQuery: false
+  enumFormat: union
+  flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inputModelSuffix: input
+  maxMethodParams: 0
+  methodArguments: require-security-and-request
+  moduleFormat: dual
+  outputModelSuffix: output
+  packageName: @acuvity/acuvity
+  responseFormat: flat
+  templateVersion: v2
+  useIndexModules: true

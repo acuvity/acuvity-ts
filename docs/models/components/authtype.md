@@ -1,0 +1,17 @@
+# AuthType
+
+The type of authentication.
+
+## Example Usage
+
+```typescript
+import { AuthType } from "acuvity/models/components";
+
+let value: AuthType = "Token";
+```
+
+## Values
+
+```typescript
+"Certificate" | "UserToken" | "AppToken" | "Hostname" | "Token" | "TierToken" | "External"
+```
