@@ -1,4 +1,4 @@
-speakeasyVersion: 1.453.8
+speakeasyVersion: 1.453.9
 sources:
     Acuvity-OAS:
         sourceNamespace: acuvity-oas
@@ -27,8 +27,6 @@ targets:
         sourceNamespace: acuvity-oas
         sourceRevisionDigest: sha256:7a4d13b1860be5ae654f5e36e894f13ad6fb8e9075ba171c2ec37c0c3d4d97f9
         sourceBlobDigest: sha256:30c2163e89c5b18ec80a1b1f38c6a8e6344ebd6a7d3345b4c0569db7a87324e7
-        codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:c402a57c6145a69d6faf1bc562b765ec2093dfc709dd4cfedd64da793a40a39e
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

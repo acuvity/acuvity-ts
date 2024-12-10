@@ -3,7 +3,7 @@
  */
 
 import { apexListAnalyzers } from "../funcs/apexListAnalyzers.js";
-import { apexScan } from "../funcs/apexScan.js";
+import { apexScanRequest } from "../funcs/apexScanRequest.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -24,11 +24,11 @@ export class Apex extends ClientSDK {
   /**
    * Processes the scan request.
    */
-  async scan(
+  async scanRequest(
     request: components.Scanrequest,
     options?: RequestOptions,
   ): Promise<components.Scanresponse> {
-    return unwrapAsync(apexScan(
+    return unwrapAsync(apexScanRequest(
       this,
       request,
       options,

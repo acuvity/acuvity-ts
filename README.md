@@ -95,7 +95,7 @@ const acuvity = new Acuvity({
 });
 
 async function run() {
-  const result = await acuvity.apex.scan({
+  const result = await acuvity.apex.scanRequest({
     bypassHash: "Alice",
     user: {
       claims: [
@@ -150,7 +150,7 @@ run();
 ### [apex](docs/sdks/apex/README.md)
 
 * [listAnalyzers](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
-* [scan](docs/sdks/apex/README.md#scan) - Processes the scan request.
+* [scanRequest](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -171,7 +171,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`apexListAnalyzers`](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
-- [`apexScan`](docs/sdks/apex/README.md#scan) - Processes the scan request.
+- [`apexScanRequest`](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

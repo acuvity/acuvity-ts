@@ -13,7 +13,7 @@ const acuvity = new Acuvity({
 });
 
 async function run() {
-  const result = await acuvity.apex.scan({
+  const result = await acuvity.apex.scanRequest({
     bypassHash: "Alice",
     user: {
       claims: [
