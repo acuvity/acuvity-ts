@@ -5,7 +5,7 @@ sources:
         inputs:
             - location: ./apex-openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas
+            location: registry.speakeasyapi.dev/acuvity/acuvity/acuvity-oas
 targets:
     typescript:
         target: typescript
@@ -16,5 +16,5 @@ targets:
                 token: $npm_token
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-typescript-code-samples
+                location: registry.speakeasyapi.dev/acuvity/acuvity/acuvity-oas-typescript-code-samples
             blocking: false
