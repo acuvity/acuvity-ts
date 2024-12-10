@@ -32,8 +32,6 @@ generatedFiles:
   - .npmignore
   - CONTRIBUTING.md
   - FUNCTIONS.md
-  - RUNTIMES.md
-  - USAGE.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/alertevent.md
   - docs/models/components/analyzer.md
