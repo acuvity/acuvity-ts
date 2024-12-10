@@ -1,2 +1,2 @@
-import "./sdk/sdk-extend.js";
+import "./sdk/apex-extend.js";
 export { discoverApex } from "./sdk/discover.js";
