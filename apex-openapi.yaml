@@ -202,13 +202,13 @@ components:
           type: number
         secrets:
           description: The secrets found during classification.
-          items:
+          additionalProperties:
             format: float
             type: number
           type: object
         topics:
           description: The topic of the classification.
-          items:
+          additionalProperties:
             format: float
             type: number
           type: object
