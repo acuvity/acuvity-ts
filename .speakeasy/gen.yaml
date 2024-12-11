@@ -13,7 +13,7 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
 typescript:
-  version: 0.2.3
+  version: 0.2.4
   additionalDependencies:
     dependencies:
       jwt-decode: ^4.0.0
@@ -37,7 +37,7 @@ typescript:
     license: Apache-2.0
     repository:
       type: git
-      url: git+https://github.com/acuvity/acuvity-node.git
+      url: git+https://github.com/acuvity/acuvity-ts.git
   author: Acuvity, Inc.
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError
