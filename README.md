@@ -1,9 +1,8 @@
 # acuvity
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *acuvity* API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage the Acuvity APIs - in particularly the Apex API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=acuvity&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0.html">
         <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -78,7 +77,7 @@ yarn add @acuvity/acuvity zod
 For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 <!-- End Requirements [requirements] -->
 
-<!-- Start SDK Example Usage [usage] -->
+<!-- No SDK Example Usage [usage] -->
 ## SDK Example Usage
 
 ### Process a scan request
@@ -86,25 +85,17 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 Now you can submit a scan request using the Scan API.
 
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
-  const result = await acuvity.apex.scan({
-    bypassHash: "Alice",
-    user: {
-      claims: [
-        "@org=acuvity.ai",
-        "given_name=John",
-        "family_name=Doe",
-      ],
-      name: "Alice",
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
     },
+  }));
+
+  const result = await acuvity.apex.scan({
+    messages: ["Using a weather forecasting service, provide me with a weather forecast for the next ten days for Sunnyvale, CA."],
   });
 
   // Handle the result
@@ -120,15 +111,15 @@ run();
 Now you can list all available analyzers that can be used in the Scan API.
 
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
   const result = await acuvity.apex.listAnalyzers();
 
   // Handle the result
@@ -138,7 +129,9 @@ async function run() {
 run();
 
 ```
-<!-- End SDK Example Usage [usage] -->
+
+**NOTE:** If you simply want to get a list of analyzer names or groups that can be used in the scan API, use `listAnalyzerNames()` or `listAnalyzerGroups()` instead.
+<!-- No SDK Example Usage [usage] -->
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
@@ -150,7 +143,7 @@ run();
 ### [apex](docs/sdks/apex/README.md)
 
 * [listAnalyzers](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
-* [scan](docs/sdks/apex/README.md#scan) - Processes the scan request.
+* [scanRequest](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -171,27 +164,27 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`apexListAnalyzers`](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
-- [`apexScan`](docs/sdks/apex/README.md#scan) - Processes the scan request.
+- [`apexScanRequest`](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
 
-<!-- Start Retries [retries] -->
+<!-- No Retries [retries] -->
 ## Retries
 
 Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
   const result = await acuvity.apex.listAnalyzers({
     retries: {
       strategy: "backoff",
@@ -215,25 +208,25 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  retryConfig: {
-    strategy: "backoff",
-    backoff: {
-      initialInterval: 1,
-      maxInterval: 50,
-      exponent: 1.1,
-      maxElapsedTime: 100,
-    },
-    retryConnectionErrors: false,
-  },
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    retryConfig: {
+      strategy: "backoff",
+      backoff: {
+        initialInterval: 1,
+        maxInterval: 50,
+        exponent: 1.1,
+        maxElapsedTime: 100,
+      },
+      retryConnectionErrors: false,
+    },
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
   const result = await acuvity.apex.listAnalyzers();
 
   // Handle the result
@@ -243,9 +236,9 @@ async function run() {
 run();
 
 ```
-<!-- End Retries [retries] -->
+<!-- No Retries [retries] -->
 
-<!-- Start Error Handling [errors] -->
+<!-- No Error Handling [errors] -->
 ## Error Handling
 
 All SDK methods return a response object or throw an error. By default, an API error will throw a `errors.APIError`.
@@ -268,19 +261,19 @@ In addition, when custom error responses are specified for an operation, the SDK
 | errors.APIError       | 4XX, 5XX      | \*/\*            |
 
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 import {
   Elementalerror,
   SDKValidationError,
 } from "@acuvity/acuvity/models/errors";
 
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
-
 async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
   let result;
   try {
     result = await acuvity.apex.listAnalyzers();
@@ -313,16 +306,18 @@ run();
 ```
 
 Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging.
-<!-- End Error Handling [errors] -->
+<!-- No Error Handling [errors] -->
 
-<!-- Start Server Selection [server] -->
+<!-- No Server Selection [server] -->
 ## Server Selection
 
 ### Server Variables
 
-The default server `https://{apex_domain}:{apex_port}` contains variables and is set to `https://apex.acuvity.ai:443` by default. To override default values, the following parameters are available when initializing the SDK client instance:
+The default server `https://{apex_domain}:{apex_port}` contains variables and is set to `https://apex.acuvity.ai:443` by default. Note that the default values **DO NOT** point to a valid and existing Apex URL as they are specific and unique to every organization. Therefore both variables must be set. The following parameters are available when initializing the SDK client instance:
  * `apexDomain: string`
  * `apexPort: string`
+
+However, it is highly recommended to determine your Apex URL automatically which can be achieved from the provided token. Therefore you should in most cases simply use the `discoverApex()` wrapper as shown in all usage examples which takes an `SDKOptions` object and returns an `SDKOptions` object with the enhanced variables set. If this operation fails, it will throw an exception.
 
 ### Override Server URL Per-Client
 
@@ -331,7 +326,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 import { Acuvity } from "@acuvity/acuvity";
 
 const acuvity = new Acuvity({
-  serverURL: "https://apex.acuvity.ai:443",
+  serverURL: "https://my-enterprise-apex.example.com:443",
   security: {
     token: "<YOUR_BEARER_TOKEN_HERE>",
   },
@@ -347,7 +342,7 @@ async function run() {
 run();
 
 ```
-<!-- End Server Selection [server] -->
+<!-- No Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
@@ -398,7 +393,7 @@ const sdk = new Acuvity({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
-<!-- Start Authentication [security] -->
+<!-- No Authentication [security] -->
 ## Authentication
 
 ### Per-Client Security Schemes
@@ -412,15 +407,15 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
-import { Acuvity } from "@acuvity/acuvity";
-
-const acuvity = new Acuvity({
-  security: {
-    token: "<YOUR_BEARER_TOKEN_HERE>",
-  },
-});
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: "<YOUR_BEARER_TOKEN_HERE>",
+    },
+  }));
+
   const result = await acuvity.apex.listAnalyzers();
 
   // Handle the result
@@ -430,7 +425,7 @@ async function run() {
 run();
 
 ```
-<!-- End Authentication [security] -->
+<!-- No Authentication [security] -->
 
 <!-- Start Debugging [debug] -->
 ## Debugging
@@ -463,5 +458,3 @@ looking for the latest version.
 
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
-
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=acuvity&utm_campaign=typescript)

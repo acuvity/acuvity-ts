@@ -598,7 +598,7 @@ paths:
     post:
       description: Processes the scan request.
       operationId: create-ScanRequest-as-ScanResponse
-      x-speakeasy-name-override: scan
+      x-speakeasy-name-override: scanRequest
       x-speakeasy-usage-example:
         title: Process a scan request
         description: Now you can submit a scan request using the Scan API.

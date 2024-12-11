@@ -8,7 +8,7 @@ Apex is the proxy and detectiono API service of Acuvity.
 ### Available Operations
 
 * [listAnalyzers](#listanalyzers) - List of all available analyzers.
-* [scan](#scan) - Processes the scan request.
+* [scanRequest](#scanrequest) - Processes the scan request.
 
 ## listAnalyzers
 
@@ -86,7 +86,7 @@ run();
 | errors.Elementalerror | 400, 401, 500         | application/json      |
 | errors.APIError       | 4XX, 5XX              | \*/\*                 |
 
-## scan
+## scanRequest
 
 Processes the scan request.
 
@@ -102,7 +102,7 @@ const acuvity = new Acuvity({
 });
 
 async function run() {
-  const result = await acuvity.apex.scan({
+  const result = await acuvity.apex.scanRequest({
     bypassHash: "Alice",
     user: {
       claims: [
@@ -127,7 +127,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AcuvityCore } from "@acuvity/acuvity/core.js";
-import { apexScan } from "@acuvity/acuvity/funcs/apexScan.js";
+import { apexScanRequest } from "@acuvity/acuvity/funcs/apexScanRequest.js";
 
 // Use `AcuvityCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -138,7 +138,7 @@ const acuvity = new AcuvityCore({
 });
 
 async function run() {
-  const res = await apexScan(acuvity, {
+  const res = await apexScanRequest(acuvity, {
     bypassHash: "Alice",
     user: {
       claims: [

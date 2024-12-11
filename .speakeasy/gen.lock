@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: 4865d6638281ccecab77002781133c1f
+  docChecksum: 2cc34930ee2ac04eff5b9889f4d80fff
   docVersion: "1.0"
-  speakeasyVersion: 1.453.8
+  speakeasyVersion: 1.453.9
   generationVersion: 2.474.15
-  releaseVersion: 0.2.2
-  configChecksum: 6ef8b974f8fe2d42d34b101cc03efa3c
+  releaseVersion: 0.2.3
+  configChecksum: f459a3a3dd7d0c2d1785ed3116c8cd7c
   published: true
 features:
   typescript:
@@ -32,8 +32,6 @@ generatedFiles:
   - .npmignore
   - CONTRIBUTING.md
   - FUNCTIONS.md
-  - RUNTIMES.md
-  - USAGE.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/alertevent.md
   - docs/models/components/analyzer.md
@@ -66,7 +64,7 @@ generatedFiles:
   - package.json
   - src/core.ts
   - src/funcs/apexListAnalyzers.ts
-  - src/funcs/apexScan.ts
+  - src/funcs/apexScanRequest.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts

@@ -1,9 +1,9 @@
-speakeasyVersion: 1.453.8
+speakeasyVersion: 1.453.9
 sources:
     Acuvity-OAS:
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:7a4d13b1860be5ae654f5e36e894f13ad6fb8e9075ba171c2ec37c0c3d4d97f9
-        sourceBlobDigest: sha256:30c2163e89c5b18ec80a1b1f38c6a8e6344ebd6a7d3345b4c0569db7a87324e7
+        sourceRevisionDigest: sha256:403d9344c5a352bda43ad4d1d37315cf6f853f326382037b322f8c0b41379825
+        sourceBlobDigest: sha256:1b8cdd6de0c09150e511e0919ed5777aa9748331ff234294ca11e5fa302db0b4
         tags:
             - latest
             - "1.0"
@@ -25,10 +25,10 @@ targets:
     typescript:
         source: Acuvity-OAS
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:7a4d13b1860be5ae654f5e36e894f13ad6fb8e9075ba171c2ec37c0c3d4d97f9
-        sourceBlobDigest: sha256:30c2163e89c5b18ec80a1b1f38c6a8e6344ebd6a7d3345b4c0569db7a87324e7
+        sourceRevisionDigest: sha256:403d9344c5a352bda43ad4d1d37315cf6f853f326382037b322f8c0b41379825
+        sourceBlobDigest: sha256:1b8cdd6de0c09150e511e0919ed5777aa9748331ff234294ca11e5fa302db0b4
         codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:c402a57c6145a69d6faf1bc562b765ec2093dfc709dd4cfedd64da793a40a39e
+        codeSamplesRevisionDigest: sha256:9d3e2d7b513a3c69aecddc45e0e22c8ed3968f67a839761da13f25f07539111a
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -37,7 +37,7 @@ workflow:
             inputs:
                 - location: ./apex-openapi.yaml
             registry:
-                location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas
+                location: registry.speakeasyapi.dev/acuvity/acuvity/acuvity-oas
     targets:
         typescript:
             target: typescript
@@ -48,5 +48,5 @@ workflow:
                     token: $npm_token
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/acuvity-9dx/acuvity/acuvity-oas-typescript-code-samples
+                    location: registry.speakeasyapi.dev/acuvity/acuvity/acuvity-oas-typescript-code-samples
                 blocking: false

@@ -13,14 +13,31 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
 typescript:
-  version: 0.2.2
+  version: 0.2.3
   additionalDependencies:
     dependencies:
       jwt-decode: ^4.0.0
     devDependencies:
       '@types/deno': ^2.0.0
       '@types/node': ^18.0.0
-  additionalPackageJSON: {}
+  additionalPackageJSON:
+    bugs:
+      url: https://github.com/acuvity/acuvity-ts/issues
+    description: The official Acuvity TypeScript SDK
+    homepage: https://acuvity.ai/
+    keywords:
+      - security
+      - genai
+      - ai
+      - prompt_detection
+      - jailbreak
+      - typescript
+      - library
+      - nodejs
+    license: Apache-2.0
+    repository:
+      type: git
+      url: git+https://github.com/acuvity/acuvity-node.git
   author: Acuvity, Inc.
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError

@@ -1,9 +1,9 @@
-import { Acuvity } from "./sdk.js";
+import { Apex } from "./apex.js";
 import * as components from "../models/components/index.js";
 
 // Extend the BaseClass type using declaration merging
-declare module "./sdk.js" {
-  interface Acuvity {
+declare module "./apex.js" {
+  interface Apex {
     /**
      * `scan()` runs the provided messages (prompts) through the Acuvity detection engines and returns the results. Alternatively, you can run model output through the detection engines.
      * Returns a Scanresponse object on success, and raises different exceptions on failure.
@@ -142,7 +142,7 @@ declare module "./sdk.js" {
 }
 
 // Add the method implementation to the class prototype
-Acuvity.prototype.scan = async function ({
+Apex.prototype.scan = async function ({
   messages,
   files,
   requestType,
@@ -259,10 +259,10 @@ Acuvity.prototype.scan = async function ({
     }
   }
 
-  return this.apex.scan(request);
+  return this.scanRequest(request);
 };
 
-Acuvity.prototype.scanAndPolice = async function ({
+Apex.prototype.scanAndPolice = async function ({
   messages,
   files,
   requestType,
@@ -345,7 +345,7 @@ Acuvity.prototype.scanAndPolice = async function ({
     }
   }
 
-  return this.apex.scan(request)
+  return this.scanRequest(request)
 };
 
 async function readFileAndBase64Encode(filePath: string): Promise<string> {
@@ -369,12 +369,12 @@ async function readFileAndBase64Encode(filePath: string): Promise<string> {
   }
 }
 
-Acuvity.prototype.listAnalyzers = async function (): Promise<components.Analyzer[]> {
-  return (this._available_analyzers ??= await this.apex.listAnalyzers());
+Apex.prototype.listAnalyzers = async function (): Promise<components.Analyzer[]> {
+  return (this._available_analyzers ??= await this.listAnalyzers());
 }
 
-Acuvity.prototype.listAnalyzerNames = async function (group?: string): Promise<string[]> {
-  const analyzers = (this._available_analyzers ??= await this.apex.listAnalyzers());
+Apex.prototype.listAnalyzerNames = async function (group?: string): Promise<string[]> {
+  const analyzers = (this._available_analyzers ??= await this.listAnalyzers());
   return analyzers
     .filter((a) => !group || a.group === group)
     .map((a) => a.id ?? "")
@@ -382,8 +382,8 @@ Acuvity.prototype.listAnalyzerNames = async function (group?: string): Promise<s
     .sort();
 }
 
-Acuvity.prototype.listAnalyzerGroups = async function (): Promise<string[]> {
-  const analyzers = (this._available_analyzers ??= await this.apex.listAnalyzers());
+Apex.prototype.listAnalyzerGroups = async function (): Promise<string[]> {
+  const analyzers = (this._available_analyzers ??= await this.listAnalyzers());
   return analyzers
     .map((a) => a.group ?? "")
     .filter((a) => a !== "")

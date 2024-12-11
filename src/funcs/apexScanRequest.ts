@@ -25,7 +25,7 @@ import { Result } from "../types/fp.js";
 /**
  * Processes the scan request.
  */
-export async function apexScan(
+export async function apexScanRequest(
   client: AcuvityCore,
   request: components.Scanrequest,
   options?: RequestOptions,
