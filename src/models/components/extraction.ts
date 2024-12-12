@@ -87,10 +87,6 @@ export type Extraction = {
    */
   modalities?: Array<Modality> | undefined;
   /**
-   * The redactions that has been performed.
-   */
-  redactions?: Array<Textualdetection> | undefined;
-  /**
    * The level of general organization relevance of the input.
    */
   relevance?: number | undefined;
@@ -124,7 +120,6 @@ export const Extraction$inboundSchema: z.ZodType<
   label: z.string().optional(),
   languages: z.record(z.number()).optional(),
   modalities: z.array(Modality$inboundSchema).optional(),
-  redactions: z.array(Textualdetection$inboundSchema).optional(),
   relevance: z.number().optional(),
   secrets: z.record(z.number()).optional(),
   topics: z.record(z.number()).optional(),
@@ -150,7 +145,6 @@ export type Extraction$Outbound = {
   label?: string | undefined;
   languages?: { [k: string]: number } | undefined;
   modalities?: Array<Modality$Outbound> | undefined;
-  redactions?: Array<Textualdetection$Outbound> | undefined;
   relevance?: number | undefined;
   secrets?: { [k: string]: number } | undefined;
   topics?: { [k: string]: number } | undefined;
@@ -176,7 +170,6 @@ export const Extraction$outboundSchema: z.ZodType<
   label: z.string().optional(),
   languages: z.record(z.number()).optional(),
   modalities: z.array(Modality$outboundSchema).optional(),
-  redactions: z.array(Textualdetection$outboundSchema).optional(),
   relevance: z.number().optional(),
   secrets: z.record(z.number()).optional(),
   topics: z.record(z.number()).optional(),
