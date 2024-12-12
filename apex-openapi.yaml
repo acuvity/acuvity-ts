@@ -191,11 +191,6 @@ components:
           items:
             $ref: '#/components/schemas/modality'
           type: array
-        redactions:
-          description: The redactions that has been performed.
-          items:
-            $ref: '#/components/schemas/textualdetection'
-          type: array
         relevance:
           description: The level of general organization relevance of the input.
           example: 0.9
@@ -511,7 +506,7 @@ components:
       description: Represents a textual detection done by policy.
       properties:
         end:
-          description: The end position of the detection.
+          description: The end position of the detection in the original data.
           type: integer
         key:
           description: The key that is used in the name's place, If empty, a sequence of X's are used.
@@ -519,11 +514,20 @@ components:
         name:
           description: The name of the detection.
           type: string
+        redacted:
+          description: If true this detection has been redacted.
+          type: boolean
+        redactedEnd:
+          description: The end position of the detection in the redacted data.
+          type: integer
+        redactedStart:
+          description: The start position of the detection in the redacted data.
+          type: integer
         score:
           description: The confidence score of the detection.
           type: number
         start:
-          description: The start position of the detection.
+          description: The start position of the detection in the original data.
           type: integer
         type:
           description: The type of detection.
