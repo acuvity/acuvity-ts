@@ -26,7 +26,7 @@ export type TextualdetectionType = ClosedEnum<typeof TextualdetectionType>;
  */
 export type Textualdetection = {
   /**
-   * The end position of the detection.
+   * The end position of the detection in the original data.
    */
   end?: number | undefined;
   /**
@@ -38,11 +38,23 @@ export type Textualdetection = {
    */
   name?: string | undefined;
   /**
+   * If true this detection has been redacted.
+   */
+  redacted?: boolean | undefined;
+  /**
+   * The end position of the detection in the redacted data.
+   */
+  redactedEnd?: number | undefined;
+  /**
+   * The start position of the detection in the redacted data.
+   */
+  redactedStart?: number | undefined;
+  /**
    * The confidence score of the detection.
    */
   score?: number | undefined;
   /**
-   * The start position of the detection.
+   * The start position of the detection in the original data.
    */
   start?: number | undefined;
   /**
@@ -81,6 +93,9 @@ export const Textualdetection$inboundSchema: z.ZodType<
   end: z.number().int().optional(),
   key: z.string().optional(),
   name: z.string().optional(),
+  redacted: z.boolean().optional(),
+  redactedEnd: z.number().int().optional(),
+  redactedStart: z.number().int().optional(),
   score: z.number().optional(),
   start: z.number().int().optional(),
   type: TextualdetectionType$inboundSchema.optional(),
@@ -91,6 +106,9 @@ export type Textualdetection$Outbound = {
   end?: number | undefined;
   key?: string | undefined;
   name?: string | undefined;
+  redacted?: boolean | undefined;
+  redactedEnd?: number | undefined;
+  redactedStart?: number | undefined;
   score?: number | undefined;
   start?: number | undefined;
   type?: string | undefined;
@@ -105,6 +123,9 @@ export const Textualdetection$outboundSchema: z.ZodType<
   end: z.number().int().optional(),
   key: z.string().optional(),
   name: z.string().optional(),
+  redacted: z.boolean().optional(),
+  redactedEnd: z.number().int().optional(),
+  redactedStart: z.number().int().optional(),
   score: z.number().optional(),
   start: z.number().int().optional(),
   type: TextualdetectionType$outboundSchema.optional(),
