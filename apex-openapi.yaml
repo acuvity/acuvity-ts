@@ -121,15 +121,14 @@ components:
       description: Represents the extracted information to log.
       properties:
         PIIs:
-          description: The PIIs found during classification.
           additionalProperties:
-            format: float
             type: number
+          description: The PIIs found during classification.
           type: object
         annotations:
-          description: Annotations attached to the extraction.
           additionalProperties:
             type: string
+          description: Annotations attached to the extraction.
           type: object
         categories:
           description: The categories are remapping of the modalities in a more human friendly way.
@@ -143,26 +142,23 @@ components:
         data:
           description: The data extracted.
           type: string
-          format: byte
         detections:
           description: The detections found while applying policies.
           items:
             $ref: '#/components/schemas/textualdetection'
           type: array
         exploits:
-          description: The various exploits attempts.
           additionalProperties:
-            format: float
             type: number
+          description: The various exploits attempts.
           type: object
         hash:
           description: The hash of the extraction.
           type: string
         intent:
-          description: The estimated intent embodied into the text.
           additionalProperties:
-            format: float
             type: number
+          description: The estimated intent embodied into the text.
           type: object
         internal:
           description: |-
@@ -170,10 +166,9 @@ components:
             systems to mark an extraction as internal only as opposed to user facing.
           type: boolean
         keywords:
-          description: The keywords found during classification.
           additionalProperties:
-            format: float
             type: number
+          description: The keywords found during classification.
           type: object
         label:
           description: |-
@@ -181,10 +176,9 @@ components:
             code.
           type: string
         languages:
-          description: The language of the classification.
           additionalProperties:
-            format: float
             type: number
+          description: The language of the classification.
           type: object
         modalities:
           description: The modalities of data detected in the data.
@@ -196,27 +190,26 @@ components:
           example: 0.9
           type: number
         secrets:
-          description: The secrets found during classification.
           additionalProperties:
-            format: float
             type: number
+          description: The secrets found during classification.
           type: object
         topics:
-          description: The topic of the classification.
           additionalProperties:
-            format: float
             type: number
+          description: The topic of the classification.
           type: object
       type: object
     extractionrequest:
       description: Represents the extraction that the user wants to extract.
       properties:
         annotations:
-          description: Annotations attached to the extraction.
           additionalProperties:
             type: string
+          description: Annotations attached to the extraction.
           type: object
         data:
+          contentEncoding: base64
           description: The binary data to request extraction for.
           type: string
         internal:
@@ -263,6 +256,154 @@ components:
       required:
         - group
         - type
+      type: object
+    policeexternaluser:
+      description: |-
+        PoliceExternalUser holds the information about the remote user for a
+        PoliceRequest.
+      properties:
+        claims:
+          description: List of claims extracted from the user query.
+          example:
+            - '@org=acuvity.ai'
+            - given_name=John
+            - family_name=Doe
+          items:
+            type: string
+          type: array
+        name:
+          description: The name of the external user.
+          example: John Doe
+          type: string
+      required:
+        - claims
+        - name
+      type: object
+    policerequest:
+      description: This is a scan and police request.
+      properties:
+        annotations:
+          additionalProperties:
+            type: string
+          description: Annotations attached to the extraction.
+          example:
+            key1: value1
+            key2: value2
+          type: object
+        anonymization:
+          default: FixedSize
+          description: How to anonymize the data. If deanonymize is true, then VariablSize is required.
+          enum:
+            - FixedSize
+            - VariableSize
+        bypassHash:
+          description: |-
+            In the case of a contentPolicy that asks for a confirmation, this is the
+            hash you must send back to bypass the block. This is only useful when a
+            content policy has been set or is evaluated remotely.
+          example: 6f37d752-bce1-4973-88f6-28b6c100ceb8
+          type: string
+        extractions:
+          description: The extractions to request.
+          items:
+            $ref: '#/components/schemas/extractionrequest'
+          type: array
+        messages:
+          description: |-
+            Messages to process and provide detections for. Use data in extractions for
+            processing binary data.
+          example:
+            - Summarize the main points of this article in bullet points.
+            - Generate a list of creative product names for a futuristic tech gadget.
+          items:
+            type: string
+          type: array
+        provider:
+          description: |-
+            The name of the provider to use for policy resolutions. If not set, it will
+            default to the principal name (the application itself).
+          example: openai
+          type: string
+        type:
+          description: The type of text.
+          enum:
+            - Input
+            - Output
+        user:
+          $ref: '#/components/schemas/policeexternaluser'
+      type: object
+    policeresponse:
+      description: This is a scan and police response.
+      properties:
+        ID:
+          description: ID is the identifier of the object.
+          readOnly: true
+          type: string
+        alerts:
+          description: List of alerts that got raised during the policy resolution.
+          items:
+            $ref: '#/components/schemas/alertevent'
+          type: array
+        annotations:
+          additionalProperties:
+            type: string
+          description: Annotations attached to the log.
+          type: object
+        client:
+          description: The client used to send the request.
+          example: curl
+          type: string
+        clientVersion:
+          description: The version of the client used to send the request.
+          example: 7.64.1
+          type: string
+        decision:
+          description: Tell what was the decision about the data.
+          enum:
+            - Deny
+            - Allow
+            - Ask
+            - Bypassed
+            - ForbiddenUser
+        extractions:
+          description: The extractions to log.
+          items:
+            $ref: '#/components/schemas/extraction'
+          type: array
+        hash:
+          description: The hash of the input.
+          type: string
+        latency:
+          $ref: '#/components/schemas/latency'
+        namespace:
+          description: The namespace of the object.
+          readOnly: true
+          type: string
+        pipelineName:
+          description: The name of the particular pipeline that extracted the text.
+          type: string
+        principal:
+          $ref: '#/components/schemas/principal'
+        provider:
+          description: the provider to use.
+          example: openai
+          type: string
+        reasons:
+          description: The various reasons returned by the policy engine.
+          items:
+            type: string
+          type: array
+        time:
+          description: Set the time of the message request.
+          format: date-time
+          type: string
+        type:
+          description: The type of text.
+          enum:
+            - Input
+            - Output
+      required:
+        - principal
       type: object
     principal:
       description: Describe the principal.
@@ -332,26 +473,6 @@ components:
           example: user@company.com
           type: string
       type: object
-    scanexternaluser:
-      description: ScanExternalUser holds the information about the remote user for a ScanRequest.
-      properties:
-        claims:
-          description: List of claims extracted from the user query.
-          example:
-            - '@org=acuvity.ai'
-            - given_name=John
-            - family_name=Doe
-          items:
-            type: string
-          type: array
-        name:
-          description: The name of the external user.
-          example: Alice
-          type: string
-      required:
-        - claims
-        - name
-      type: object
     scanrequest:
       description: This is a scan request.
       properties:
@@ -370,13 +491,20 @@ components:
           description: |-
             The name of the analyzers to run by the pipelines. If empty, it means all of
             them. Possible values are PIIs, Secrets, Topics, Confidentiality, Exploits.
+          example:
+            - Detectors
+            - en-text-prompt_injection-detector
+            - ocr-handwritten-text-extractor
           items:
             type: string
           type: array
         annotations:
-          description: Annotations attached to the extraction.
           additionalProperties:
             type: string
+          description: Annotations attached to the extraction.
+          example:
+            key1: value1
+            key2: value2
           type: object
         anonymization:
           default: FixedSize
@@ -388,8 +516,8 @@ components:
           description: |-
             In the case of a contentPolicy that asks for a confirmation, this is the
             hash you must send back to bypass the block. This is only useful when a
-            content policy has been set.
-          example: Alice
+            content policy has been set or is evaluated remotely.
+          example: 6f37d752-bce1-4973-88f6-28b6c100ceb8
           type: string
         contentPolicy:
           description: |-
@@ -409,6 +537,10 @@ components:
           type: array
         keywords:
           description: The keywords found during classification.
+          example:
+            - legal
+            - technical
+            - scientific
           items:
             type: string
           type: array
@@ -416,6 +548,9 @@ components:
           description: |-
             Messages to process and provide detections for. Use data in extractions for
             processing binary data.
+          example:
+            - Summarize the main points of this article in bullet points.
+            - Generate a list of creative product names for a futuristic tech gadget.
           items:
             type: string
           type: array
@@ -423,7 +558,11 @@ components:
           description: If true, the system will not log the contents that were scanned.
           type: boolean
         redactions:
-          description: The redactions that has been performed.
+          description: The redactions to perform if they are detected.
+          example:
+            - person
+            - ssn
+            - location
           items:
             type: string
           type: array
@@ -432,8 +571,6 @@ components:
           enum:
             - Input
             - Output
-        user:
-          $ref: '#/components/schemas/scanexternaluser'
       type: object
     scanresponse:
       description: This is a scan response.
@@ -448,10 +585,18 @@ components:
             $ref: '#/components/schemas/alertevent'
           type: array
         annotations:
-          description: Annotations attached to the log.
           additionalProperties:
             type: string
+          description: Annotations attached to the log.
           type: object
+        client:
+          description: The client used to send the request.
+          example: curl
+          type: string
+        clientVersion:
+          description: The version of the client used to send the request.
+          example: 7.64.1
+          type: string
         decision:
           description: Tell what was the decision about the data.
           enum:
@@ -490,10 +635,8 @@ components:
           type: array
         time:
           description: Set the time of the message request.
-          oneOf:
-            - type: string
-              format: date-time
-            - type: "null"
+          format: date-time
+          type: string
         type:
           description: The type of text.
           enum:
@@ -537,38 +680,33 @@ components:
             - Secret
       type: object
   securitySchemes:
-    token:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Bearer Token Authentication
     cookie:
-      type: apiKey
+      description: Authentication using a3s cookie
       in: cookie
       name: x-a3s-token
-      description: Authentication using a3s cookie
+      type: apiKey
+    token:
+      bearerFormat: JWT
+      description: Bearer Token Authentication
+      scheme: bearer
+      type: http
 info:
   contact:
     email: info@acuvity.ai
     name: Acuvity Team
     url: https://acuvity.ai/
   description: Acuvity Apex provides access to scan and detection APIs
-  title: Apex API
-  version: "1.0"
   license:
     name: Apache 2.0
-    identifier: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Apex API
+  version: "1.0"
 openapi: 3.1.0
 paths:
   /_acuvity/analyzers:
     get:
       description: List of all available analyzers.
       operationId: get-all-Analyzers
-      x-speakeasy-name-override: listAnalyzers
-      x-speakeasy-usage-example:
-        title: List all available analyzers
-        description: Now you can list all available analyzers that can be used in the Scan API.
-        position: 2
       responses:
         "200":
           content:
@@ -598,21 +736,81 @@ paths:
           description: Unable to retrieve list of analyzers.
       tags:
         - apex
+      x-speakeasy-name-override: listAnalyzers
+      x-speakeasy-usage-example:
+        description: Now you can list all available analyzers that can be used in the Scan API.
+        position: 3
+        title: List all available analyzers
+  /_acuvity/police:
+    post:
+      description: Processes the scan and police request.
+      operationId: create-PoliceRequest-as-PoliceResponse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/policerequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/policeresponse'
+          description: Successfully processing a scan and police request returns a police response.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/elementalerror'
+          description: The scan and police request could not be decoded.
+        "401":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: The caller is not authenticated.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/elementalerror'
+          description: The caller is not authorized.
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/elementalerror'
+          description: Sending an invalid scan and police request returns an unprocessable entity error. Your models might be outdated.
+        "429":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Too many requests. You are being rate limited.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/elementalerror'
+          description: Processing the scan and police request failed because policies could not be assigned or running the analysis failed internally.
+      tags:
+        - apex
+      x-speakeasy-name-override: policeRequest
+      x-speakeasy-usage-example:
+        description: You can submit a scan and police request using the Scan API.
+        position: 2
+        title: Process a scan and police request
   /_acuvity/scan:
     post:
       description: Processes the scan request.
       operationId: create-ScanRequest-as-ScanResponse
-      x-speakeasy-name-override: scanRequest
-      x-speakeasy-usage-example:
-        title: Process a scan request
-        description: Now you can submit a scan request using the Scan API.
-        position: 1
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/scanrequest'
+        required: true
       responses:
         "200":
           content:
@@ -658,29 +856,43 @@ paths:
           description: Processing the scan request failed because policies could not be assigned or running the analysis failed internally.
       tags:
         - apex
+      x-speakeasy-name-override: scanRequest
+      x-speakeasy-usage-example:
+        description: You can submit a scan request using the Scan API.
+        position: 1
+        title: Process a scan request
 security:
   - token: []
   - cookie: []
 servers:
-  - url: https://{apex_domain}:{apex_port}
+  - description: |-
+      The Apex API server which is specific to every organization.
+      The apex_domain and apex_port variables can be determined by a call to
+      the well-known Apex info endpoint on the backend.
+    url: https://{apex_domain}:{apex_port}
     variables:
       apex_domain:
         default: apex.acuvity.ai
-        description: The Apex domain to use which is specific to each customer and environment. This can be determined through the well known Apex info response from the Acuvity backend API.
+        description: |-
+          The Apex domain to use which is specific to each customer and environment.
+          This can be determined through the well known Apex info response from the Acuvity backend API.
       apex_port:
         default: "443"
-        description: The port to use for the Apex URL. Note that this might need to be set to the no-MTLS port value of the well known Apex info response from the Acuvity backend API.
+        description: |-
+          The port to use for the Apex URL. Note that this might need to be set to the no-MTLS port
+          value of the well known Apex info response from the Acuvity backend API.
 tags:
-  - description: Apex is the proxy and detectiono API service of Acuvity.
+  - description: This tag is for group 'apex'
     name: apex
-x-speakeasy-timeout: 60000
+  - description: This tag is for group 'core'
+    name: core
 x-speakeasy-retries:
-  strategy: backoff
   backoff:
-    initialInterval: 1000 # 1 second
-    maxInterval: 60000 # 60 seconds
-    maxElapsedTime: 300000 # 5 minutes
     exponent: 1.5
+    initialInterval: 1000
+    maxElapsedTime: 300000
+    maxInterval: 60000
+  retryConnectionErrors: true
   statusCodes:
     - 408
     - 423
@@ -688,4 +900,5 @@ x-speakeasy-retries:
     - 502
     - 503
     - 504
-  retryConnectionErrors: true
+  strategy: backoff
+x-speakeasy-timeout: 60000

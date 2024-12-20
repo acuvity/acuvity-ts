@@ -14,12 +14,12 @@ declare module "./apex.js" {
      */
     scan(req: {
       /**
-       *  the messages to scan. These are the prompts that you want to scan. Required if no files or a direct request object are provided.
+       *  the messages to scan. These are the prompts that you want to scan. Required if no files are provided.
        */
       messages?: string | string[] | undefined,
 
       /**
-       * the files to scan. These are the files that you want to scan. Required if no messages or a direct request object are provided. Can be used in addition to messages.
+       * the files to scan. These are the files that you want to scan. Required if no messages are provided. Can be used in addition to messages.
        */
       files?: string | string[] | undefined,
 
@@ -57,28 +57,35 @@ declare module "./apex.js" {
        * the keywords to detect in the input. If you want to detect certain keywords in the input, you can provide a list of keywords that you want to detect. If not provided, no keyword detection will be run.
        */
       keywords?: string[] | undefined,
+
+      /**
+       * the access policy to run. This is the rego access policy that you can run. If not provided, no access policy will be applied.
+       */
+      accessPolicy?: string | undefined,
+
+      /**
+       * the content policy to run. This is the rego content policy that you can run. If not provided, no content policy will be applied.
+       */
+      contentPolicy?: string | undefined
     }): Promise<components.Scanresponse>;
 
     /**
-     * `scan_and_police()` runs the provided messages (prompts) through the Acuvity detection engines, applies policies, and returns the results. Alternatively, you can run model output through the detection engines.
-     * Returns a Scanresponse object on success, and raises different exceptions on failure.
-     *
-     * You **must** provide a user to run this function.
+     * `police()` runs the provided messages (prompts) through the Acuvity detection engines, applies policies, and returns the results. Alternatively, you can run model output through the detection engines.
+     * Returns a Policeresponse object on success, and raises different exceptions on failure.
      *
      * This function does **NOT** allow to use different analyzers or redactions as policies are being **managed** by the Acuvity backend.
      * To configure different analyzers and redactions you must do so in the Acuvity backend.
-     * You can run *additional* access policies and content policies by passing them as parameters. However, these are additional policies and the main policies are being determined by the provided user, and will be applied and enforced first.
      *
      * @param req the request object for a scan and police operation
      */
-    scanAndPolice(req: {
+    police(req: {
       /**
        * the messages to scan. These are the prompts that you want to scan. Required if no files or a direct request object are provided.
        */
       messages?: string | string[] | undefined,
 
       /**
-       * the files to scan. These are the files that you want to scan. Required if no messages or a direct request object are provided. Can be used in addition to messages.
+       * the files to scan. These are the files that you want to scan. Required if no messages are provided. Can be used in addition to messages.
        */
       files?: string | string[] | undefined,
 
@@ -93,20 +100,25 @@ declare module "./apex.js" {
       annotations?: { [k: string]: string } | undefined,
 
       /**
+       * the bypass hash to use. This is the hash that you want to use to bypass the detection engines. If not provided, no bypass hash will be used.
+       */
+      bypassHash?: string | undefined,
+
+      /**
+       * the anonymization to use. This is the anonymization that you want to use. If not provided, but the returned detections contain redactions, then the system will use the internal defaults for anonymization which is subject to change.
+       */
+      anonymization?: components.Anonymization | string | undefined,
+
+      /**
+       * the provider to use. This is the provider name that you want to use for policy resolutions. If not provided, it will default to the principal name (the application itself).
+       */
+      provider?: string | undefined,
+
+      /**
        * the user to use. This is the user name and their claims that you want to use. Required.
        */
-      user: components.Scanexternaluser,
-
-      /**
-       * the access policy to run. This is the rego access policy that you can run. If not provided, no access policy will be applied.
-       */
-      accessPolicy?: string | undefined,
-
-      /**
-       * the content policy to run. This is the rego content policy that you can run. If not provided, no content policy will be applied.
-       */
-      contentPolicy?: string | undefined
-    }): Promise<components.Scanresponse>;
+      user?: components.Policeexternaluser | undefined,
+    }): Promise<components.Policeresponse>;
 
     /**
      * _available_analyzers keeps a cache of the available analyzers which is lazily initialized based on the first call made to analyzers.
@@ -151,7 +163,9 @@ Apex.prototype.scan = async function ({
   bypassHash,
   anonymization,
   redactions,
-  keywords
+  keywords,
+  accessPolicy,
+  contentPolicy,
 }: {
   messages?: string | string[] | undefined,
   files?: string | string[] | undefined,
@@ -162,6 +176,8 @@ Apex.prototype.scan = async function ({
   anonymization?: components.Anonymization | string | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
+  accessPolicy?: string | undefined,
+  contentPolicy?: string | undefined
 }) {
   const request: components.Scanrequest = {};
 
@@ -259,27 +275,41 @@ Apex.prototype.scan = async function ({
     }
   }
 
+  if (accessPolicy) {
+    if (typeof accessPolicy === "string") {
+      request.accessPolicy = accessPolicy;
+    }
+  }
+
+  if (contentPolicy) {
+    if (typeof contentPolicy === "string") {
+      request.contentPolicy = contentPolicy;
+    }
+  }
+
   return this.scanRequest(request);
 };
 
-Apex.prototype.scanAndPolice = async function ({
+Apex.prototype.police = async function ({
   messages,
   files,
   requestType,
   annotations,
+  bypassHash,
+  anonymization,
+  provider,
   user,
-  accessPolicy,
-  contentPolicy,
 }: {
   messages?: string | string[] | undefined,
   files?: string | string[] | undefined,
   requestType?: components.Type | string | undefined,
   annotations?: { [k: string]: string } | undefined,
-  user: components.Scanexternaluser,
-  accessPolicy?: string | undefined,
-  contentPolicy?: string | undefined
+  bypassHash?: string | undefined,
+  anonymization?: components.Anonymization | string | undefined,
+  provider?: string | undefined,
+  user?: components.Policeexternaluser | undefined,
 }) {
-  const request: components.Scanrequest = {};
+  const request: components.Policerequest = {};
 
   if (messages) {
     if (typeof messages === "string") {
@@ -328,24 +358,36 @@ Apex.prototype.scanAndPolice = async function ({
     }
   }
 
-  if (user === undefined || user === null) {
-    throw new Error("no user provided");
-  }
-  request.user = user;
-
-  if (accessPolicy) {
-    if (typeof accessPolicy === "string") {
-      request.accessPolicy = accessPolicy;
+  if (bypassHash) {
+    if (typeof bypassHash === "string") {
+      request.bypassHash = bypassHash;
     }
   }
 
-  if (contentPolicy) {
-    if (typeof contentPolicy === "string") {
-      request.contentPolicy = contentPolicy;
+  request.anonymization = components.Anonymization.FixedSize;
+  if (anonymization) {
+    if (typeof anonymization === "string") {
+      if (anonymization === "FixedSize" || anonymization === "VariableSize") {
+        request.anonymization = anonymization;
+      }
+    } else if (typeof anonymization === "object") {
+      request.anonymization = anonymization;
     }
   }
 
-  return this.scanRequest(request)
+  if (provider) {
+    if (typeof provider === "string") {
+      request.provider = provider;
+    }
+  }
+
+  if (user) {
+    if (typeof user === "object") {
+      request.user = user;
+    }
+  }
+
+  return this.policeRequest(request)
 };
 
 async function readFileAndBase64Encode(filePath: string): Promise<string> {

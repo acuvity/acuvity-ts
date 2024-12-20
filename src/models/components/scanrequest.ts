@@ -13,36 +13,32 @@ import {
   Extractionrequest$Outbound,
   Extractionrequest$outboundSchema,
 } from "./extractionrequest.js";
-import {
-  Scanexternaluser,
-  Scanexternaluser$inboundSchema,
-  Scanexternaluser$Outbound,
-  Scanexternaluser$outboundSchema,
-} from "./scanexternaluser.js";
 
 /**
  * How to anonymize the data. If deanonymize is true, then VariablSize is required.
  */
-export const Anonymization = {
+export const ScanrequestAnonymization = {
   FixedSize: "FixedSize",
   VariableSize: "VariableSize",
 } as const;
 /**
  * How to anonymize the data. If deanonymize is true, then VariablSize is required.
  */
-export type Anonymization = ClosedEnum<typeof Anonymization>;
+export type ScanrequestAnonymization = ClosedEnum<
+  typeof ScanrequestAnonymization
+>;
 
 /**
  * The type of text.
  */
-export const Type = {
+export const ScanrequestType = {
   Input: "Input",
   Output: "Output",
 } as const;
 /**
  * The type of text.
  */
-export type Type = ClosedEnum<typeof Type>;
+export type ScanrequestType = ClosedEnum<typeof ScanrequestType>;
 
 /**
  * This is a scan request.
@@ -75,13 +71,13 @@ export type Scanrequest = {
   /**
    * How to anonymize the data. If deanonymize is true, then VariablSize is required.
    */
-  anonymization?: Anonymization | undefined;
+  anonymization?: ScanrequestAnonymization | undefined;
   /**
    * In the case of a contentPolicy that asks for a confirmation, this is the
    *
    * @remarks
    * hash you must send back to bypass the block. This is only useful when a
-   * content policy has been set.
+   * content policy has been set or is evaluated remotely.
    */
   bypassHash?: string | undefined;
   /**
@@ -117,58 +113,55 @@ export type Scanrequest = {
    */
   minimalLogging?: boolean | undefined;
   /**
-   * The redactions that has been performed.
+   * The redactions to perform if they are detected.
    */
   redactions?: Array<string> | undefined;
   /**
    * The type of text.
    */
-  type?: Type | undefined;
-  /**
-   * ScanExternalUser holds the information about the remote user for a ScanRequest.
-   */
-  user?: Scanexternaluser | undefined;
+  type?: ScanrequestType | undefined;
 };
 
 /** @internal */
-export const Anonymization$inboundSchema: z.ZodNativeEnum<
-  typeof Anonymization
-> = z.nativeEnum(Anonymization);
+export const ScanrequestAnonymization$inboundSchema: z.ZodNativeEnum<
+  typeof ScanrequestAnonymization
+> = z.nativeEnum(ScanrequestAnonymization);
 
 /** @internal */
-export const Anonymization$outboundSchema: z.ZodNativeEnum<
-  typeof Anonymization
-> = Anonymization$inboundSchema;
+export const ScanrequestAnonymization$outboundSchema: z.ZodNativeEnum<
+  typeof ScanrequestAnonymization
+> = ScanrequestAnonymization$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Anonymization$ {
-  /** @deprecated use `Anonymization$inboundSchema` instead. */
-  export const inboundSchema = Anonymization$inboundSchema;
-  /** @deprecated use `Anonymization$outboundSchema` instead. */
-  export const outboundSchema = Anonymization$outboundSchema;
+export namespace ScanrequestAnonymization$ {
+  /** @deprecated use `ScanrequestAnonymization$inboundSchema` instead. */
+  export const inboundSchema = ScanrequestAnonymization$inboundSchema;
+  /** @deprecated use `ScanrequestAnonymization$outboundSchema` instead. */
+  export const outboundSchema = ScanrequestAnonymization$outboundSchema;
 }
 
 /** @internal */
-export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
-  Type,
-);
+export const ScanrequestType$inboundSchema: z.ZodNativeEnum<
+  typeof ScanrequestType
+> = z.nativeEnum(ScanrequestType);
 
 /** @internal */
-export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
-  Type$inboundSchema;
+export const ScanrequestType$outboundSchema: z.ZodNativeEnum<
+  typeof ScanrequestType
+> = ScanrequestType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Type$ {
-  /** @deprecated use `Type$inboundSchema` instead. */
-  export const inboundSchema = Type$inboundSchema;
-  /** @deprecated use `Type$outboundSchema` instead. */
-  export const outboundSchema = Type$outboundSchema;
+export namespace ScanrequestType$ {
+  /** @deprecated use `ScanrequestType$inboundSchema` instead. */
+  export const inboundSchema = ScanrequestType$inboundSchema;
+  /** @deprecated use `ScanrequestType$outboundSchema` instead. */
+  export const outboundSchema = ScanrequestType$outboundSchema;
 }
 
 /** @internal */
@@ -180,7 +173,7 @@ export const Scanrequest$inboundSchema: z.ZodType<
   accessPolicy: z.string().optional(),
   analyzers: z.array(z.string()).optional(),
   annotations: z.record(z.string()).optional(),
-  anonymization: Anonymization$inboundSchema.default("FixedSize"),
+  anonymization: ScanrequestAnonymization$inboundSchema.default("FixedSize"),
   bypassHash: z.string().optional(),
   contentPolicy: z.string().optional(),
   extractions: z.array(Extractionrequest$inboundSchema).optional(),
@@ -188,8 +181,7 @@ export const Scanrequest$inboundSchema: z.ZodType<
   messages: z.array(z.string()).optional(),
   minimalLogging: z.boolean().optional(),
   redactions: z.array(z.string()).optional(),
-  type: Type$inboundSchema.optional(),
-  user: Scanexternaluser$inboundSchema.optional(),
+  type: ScanrequestType$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -206,7 +198,6 @@ export type Scanrequest$Outbound = {
   minimalLogging?: boolean | undefined;
   redactions?: Array<string> | undefined;
   type?: string | undefined;
-  user?: Scanexternaluser$Outbound | undefined;
 };
 
 /** @internal */
@@ -218,7 +209,7 @@ export const Scanrequest$outboundSchema: z.ZodType<
   accessPolicy: z.string().optional(),
   analyzers: z.array(z.string()).optional(),
   annotations: z.record(z.string()).optional(),
-  anonymization: Anonymization$outboundSchema.default("FixedSize"),
+  anonymization: ScanrequestAnonymization$outboundSchema.default("FixedSize"),
   bypassHash: z.string().optional(),
   contentPolicy: z.string().optional(),
   extractions: z.array(Extractionrequest$outboundSchema).optional(),
@@ -226,8 +217,7 @@ export const Scanrequest$outboundSchema: z.ZodType<
   messages: z.array(z.string()).optional(),
   minimalLogging: z.boolean().optional(),
   redactions: z.array(z.string()).optional(),
-  type: Type$outboundSchema.optional(),
-  user: Scanexternaluser$outboundSchema.optional(),
+  type: ScanrequestType$outboundSchema.optional(),
 });
 
 /**

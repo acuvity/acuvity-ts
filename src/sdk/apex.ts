@@ -3,6 +3,7 @@
  */
 
 import { apexListAnalyzers } from "../funcs/apexListAnalyzers.js";
+import { apexPoliceRequest } from "../funcs/apexPoliceRequest.js";
 import { apexScanRequest } from "../funcs/apexScanRequest.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
@@ -17,6 +18,20 @@ export class Apex extends ClientSDK {
   ): Promise<Array<components.Analyzer>> {
     return unwrapAsync(apexListAnalyzers(
       this,
+      options,
+    ));
+  }
+
+  /**
+   * Processes the scan and police request.
+   */
+  async policeRequest(
+    request: components.Policerequest,
+    options?: RequestOptions,
+  ): Promise<components.Policeresponse> {
+    return unwrapAsync(apexPoliceRequest(
+      this,
+      request,
       options,
     ));
   }
