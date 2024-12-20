@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: 0a6ab5e8278e14c81f061478fbba3556
+  docChecksum: 23afa0eb52b8b4d89afaf090600ec479
   docVersion: "1.0"
-  speakeasyVersion: 1.454.2
-  generationVersion: 2.477.4
-  releaseVersion: 0.2.5
-  configChecksum: 95ca8cfbc1bd5432c270458e951a856f
+  speakeasyVersion: 1.456.1
+  generationVersion: 2.481.0
+  releaseVersion: 0.3.0
+  configChecksum: 48ef9efd92f6cace4bfae177218facb6
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.9
+    core: 3.18.11
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
@@ -21,7 +21,6 @@ features:
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
     nameOverrides: 2.81.2
-    nullables: 0.1.0
     operationTimeout: 0.2.0
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -44,13 +43,19 @@ generatedFiles:
   - docs/models/components/extractionrequest.md
   - docs/models/components/latency.md
   - docs/models/components/modality.md
+  - docs/models/components/policeexternaluser.md
+  - docs/models/components/policerequest.md
+  - docs/models/components/policeresponse.md
+  - docs/models/components/policeresponsetype.md
   - docs/models/components/principal.md
   - docs/models/components/principalapp.md
   - docs/models/components/principaltype.md
   - docs/models/components/principaluser.md
-  - docs/models/components/scanexternaluser.md
   - docs/models/components/scanrequest.md
+  - docs/models/components/scanrequestanonymization.md
+  - docs/models/components/scanrequesttype.md
   - docs/models/components/scanresponse.md
+  - docs/models/components/scanresponsedecision.md
   - docs/models/components/scanresponsetype.md
   - docs/models/components/security.md
   - docs/models/components/textualdetection.md
@@ -64,6 +69,7 @@ generatedFiles:
   - package.json
   - src/core.ts
   - src/funcs/apexListAnalyzers.ts
+  - src/funcs/apexPoliceRequest.ts
   - src/funcs/apexScanRequest.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
@@ -93,10 +99,12 @@ generatedFiles:
   - src/models/components/index.ts
   - src/models/components/latency.ts
   - src/models/components/modality.ts
+  - src/models/components/policeexternaluser.ts
+  - src/models/components/policerequest.ts
+  - src/models/components/policeresponse.ts
   - src/models/components/principal.ts
   - src/models/components/principalapp.ts
   - src/models/components/principaluser.ts
-  - src/models/components/scanexternaluser.ts
   - src/models/components/scanrequest.ts
   - src/models/components/scanresponse.ts
   - src/models/components/security.ts
@@ -124,13 +132,24 @@ examples:
       responses:
         "200":
           application/json: [{"triggers": ["Code/*"]}, {"triggers": ["Code/*"]}]
-        "400": {}
+        "400":
+          application/json: {}
   create-ScanRequest-as-ScanResponse:
     speakeasy-default-create-scan-request-as-scan-response:
       requestBody:
-        application/json: {"bypassHash": "Alice", "user": {"claims": ["@org=acuvity.ai", "given_name=John", "family_name=Doe"], "name": "Alice"}}
+        application/json: {"bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8"}
       responses:
         "200":
           application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "extractions": [{"categories": [], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
-        "400": {}
+        "400":
+          application/json: {}
+  create-PoliceRequest-as-PoliceResponse:
+    speakeasy-default-create-police-request-as-police-response:
+      requestBody:
+        application/json: {"annotations": {"key1": "value1", "key2": "value2"}, "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "provider": "openai", "user": {"claims": ["@org=acuvity.ai", "given_name=John", "family_name=Doe"], "name": "John Doe"}}
+      responses:
+        "200":
+          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}, {"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"categories": [{"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
+        "400":
+          application/json: {}
 generatedTests: {}

@@ -143,6 +143,7 @@ run();
 ### [apex](docs/sdks/apex/README.md)
 
 * [listAnalyzers](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
+* [policeRequest](docs/sdks/apex/README.md#policerequest) - Processes the scan and police request.
 * [scanRequest](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
@@ -164,6 +165,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`apexListAnalyzers`](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
+- [`apexPoliceRequest`](docs/sdks/apex/README.md#policerequest) - Processes the scan and police request.
 - [`apexScanRequest`](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>

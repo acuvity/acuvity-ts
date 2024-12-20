@@ -36,7 +36,7 @@ import {
 /**
  * Tell what was the decision about the data.
  */
-export const ScanresponseDecision = {
+export const Decision = {
   Deny: "Deny",
   Allow: "Allow",
   Ask: "Ask",
@@ -46,24 +46,24 @@ export const ScanresponseDecision = {
 /**
  * Tell what was the decision about the data.
  */
-export type ScanresponseDecision = ClosedEnum<typeof ScanresponseDecision>;
+export type Decision = ClosedEnum<typeof Decision>;
 
 /**
  * The type of text.
  */
-export const ScanresponseType = {
+export const PoliceresponseType = {
   Input: "Input",
   Output: "Output",
 } as const;
 /**
  * The type of text.
  */
-export type ScanresponseType = ClosedEnum<typeof ScanresponseType>;
+export type PoliceresponseType = ClosedEnum<typeof PoliceresponseType>;
 
 /**
- * This is a scan response.
+ * This is a scan and police response.
  */
-export type Scanresponse = {
+export type Policeresponse = {
   /**
    * ID is the identifier of the object.
    */
@@ -87,7 +87,7 @@ export type Scanresponse = {
   /**
    * Tell what was the decision about the data.
    */
-  decision?: ScanresponseDecision | undefined;
+  decision?: Decision | undefined;
   /**
    * The extractions to log.
    */
@@ -127,54 +127,52 @@ export type Scanresponse = {
   /**
    * The type of text.
    */
-  type?: ScanresponseType | undefined;
+  type?: PoliceresponseType | undefined;
 };
 
 /** @internal */
-export const ScanresponseDecision$inboundSchema: z.ZodNativeEnum<
-  typeof ScanresponseDecision
-> = z.nativeEnum(ScanresponseDecision);
+export const Decision$inboundSchema: z.ZodNativeEnum<typeof Decision> = z
+  .nativeEnum(Decision);
 
 /** @internal */
-export const ScanresponseDecision$outboundSchema: z.ZodNativeEnum<
-  typeof ScanresponseDecision
-> = ScanresponseDecision$inboundSchema;
+export const Decision$outboundSchema: z.ZodNativeEnum<typeof Decision> =
+  Decision$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScanresponseDecision$ {
-  /** @deprecated use `ScanresponseDecision$inboundSchema` instead. */
-  export const inboundSchema = ScanresponseDecision$inboundSchema;
-  /** @deprecated use `ScanresponseDecision$outboundSchema` instead. */
-  export const outboundSchema = ScanresponseDecision$outboundSchema;
+export namespace Decision$ {
+  /** @deprecated use `Decision$inboundSchema` instead. */
+  export const inboundSchema = Decision$inboundSchema;
+  /** @deprecated use `Decision$outboundSchema` instead. */
+  export const outboundSchema = Decision$outboundSchema;
 }
 
 /** @internal */
-export const ScanresponseType$inboundSchema: z.ZodNativeEnum<
-  typeof ScanresponseType
-> = z.nativeEnum(ScanresponseType);
+export const PoliceresponseType$inboundSchema: z.ZodNativeEnum<
+  typeof PoliceresponseType
+> = z.nativeEnum(PoliceresponseType);
 
 /** @internal */
-export const ScanresponseType$outboundSchema: z.ZodNativeEnum<
-  typeof ScanresponseType
-> = ScanresponseType$inboundSchema;
+export const PoliceresponseType$outboundSchema: z.ZodNativeEnum<
+  typeof PoliceresponseType
+> = PoliceresponseType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScanresponseType$ {
-  /** @deprecated use `ScanresponseType$inboundSchema` instead. */
-  export const inboundSchema = ScanresponseType$inboundSchema;
-  /** @deprecated use `ScanresponseType$outboundSchema` instead. */
-  export const outboundSchema = ScanresponseType$outboundSchema;
+export namespace PoliceresponseType$ {
+  /** @deprecated use `PoliceresponseType$inboundSchema` instead. */
+  export const inboundSchema = PoliceresponseType$inboundSchema;
+  /** @deprecated use `PoliceresponseType$outboundSchema` instead. */
+  export const outboundSchema = PoliceresponseType$outboundSchema;
 }
 
 /** @internal */
-export const Scanresponse$inboundSchema: z.ZodType<
-  Scanresponse,
+export const Policeresponse$inboundSchema: z.ZodType<
+  Policeresponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -183,7 +181,7 @@ export const Scanresponse$inboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   client: z.string().optional(),
   clientVersion: z.string().optional(),
-  decision: ScanresponseDecision$inboundSchema.optional(),
+  decision: Decision$inboundSchema.optional(),
   extractions: z.array(Extraction$inboundSchema).optional(),
   hash: z.string().optional(),
   latency: Latency$inboundSchema.optional(),
@@ -194,7 +192,7 @@ export const Scanresponse$inboundSchema: z.ZodType<
   reasons: z.array(z.string()).optional(),
   time: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
-  type: ScanresponseType$inboundSchema.optional(),
+  type: PoliceresponseType$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ID": "id",
@@ -202,7 +200,7 @@ export const Scanresponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type Scanresponse$Outbound = {
+export type Policeresponse$Outbound = {
   ID?: string | undefined;
   alerts?: Array<Alertevent$Outbound> | undefined;
   annotations?: { [k: string]: string } | undefined;
@@ -222,17 +220,17 @@ export type Scanresponse$Outbound = {
 };
 
 /** @internal */
-export const Scanresponse$outboundSchema: z.ZodType<
-  Scanresponse$Outbound,
+export const Policeresponse$outboundSchema: z.ZodType<
+  Policeresponse$Outbound,
   z.ZodTypeDef,
-  Scanresponse
+  Policeresponse
 > = z.object({
   id: z.string().optional(),
   alerts: z.array(Alertevent$outboundSchema).optional(),
   annotations: z.record(z.string()).optional(),
   client: z.string().optional(),
   clientVersion: z.string().optional(),
-  decision: ScanresponseDecision$outboundSchema.optional(),
+  decision: Decision$outboundSchema.optional(),
   extractions: z.array(Extraction$outboundSchema).optional(),
   hash: z.string().optional(),
   latency: Latency$outboundSchema.optional(),
@@ -242,7 +240,7 @@ export const Scanresponse$outboundSchema: z.ZodType<
   provider: z.string().optional(),
   reasons: z.array(z.string()).optional(),
   time: z.date().transform(v => v.toISOString()).optional(),
-  type: ScanresponseType$outboundSchema.optional(),
+  type: PoliceresponseType$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     id: "ID",
@@ -253,25 +251,25 @@ export const Scanresponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Scanresponse$ {
-  /** @deprecated use `Scanresponse$inboundSchema` instead. */
-  export const inboundSchema = Scanresponse$inboundSchema;
-  /** @deprecated use `Scanresponse$outboundSchema` instead. */
-  export const outboundSchema = Scanresponse$outboundSchema;
-  /** @deprecated use `Scanresponse$Outbound` instead. */
-  export type Outbound = Scanresponse$Outbound;
+export namespace Policeresponse$ {
+  /** @deprecated use `Policeresponse$inboundSchema` instead. */
+  export const inboundSchema = Policeresponse$inboundSchema;
+  /** @deprecated use `Policeresponse$outboundSchema` instead. */
+  export const outboundSchema = Policeresponse$outboundSchema;
+  /** @deprecated use `Policeresponse$Outbound` instead. */
+  export type Outbound = Policeresponse$Outbound;
 }
 
-export function scanresponseToJSON(scanresponse: Scanresponse): string {
-  return JSON.stringify(Scanresponse$outboundSchema.parse(scanresponse));
+export function policeresponseToJSON(policeresponse: Policeresponse): string {
+  return JSON.stringify(Policeresponse$outboundSchema.parse(policeresponse));
 }
 
-export function scanresponseFromJSON(
+export function policeresponseFromJSON(
   jsonString: string,
-): SafeParseResult<Scanresponse, SDKValidationError> {
+): SafeParseResult<Policeresponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Scanresponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Scanresponse' from JSON`,
+    (x) => Policeresponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Policeresponse' from JSON`,
   );
 }

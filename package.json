@@ -1,16 +1,7 @@
 {
   "name": "@acuvity/acuvity",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "author": "Acuvity, Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acuvity/acuvity-ts.git"
-  },
-  "bugs": {
-    "url": "https://github.com/acuvity/acuvity-ts/issues"
-  },
-  "description": "The official Acuvity TypeScript SDK",
-  "homepage": "https://acuvity.ai/",
   "keywords": [
     "security",
     "genai",
@@ -22,6 +13,15 @@
     "nodejs"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acuvity/acuvity-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acuvity/acuvity-ts/issues"
+  },
+  "description": "The official Acuvity TypeScript SDK",
+  "homepage": "https://acuvity.ai/",
   "tshy": {
     "exports": {
       ".": "./src/index.ts",

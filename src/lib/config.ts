@@ -12,6 +12,13 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
+  /**
+   * The Apex API server which is specific to every organization.
+   *
+   * @remarks
+   * The apex_domain and apex_port variables can be determined by a call to
+   * the well-known Apex info endpoint on the backend.
+   */
   "https://{apex_domain}:{apex_port}",
 ] as const;
 
@@ -73,7 +80,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
-  sdkVersion: "0.2.5",
-  genVersion: "2.477.4",
-  userAgent: "speakeasy-sdk/typescript 0.2.5 2.477.4 1.0 @acuvity/acuvity",
+  sdkVersion: "0.3.0",
+  genVersion: "2.481.0",
+  userAgent: "speakeasy-sdk/typescript 0.3.0 2.481.0 1.0 @acuvity/acuvity",
 } as const;
