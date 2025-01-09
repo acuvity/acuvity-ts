@@ -29,18 +29,28 @@ export async function discoverApex(options: SDKOptions = {}): Promise<SDKOptions
     return options;
   }
 
-  // in the browser you must use cookie-based authentication
-  const isBrowser: boolean = typeof window !== "undefined" && typeof window.document !== "undefined"
-  if (isBrowser && (sec.cookie === undefined || sec.cookie === null || sec.cookie === "")) {
-    throw new Error("You are running in a browser, but the cookie was not set in security options. Only cookie-based authentication is supported in the browser.");
-  }
-
   // extract the token now and get the API URL from the token which is the issuer URL
   const token = sec.token ?? sec.cookie;
   if (token === undefined) {
     return options;
   }
   const decodedToken: any = jwtDecode(token);
+
+  // check if the apex-url is within the opaque of the token
+  // we use that then directly for discovery
+  const jwtApexURL = decodedToken?.opaque?.["apex-url"];
+  if (jwtApexURL) {
+    const url = new URL(jwtApexURL);
+    options.apexDomain = url.hostname;
+    let port = url.port;
+    if (!port) {
+      port = url.protocol === "https:" ? "443" : "80";
+    }
+    options.apexPort = `${port}`;
+    return options;
+  }
+
+  // otherwise we need to determine the Apex URL through the backend, we must have an issuer
   if (!decodedToken?.iss) {
     throw new Error("Invalid token provided, missing iss claim.");
   }
@@ -52,6 +62,7 @@ export async function discoverApex(options: SDKOptions = {}): Promise<SDKOptions
   // https://github.com/oven-sh/bun/issues/10754
   // we're not going to reuse this client for anything else
   // and we're not going to set this on the options
+  const isBrowser: boolean = typeof window !== "undefined" && typeof window.document !== "undefined"
   const client: HTTPClient = isBrowser
     ? new HTTPClient()
     : new HTTPClient({fetcher: (input, init) => {
@@ -66,7 +77,15 @@ export async function discoverApex(options: SDKOptions = {}): Promise<SDKOptions
   // using the client and the token as a bearer token
   const { url: apexURL, port: apexPort }  = await fetchWellKnownApexInfo(isBrowser, apiURL, token, client);
   if (apexURL !== undefined) {
-    options.apexDomain = apexURL.replace(/^https?:\/\//, '');
+    // only try to parse this as a URL if it starts with http or https
+    if (apexURL.startsWith("http://") || apexURL.startsWith("https://")) {
+      const url = new URL(apexURL);
+      options.apexDomain = url.hostname;
+    } else {
+      // split this on colon if there is a port because we don't want it
+      const parts = apexURL.split(":");
+      options.apexDomain = parts[0] ?? apexURL;
+    }
   }
   if (apexPort !== undefined) {
     options.apexPort = `${apexPort}`;
@@ -121,6 +140,6 @@ async function fetchWellKnownApexInfo(
   // Decode the response body as JSON
   const responseBody = await resp.json();
   const url = responseBody.url;
-  const port = responseBody.port;
+  const port = responseBody.portNoMTLS;
   return { url, port };
 }
