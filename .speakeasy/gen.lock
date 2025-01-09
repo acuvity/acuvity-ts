@@ -3,21 +3,21 @@ id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
   docChecksum: 23afa0eb52b8b4d89afaf090600ec479
   docVersion: "1.0"
-  speakeasyVersion: 1.456.1
-  generationVersion: 2.481.0
-  releaseVersion: 0.3.0
-  configChecksum: 48ef9efd92f6cace4bfae177218facb6
+  speakeasyVersion: 1.466.1
+  generationVersion: 2.488.4
+  releaseVersion: 0.4.0
+  configChecksum: c3bbaa58ae56cf068b39cb3cbb0397e9
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.11
+    core: 3.18.12
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
     examples: 2.81.4
-    globalSecurity: 2.82.11
+    globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
     nameOverrides: 2.81.2
