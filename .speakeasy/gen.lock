@@ -1,25 +1,26 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: 23afa0eb52b8b4d89afaf090600ec479
+  docChecksum: c228280ab24af59505327c759fe66d5f
   docVersion: "1.0"
-  speakeasyVersion: 1.466.1
-  generationVersion: 2.488.4
-  releaseVersion: 0.4.0
-  configChecksum: c3bbaa58ae56cf068b39cb3cbb0397e9
+  speakeasyVersion: 1.468.9
+  generationVersion: 2.493.21
+  releaseVersion: 0.4.6
+  configChecksum: 828d6fc80792c835fb0041f8b1108fd4
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.12
+    core: 3.18.16
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
-    examples: 2.81.4
+    examples: 2.81.5
     globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
+    ignores: 2.81.1
     nameOverrides: 2.81.2
     operationTimeout: 0.2.0
     responseFormat: 0.2.3
@@ -29,7 +30,6 @@ generatedFiles:
   - .eslintrc.cjs
   - .gitattributes
   - .npmignore
-  - CONTRIBUTING.md
   - FUNCTIONS.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/alertevent.md
@@ -43,19 +43,12 @@ generatedFiles:
   - docs/models/components/extractionrequest.md
   - docs/models/components/latency.md
   - docs/models/components/modality.md
-  - docs/models/components/policeexternaluser.md
-  - docs/models/components/policerequest.md
-  - docs/models/components/policeresponse.md
-  - docs/models/components/policeresponsetype.md
   - docs/models/components/principal.md
   - docs/models/components/principalapp.md
   - docs/models/components/principaltype.md
   - docs/models/components/principaluser.md
   - docs/models/components/scanrequest.md
-  - docs/models/components/scanrequestanonymization.md
-  - docs/models/components/scanrequesttype.md
   - docs/models/components/scanresponse.md
-  - docs/models/components/scanresponsedecision.md
   - docs/models/components/scanresponsetype.md
   - docs/models/components/security.md
   - docs/models/components/textualdetection.md
@@ -69,7 +62,6 @@ generatedFiles:
   - package.json
   - src/core.ts
   - src/funcs/apexListAnalyzers.ts
-  - src/funcs/apexPoliceRequest.ts
   - src/funcs/apexScanRequest.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
@@ -99,9 +91,6 @@ generatedFiles:
   - src/models/components/index.ts
   - src/models/components/latency.ts
   - src/models/components/modality.ts
-  - src/models/components/policeexternaluser.ts
-  - src/models/components/policerequest.ts
-  - src/models/components/policeresponse.ts
   - src/models/components/principal.ts
   - src/models/components/principalapp.ts
   - src/models/components/principaluser.ts
@@ -134,6 +123,8 @@ examples:
           application/json: [{"triggers": ["Code/*"]}, {"triggers": ["Code/*"]}]
         "400":
           application/json: {}
+        "500":
+          application/json: {}
   create-ScanRequest-as-ScanResponse:
     speakeasy-default-create-scan-request-as-scan-response:
       requestBody:
@@ -142,6 +133,8 @@ examples:
         "200":
           application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "extractions": [{"categories": [], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
         "400":
+          application/json: {}
+        "500":
           application/json: {}
   create-PoliceRequest-as-PoliceResponse:
     speakeasy-default-create-police-request-as-police-response:

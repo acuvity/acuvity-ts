@@ -70,57 +70,6 @@ declare module "./apex.js" {
     }): Promise<components.Scanresponse>;
 
     /**
-     * `police()` runs the provided messages (prompts) through the Acuvity detection engines, applies policies, and returns the results. Alternatively, you can run model output through the detection engines.
-     * Returns a Policeresponse object on success, and raises different exceptions on failure.
-     *
-     * This function does **NOT** allow to use different analyzers or redactions as policies are being **managed** by the Acuvity backend.
-     * To configure different analyzers and redactions you must do so in the Acuvity backend.
-     *
-     * @param req the request object for a scan and police operation
-     */
-    police(req: {
-      /**
-       * the messages to scan. These are the prompts that you want to scan. Required if no files or a direct request object are provided.
-       */
-      messages?: string | string[] | undefined,
-
-      /**
-       * the files to scan. These are the files that you want to scan. Required if no messages are provided. Can be used in addition to messages.
-       */
-      files?: string | string[] | undefined,
-
-      /**
-       * the type of the validation. This can be either Type.INPUT or Type.OUTPUT. Defaults to Type.INPUT. Use Type.OUTPUT if you want to run model output through the detection engines.
-       */
-      requestType?: components.Type | string | undefined,
-
-      /**
-       * the annotations to use. These are the annotations that you want to use. If not provided, no annotations will be used.
-       */
-      annotations?: { [k: string]: string } | undefined,
-
-      /**
-       * the bypass hash to use. This is the hash that you want to use to bypass the detection engines. If not provided, no bypass hash will be used.
-       */
-      bypassHash?: string | undefined,
-
-      /**
-       * the anonymization to use. This is the anonymization that you want to use. If not provided, but the returned detections contain redactions, then the system will use the internal defaults for anonymization which is subject to change.
-       */
-      anonymization?: components.Anonymization | string | undefined,
-
-      /**
-       * the provider to use. This is the provider name that you want to use for policy resolutions. If not provided, it will default to the principal name (the application itself).
-       */
-      provider?: string | undefined,
-
-      /**
-       * the user to use. This is the user name and their claims that you want to use. Required.
-       */
-      user?: components.Policeexternaluser | undefined,
-    }): Promise<components.Policeresponse>;
-
-    /**
      * _available_analyzers keeps a cache of the available analyzers which is lazily initialized based on the first call made to analyzers.
      */
     _available_analyzers?: components.Analyzer[];
@@ -290,106 +239,6 @@ Apex.prototype.scan = async function ({
   return this.scanRequest(request);
 };
 
-Apex.prototype.police = async function ({
-  messages,
-  files,
-  requestType,
-  annotations,
-  bypassHash,
-  anonymization,
-  provider,
-  user,
-}: {
-  messages?: string | string[] | undefined,
-  files?: string | string[] | undefined,
-  requestType?: components.Type | string | undefined,
-  annotations?: { [k: string]: string } | undefined,
-  bypassHash?: string | undefined,
-  anonymization?: components.Anonymization | string | undefined,
-  provider?: string | undefined,
-  user?: components.Policeexternaluser | undefined,
-}) {
-  const request: components.Policerequest = {};
-
-  if (messages) {
-    if (typeof messages === "string") {
-      request.messages = [messages];
-    } else if (Array.isArray(messages) && messages.every((m) => typeof m === "string")) {
-      request.messages = messages;
-    }
-  }
-
-  if ((!request.messages || request.messages.length === 0) && !files) {
-    throw new Error("no messages and no files provided");
-  }
-
-  if (files) {
-    let processFiles: string[] = [];
-    if (typeof files === "string") {
-      processFiles = [files];
-    } else if (Array.isArray(files) && files.every((f) => typeof f === "string")) {
-      processFiles = files;
-    }
-
-    const extractions: components.Extractionrequest[] = [];
-    for (const processFile of processFiles) {
-      const fileContent = await readFileAndBase64Encode(processFile);
-      extractions.push({
-        data: fileContent,
-      });
-    }
-    request.extractions = extractions;
-  }
-
-  request.type = components.Type.Input;
-  if (requestType) {
-    if (typeof requestType === "string") {
-      if (requestType === "Input" || requestType === "Output") {
-        request.type = requestType;
-      }
-    } else if (typeof requestType === "object") {
-      request.type = requestType;
-    }
-  }
-
-  if (annotations) {
-    if (typeof annotations === "object") {
-      request.annotations = annotations;
-    }
-  }
-
-  if (bypassHash) {
-    if (typeof bypassHash === "string") {
-      request.bypassHash = bypassHash;
-    }
-  }
-
-  request.anonymization = components.Anonymization.FixedSize;
-  if (anonymization) {
-    if (typeof anonymization === "string") {
-      if (anonymization === "FixedSize" || anonymization === "VariableSize") {
-        request.anonymization = anonymization;
-      }
-    } else if (typeof anonymization === "object") {
-      request.anonymization = anonymization;
-    }
-  }
-
-  if (provider) {
-    if (typeof provider === "string") {
-      request.provider = provider;
-    }
-  }
-
-  if (user) {
-    if (typeof user === "object") {
-      request.user = user;
-    }
-  }
-
-  return this.policeRequest(request)
-};
-
 async function readFileAndBase64Encode(filePath: string): Promise<string> {
   const isBrowser: boolean = typeof window !== "undefined" && typeof window.document !== "undefined"
   if (isBrowser) {
@@ -401,12 +250,12 @@ async function readFileAndBase64Encode(filePath: string): Promise<string> {
   if (typeof Deno !== "undefined") {
     const { readFile } = await import("node:fs/promises");
     // read file and base64 encode
-    const fileContent =  await readFile(filePath);
+    const fileContent = await readFile(filePath);
     return fileContent.toString("base64")
   } else {
     const { readFile } = await import("fs/promises");
     // read file and base64 encode
-    const fileContent =  await readFile(filePath);
+    const fileContent = await readFile(filePath);
     return fileContent.toString("base64")
   }
 }

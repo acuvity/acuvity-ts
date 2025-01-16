@@ -5,6 +5,7 @@
 import { AcuvityCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
+import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
@@ -33,6 +34,7 @@ export async function apexScanRequest(
   Result<
     components.Scanresponse,
     | errors.Elementalerror
+    | errors.Elementalerror
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -55,10 +57,10 @@ export async function apexScanRequest(
 
   const path = pathToFunc("/_acuvity/scan")();
 
-  const headers = new Headers({
+  const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/json",
-  });
+  }));
 
   const securityInput = await extractSecurity(client._options.security);
   const requestSecurity = resolveGlobalSecurity(securityInput);
@@ -119,6 +121,7 @@ export async function apexScanRequest(
   const [result] = await M.match<
     components.Scanresponse,
     | errors.Elementalerror
+    | errors.Elementalerror
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -128,8 +131,10 @@ export async function apexScanRequest(
     | ConnectionError
   >(
     M.json(200, components.Scanresponse$inboundSchema),
-    M.jsonErr([400, 403, 422, 500], errors.Elementalerror$inboundSchema),
-    M.fail([401, 429, "4XX", "5XX"]),
+    M.jsonErr([400, 403, 422], errors.Elementalerror$inboundSchema),
+    M.fail([401, 429, "4XX"]),
+    M.jsonErr(500, errors.Elementalerror$inboundSchema),
+    M.fail("5XX"),
   )(response, { extraFields: responseFields });
   if (!result.ok) {
     return result;

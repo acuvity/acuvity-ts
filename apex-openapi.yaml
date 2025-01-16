@@ -11,7 +11,7 @@ components:
           description: The namespace of the alert definition.
           type: string
         principal:
-          $ref: '#/components/schemas/principal'
+          $ref: "#/components/schemas/principal"
         provider:
           description: The provider used that the alert came from.
           type: string
@@ -37,7 +37,7 @@ components:
         detectors:
           description: The detectors the analyzer can use.
           items:
-            $ref: '#/components/schemas/detector'
+            $ref: "#/components/schemas/detector"
           type: array
         enabled:
           description: Tell if the analyzer is enabled by default.
@@ -48,7 +48,7 @@ components:
         models:
           description: The models used by the analyzer.
           items:
-            $ref: '#/components/schemas/analyzermodel'
+            $ref: "#/components/schemas/analyzermodel"
           type: array
         name:
           description: The name of the analyzer.
@@ -133,7 +133,7 @@ components:
         categories:
           description: The categories are remapping of the modalities in a more human friendly way.
           items:
-            $ref: '#/components/schemas/modality'
+            $ref: "#/components/schemas/modality"
           type: array
         confidentiality:
           description: The level of general confidentiality of the input.
@@ -145,7 +145,7 @@ components:
         detections:
           description: The detections found while applying policies.
           items:
-            $ref: '#/components/schemas/textualdetection'
+            $ref: "#/components/schemas/textualdetection"
           type: array
         exploits:
           additionalProperties:
@@ -183,7 +183,7 @@ components:
         modalities:
           description: The modalities of data detected in the data.
           items:
-            $ref: '#/components/schemas/modality'
+            $ref: "#/components/schemas/modality"
           type: array
         relevance:
           description: The level of general organization relevance of the input.
@@ -265,7 +265,7 @@ components:
         claims:
           description: List of claims extracted from the user query.
           example:
-            - '@org=acuvity.ai'
+            - "@org=acuvity.ai"
             - given_name=John
             - family_name=Doe
           items:
@@ -306,7 +306,7 @@ components:
         extractions:
           description: The extractions to request.
           items:
-            $ref: '#/components/schemas/extractionrequest'
+            $ref: "#/components/schemas/extractionrequest"
           type: array
         messages:
           description: |-
@@ -330,7 +330,7 @@ components:
             - Input
             - Output
         user:
-          $ref: '#/components/schemas/policeexternaluser'
+          $ref: "#/components/schemas/policeexternaluser"
       type: object
     policeresponse:
       description: This is a scan and police response.
@@ -342,7 +342,7 @@ components:
         alerts:
           description: List of alerts that got raised during the policy resolution.
           items:
-            $ref: '#/components/schemas/alertevent'
+            $ref: "#/components/schemas/alertevent"
           type: array
         annotations:
           additionalProperties:
@@ -368,13 +368,13 @@ components:
         extractions:
           description: The extractions to log.
           items:
-            $ref: '#/components/schemas/extraction'
+            $ref: "#/components/schemas/extraction"
           type: array
         hash:
           description: The hash of the input.
           type: string
         latency:
-          $ref: '#/components/schemas/latency'
+          $ref: "#/components/schemas/latency"
         namespace:
           description: The namespace of the object.
           readOnly: true
@@ -383,7 +383,7 @@ components:
           description: The name of the particular pipeline that extracted the text.
           type: string
         principal:
-          $ref: '#/components/schemas/principal'
+          $ref: "#/components/schemas/principal"
         provider:
           description: the provider to use.
           example: openai
@@ -409,7 +409,7 @@ components:
       description: Describe the principal.
       properties:
         app:
-          $ref: '#/components/schemas/principalapp'
+          $ref: "#/components/schemas/principalapp"
         authType:
           description: The type of authentication.
           enum:
@@ -441,7 +441,7 @@ components:
           example:
             - User
         user:
-          $ref: '#/components/schemas/principaluser'
+          $ref: "#/components/schemas/principaluser"
       required:
         - type
       type: object
@@ -533,7 +533,7 @@ components:
         extractions:
           description: The extractions to request.
           items:
-            $ref: '#/components/schemas/extractionrequest'
+            $ref: "#/components/schemas/extractionrequest"
           type: array
         keywords:
           description: The keywords found during classification.
@@ -582,7 +582,7 @@ components:
         alerts:
           description: List of alerts that got raised during the policy resolution.
           items:
-            $ref: '#/components/schemas/alertevent'
+            $ref: "#/components/schemas/alertevent"
           type: array
         annotations:
           additionalProperties:
@@ -608,13 +608,13 @@ components:
         extractions:
           description: The extractions to log.
           items:
-            $ref: '#/components/schemas/extraction'
+            $ref: "#/components/schemas/extraction"
           type: array
         hash:
           description: The hash of the input.
           type: string
         latency:
-          $ref: '#/components/schemas/latency'
+          $ref: "#/components/schemas/latency"
         namespace:
           description: The namespace of the object.
           readOnly: true
@@ -623,7 +623,7 @@ components:
           description: The name of the particular pipeline that extracted the text.
           type: string
         principal:
-          $ref: '#/components/schemas/principal'
+          $ref: "#/components/schemas/principal"
         provider:
           description: the provider to use.
           example: openai
@@ -713,26 +713,26 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/analyzer'
+                  $ref: "#/components/schemas/analyzer"
                 type: array
           description: n/a
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: Unable to determine response decoding.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: The caller is not authenticated.
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: Unable to retrieve list of analyzers.
       tags:
         - apex
@@ -743,26 +743,32 @@ paths:
         title: List all available analyzers
   /_acuvity/police:
     post:
+      x-speakeasy-ignore: true
+      x-speakeasy-name-override: policeRequest
+      x-speakeasy-usage-example:
+        description: You can submit a scan and police request using the Scan API.
+        position: 2
+        title: Process a scan and police request
       description: Processes the scan and police request.
       operationId: create-PoliceRequest-as-PoliceResponse
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/policerequest'
+              $ref: "#/components/schemas/policerequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/policeresponse'
+                $ref: "#/components/schemas/policeresponse"
           description: Successfully processing a scan and police request returns a police response.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: The scan and police request could not be decoded.
         "401":
           content:
@@ -774,13 +780,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: The caller is not authorized.
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: Sending an invalid scan and police request returns an unprocessable entity error. Your models might be outdated.
         "429":
           content:
@@ -792,15 +798,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: Processing the scan and police request failed because policies could not be assigned or running the analysis failed internally.
       tags:
         - apex
-      x-speakeasy-name-override: policeRequest
-      x-speakeasy-usage-example:
-        description: You can submit a scan and police request using the Scan API.
-        position: 2
-        title: Process a scan and police request
   /_acuvity/scan:
     post:
       description: Processes the scan request.
@@ -809,20 +810,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/scanrequest'
+              $ref: "#/components/schemas/scanrequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/scanresponse'
+                $ref: "#/components/schemas/scanresponse"
           description: Successfully processing a scan request returns a scan response.
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: The scan request could not be decoded.
         "401":
           content:
@@ -834,13 +835,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: The caller is not authorized.
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: Sending an invalid scan request returns an unprocessable entity error. Your models might be outdated.
         "429":
           content:
@@ -852,7 +853,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/elementalerror'
+                $ref: "#/components/schemas/elementalerror"
           description: Processing the scan request failed because policies could not be assigned or running the analysis failed internally.
       tags:
         - apex

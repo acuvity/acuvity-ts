@@ -17,28 +17,26 @@ import {
 /**
  * How to anonymize the data. If deanonymize is true, then VariablSize is required.
  */
-export const ScanrequestAnonymization = {
+export const Anonymization = {
   FixedSize: "FixedSize",
   VariableSize: "VariableSize",
 } as const;
 /**
  * How to anonymize the data. If deanonymize is true, then VariablSize is required.
  */
-export type ScanrequestAnonymization = ClosedEnum<
-  typeof ScanrequestAnonymization
->;
+export type Anonymization = ClosedEnum<typeof Anonymization>;
 
 /**
  * The type of text.
  */
-export const ScanrequestType = {
+export const Type = {
   Input: "Input",
   Output: "Output",
 } as const;
 /**
  * The type of text.
  */
-export type ScanrequestType = ClosedEnum<typeof ScanrequestType>;
+export type Type = ClosedEnum<typeof Type>;
 
 /**
  * This is a scan request.
@@ -71,7 +69,7 @@ export type Scanrequest = {
   /**
    * How to anonymize the data. If deanonymize is true, then VariablSize is required.
    */
-  anonymization?: ScanrequestAnonymization | undefined;
+  anonymization?: Anonymization | undefined;
   /**
    * In the case of a contentPolicy that asks for a confirmation, this is the
    *
@@ -119,49 +117,48 @@ export type Scanrequest = {
   /**
    * The type of text.
    */
-  type?: ScanrequestType | undefined;
+  type?: Type | undefined;
 };
 
 /** @internal */
-export const ScanrequestAnonymization$inboundSchema: z.ZodNativeEnum<
-  typeof ScanrequestAnonymization
-> = z.nativeEnum(ScanrequestAnonymization);
+export const Anonymization$inboundSchema: z.ZodNativeEnum<
+  typeof Anonymization
+> = z.nativeEnum(Anonymization);
 
 /** @internal */
-export const ScanrequestAnonymization$outboundSchema: z.ZodNativeEnum<
-  typeof ScanrequestAnonymization
-> = ScanrequestAnonymization$inboundSchema;
+export const Anonymization$outboundSchema: z.ZodNativeEnum<
+  typeof Anonymization
+> = Anonymization$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScanrequestAnonymization$ {
-  /** @deprecated use `ScanrequestAnonymization$inboundSchema` instead. */
-  export const inboundSchema = ScanrequestAnonymization$inboundSchema;
-  /** @deprecated use `ScanrequestAnonymization$outboundSchema` instead. */
-  export const outboundSchema = ScanrequestAnonymization$outboundSchema;
+export namespace Anonymization$ {
+  /** @deprecated use `Anonymization$inboundSchema` instead. */
+  export const inboundSchema = Anonymization$inboundSchema;
+  /** @deprecated use `Anonymization$outboundSchema` instead. */
+  export const outboundSchema = Anonymization$outboundSchema;
 }
 
 /** @internal */
-export const ScanrequestType$inboundSchema: z.ZodNativeEnum<
-  typeof ScanrequestType
-> = z.nativeEnum(ScanrequestType);
+export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
+  Type,
+);
 
 /** @internal */
-export const ScanrequestType$outboundSchema: z.ZodNativeEnum<
-  typeof ScanrequestType
-> = ScanrequestType$inboundSchema;
+export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
+  Type$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScanrequestType$ {
-  /** @deprecated use `ScanrequestType$inboundSchema` instead. */
-  export const inboundSchema = ScanrequestType$inboundSchema;
-  /** @deprecated use `ScanrequestType$outboundSchema` instead. */
-  export const outboundSchema = ScanrequestType$outboundSchema;
+export namespace Type$ {
+  /** @deprecated use `Type$inboundSchema` instead. */
+  export const inboundSchema = Type$inboundSchema;
+  /** @deprecated use `Type$outboundSchema` instead. */
+  export const outboundSchema = Type$outboundSchema;
 }
 
 /** @internal */
@@ -173,7 +170,7 @@ export const Scanrequest$inboundSchema: z.ZodType<
   accessPolicy: z.string().optional(),
   analyzers: z.array(z.string()).optional(),
   annotations: z.record(z.string()).optional(),
-  anonymization: ScanrequestAnonymization$inboundSchema.default("FixedSize"),
+  anonymization: Anonymization$inboundSchema.default("FixedSize"),
   bypassHash: z.string().optional(),
   contentPolicy: z.string().optional(),
   extractions: z.array(Extractionrequest$inboundSchema).optional(),
@@ -181,7 +178,7 @@ export const Scanrequest$inboundSchema: z.ZodType<
   messages: z.array(z.string()).optional(),
   minimalLogging: z.boolean().optional(),
   redactions: z.array(z.string()).optional(),
-  type: ScanrequestType$inboundSchema.optional(),
+  type: Type$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -209,7 +206,7 @@ export const Scanrequest$outboundSchema: z.ZodType<
   accessPolicy: z.string().optional(),
   analyzers: z.array(z.string()).optional(),
   annotations: z.record(z.string()).optional(),
-  anonymization: ScanrequestAnonymization$outboundSchema.default("FixedSize"),
+  anonymization: Anonymization$outboundSchema.default("FixedSize"),
   bypassHash: z.string().optional(),
   contentPolicy: z.string().optional(),
   extractions: z.array(Extractionrequest$outboundSchema).optional(),
@@ -217,7 +214,7 @@ export const Scanrequest$outboundSchema: z.ZodType<
   messages: z.array(z.string()).optional(),
   minimalLogging: z.boolean().optional(),
   redactions: z.array(z.string()).optional(),
-  type: ScanrequestType$outboundSchema.optional(),
+  type: Type$outboundSchema.optional(),
 });
 
 /**
