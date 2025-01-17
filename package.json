@@ -1,11 +1,7 @@
 {
   "name": "@acuvity/acuvity",
-  "version": "0.4.6",
+  "version": "0.4.15",
   "author": "Acuvity, Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acuvity/acuvity-ts.git"
-  },
   "bugs": {
     "url": "https://github.com/acuvity/acuvity-ts/issues"
   },
@@ -22,6 +18,10 @@
     "nodejs"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acuvity/acuvity-ts.git"
+  },
   "tshy": {
     "exports": {
       ".": "./src/index.ts",

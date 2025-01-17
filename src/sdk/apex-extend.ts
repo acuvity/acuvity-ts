@@ -108,25 +108,17 @@ Apex.prototype.scan = async function ({
   files,
   requestType,
   annotations,
-  analyzers,
-  bypassHash,
   anonymization,
   redactions,
   keywords,
-  accessPolicy,
-  contentPolicy,
 }: {
   messages?: string | string[] | undefined,
   files?: string | string[] | undefined,
   requestType?: components.Type | string | undefined,
   annotations?: { [k: string]: string } | undefined,
-  analyzers?: string[] | undefined,
-  bypassHash?: string | undefined,
   anonymization?: components.Anonymization | string | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
-  accessPolicy?: string | undefined,
-  contentPolicy?: string | undefined
 }) {
   const request: components.Scanrequest = {};
 
@@ -177,30 +169,6 @@ Apex.prototype.scan = async function ({
     }
   }
 
-  if (analyzers) {
-    if (Array.isArray(analyzers)) {
-      const analyzers_list: string[] = (await this.listAnalyzerGroups()).concat(await this.listAnalyzerNames());
-      for (let analyzer of analyzers) {
-        if (typeof analyzer !== "string") {
-          throw new Error("analyzers must be strings");
-        }
-        if (analyzer.startsWith("+") || analyzer.startsWith("-")) {
-          analyzer = analyzer.slice(1);
-        }
-        if (!analyzers_list.includes(analyzer)) {
-          throw new Error(`analyzer '${analyzer}' is not in list of analyzer groups or analyzers: ${analyzers_list}`);
-        }
-      }
-      request.analyzers = analyzers;
-    }
-  }
-
-  if (bypassHash) {
-    if (typeof bypassHash === "string") {
-      request.bypassHash = bypassHash;
-    }
-  }
-
   request.anonymization = components.Anonymization.FixedSize;
   if (anonymization) {
     if (typeof anonymization === "string") {
@@ -221,18 +189,6 @@ Apex.prototype.scan = async function ({
   if (keywords) {
     if (Array.isArray(keywords) && keywords.every((k) => typeof k === "string")) {
       request.keywords = keywords;
-    }
-  }
-
-  if (accessPolicy) {
-    if (typeof accessPolicy === "string") {
-      request.accessPolicy = accessPolicy;
-    }
-  }
-
-  if (contentPolicy) {
-    if (typeof contentPolicy === "string") {
-      request.contentPolicy = contentPolicy;
     }
   }
 
