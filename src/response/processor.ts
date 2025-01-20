@@ -34,11 +34,11 @@ export class ResponseProcessor {
 
             if (result.responseMatch == ResponseMatch.YES &&
                 result.matchCount != undefined &&
-                result.matchCount >= matchNameGuard.count_threshold) {
+                result.matchCount >= matchNameGuard.countThreshold) {
                 matchCounter += result.matchCount
             }
 
-            if (matchCounter >= guard.count_threshold) {
+            if (matchCounter >= guard.countThreshold) {
                 resultMatch = ResponseMatch.YES
             }
         }
@@ -75,7 +75,7 @@ export class ResponseProcessor {
                 const allChecks: GuardMatch[] = [];
 
                 // Handle simple guards
-                for (const guard of this.guardConfig.simple_guards) {
+                for (const guard of this.guardConfig.getSimpleGuards) {
                     const result = this.processSimpleGuard(guard, ext);
                     if (result.responseMatch === ResponseMatch.YES) {
                         matchedChecks.push(result);
@@ -83,7 +83,7 @@ export class ResponseProcessor {
                     allChecks.push(result);
                 }
 
-                for (const guard of this.guardConfig.match_guards) {
+                for (const guard of this.guardConfig.getMatchGuards) {
                     const result = this.processMatchGuard(guard, ext);
                     if (result.responseMatch === ResponseMatch.YES) {
                         matchedChecks.push(result);

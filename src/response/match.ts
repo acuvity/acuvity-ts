@@ -5,9 +5,9 @@ import { ResponseProcessor } from "./processor.js";
 import { GuardMatch, Matches, ResponseMatch } from "./result.js"
 
 export class ScanResponseMatch {
-    private _guardConfig: GuardConfig;
+    private guardConfig: GuardConfig;
     private scanResponse: Scanresponse;
-    private _numberOfFiles: number;
+    private numberOfFiles: number;
     private matchDetails: Matches[];
 
     constructor(
@@ -15,35 +15,30 @@ export class ScanResponseMatch {
         guardConfig: GuardConfig,
         files?: string | string[]
     ) {
-        this._guardConfig = guardConfig;
+        this.guardConfig = guardConfig;
         this.scanResponse = scanResponse;
-        this._numberOfFiles = this._countFiles(files);
+        this.numberOfFiles = this.countFiles(files);
 
-        if (!this._guardConfig) {
+        if (!this.guardConfig) {
             throw new Error("No guard configuration was passed or available in the instance.");
         }
 
         try {
-            const processor = new ResponseProcessor(this.scanResponse, this._guardConfig);
+            const processor = new ResponseProcessor(this.scanResponse, this.guardConfig);
             this.matchDetails = processor.matches();
         } catch (e: any) {
             throw new Error(`Failed to process match: ${String(e)}`);
         }
     }
 
-    /**
-     * Count the number of files from input.
-     */
-    private _countFiles(files?: string | string[]): number {
+    private countFiles(files?: string | string[]): number {
         if (!files) {
             return 0;
         }
         return typeof files === "string" ? 1 : files.length;
     }
 
-    /**
-     * Returns the overall match of the scan response.
-     */
+    // Overall match
     public matches(fileIndex: number = -1, msgIndex: number = -1): Matches[] {
         const searchAtIndex = (idx: number): Matches => {
             if (idx >= 0 && idx < this.matchDetails.length) {
@@ -58,16 +53,15 @@ export class ScanResponseMatch {
         if (fileIndex !== -1 || msgIndex !== -1) {
             const results: Matches[] = [];
             if (fileIndex !== -1) results.push(searchAtIndex(fileIndex));
-            if (msgIndex !== -1) results.push(searchAtIndex(msgIndex + this._numberOfFiles));
+            if (msgIndex !== -1) results.push(searchAtIndex(msgIndex + this.numberOfFiles));
             return results;
         }
 
         return this.matchDetails;
     }
 
-    /**
-     * Retrieves a single guard's match.
-     */
+
+    //single guard's match.
     public guardMatch(
         guard: GuardName,
         fileIndex: number = -1,
@@ -90,7 +84,7 @@ export class ScanResponseMatch {
 
         if (fileIndex !== -1 || msgIndex !== -1) {
             if (fileIndex !== -1) searchAtIndex(fileIndex);
-            if (msgIndex !== -1) searchAtIndex(msgIndex + this._numberOfFiles);
+            if (msgIndex !== -1) searchAtIndex(msgIndex + this.numberOfFiles);
         } else {
             for (const singleMatch of this.matchDetails) {
                 for (const check of singleMatch.matchedChecks) {

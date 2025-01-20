@@ -5,29 +5,29 @@ import { GuardConfigValidationError, GuardConfigError } from "./errors.js";
 export class Match {
     readonly threshold: Threshold;
     readonly redact: boolean;
-    readonly count_threshold: number;
+    readonly countThreshold: number;
 
     private constructor(
         threshold: Threshold,
         redact: boolean = false,
-        count_threshold: number = 0
+        countThreshold: number = 0
     ) {
         this.threshold = threshold;
         this.redact = redact;
-        this.count_threshold = count_threshold;
+        this.countThreshold = countThreshold;
         Object.freeze(this);
     }
 
     static create(
         threshold: string | Threshold = DEFAULT_THRESHOLD,
         redact: boolean = false,
-        count_threshold: number = 0
+        countThreshold: number = 0
     ): Match {
         const thresholdObj = typeof threshold === 'string'
             ? new Threshold(threshold)
             : threshold;
 
-        return new Match(thresholdObj, redact, count_threshold);
+        return new Match(thresholdObj, redact, countThreshold);
     }
 }
 
@@ -36,18 +36,18 @@ export class Guard {
     readonly name: GuardName;
     readonly matches: Record<string, Match>;
     readonly threshold: Threshold;
-    readonly count_threshold: number;
+    readonly countThreshold: number;
 
     private constructor(
         name: GuardName,
         matches: Record<string, Match>,
         threshold: Threshold,
-        count_threshold: number = 0
+        countThreshold: number = 0
     ) {
         this.name = name;
         this.matches = matches;
         this.threshold = threshold;
-        this.count_threshold = count_threshold;
+        this.countThreshold = countThreshold;
         Object.freeze(this);
     }
 
@@ -55,7 +55,7 @@ export class Guard {
         name: string | GuardName,
         matches: Record<string, Match> | null = null,
         threshold: string | Threshold = DEFAULT_THRESHOLD,
-        count_threshold: number = 0
+        countThreshold: number = 0
     ): Guard {
         // Convert string to GuardName if needed
         let guardName: GuardName;
@@ -83,21 +83,21 @@ export class Guard {
             guardName,
             matches || {},
             thresholdObj,
-            count_threshold
+            countThreshold
         );
     }
 }
 
 // GuardConfig class
 export class GuardConfig {
-    private _parsed_guards: Guard[] = [];
+    private parsedGuards: Guard[] = [];
 
     constructor(config?: string | { [key: string]: any } | Guard[]) {
         if (!config) {
             // Handle default configuration
             Object.values(GuardName).forEach(guard => {
                 if (guard !== GuardName.KEYWORD_DETECTOR) {
-                    this._parsed_guards.push(Guard.create(
+                    this.parsedGuards.push(Guard.create(
                         guard,
                         {},
                         DEFAULT_THRESHOLD,
@@ -108,7 +108,7 @@ export class GuardConfig {
             return;
         }
 
-        this._parse_config(config);
+        this.parseConfig(config);
     }
 
     private static loadYaml(_: string): { [key: string]: any } {
@@ -122,12 +122,12 @@ export class GuardConfig {
         }
     }
 
-    private _parse_config(config: string | { [key: string]: any } | Guard[]): Guard[] {
+    private parseConfig(config: string | { [key: string]: any } | Guard[]): Guard[] {
         if (Array.isArray(config) && config.every(guard => guard instanceof Guard)) {
-            this._parsed_guards = config
-                .filter(guard => this._validate_guard(guard))
-                .map(guard => this._parse_guard_obj(guard));
-            return this._parsed_guards;
+            this.parsedGuards = config
+                .filter(guard => this.validateGuard(guard))
+                .map(guard => this.parseGuardObj(guard));
+            return this.parsedGuards;
         }
 
         let configData: { [key: string]: any };
@@ -141,16 +141,16 @@ export class GuardConfig {
             const guards = configData['guardrails'] || [configData];
             const guardsList = Array.isArray(guards) ? guards : [guards];
 
-            this._parsed_guards = guardsList
-                .filter(guard => this._validate_guard(guard))
-                .map(guard => this._parse_guard(guard));
-            return this._parsed_guards;
+            this.parsedGuards = guardsList
+                .filter(guard => this.validateGuard(guard))
+                .map(guard => this.parseGuard(guard));
+            return this.parsedGuards;
         } catch (e) {
             throw new GuardConfigError(`Failed to parse config: ${e}`);
         }
     }
 
-    private _validate_guard(guard: Guard | { [key: string]: any }): boolean {
+    private validateGuard(guard: Guard | { [key: string]: any }): boolean {
         if (guard instanceof Guard) {
             if (!Object.values(GuardName).includes(guard.name)) {
                 throw new GuardConfigValidationError("Guard must have a valid name");
@@ -166,64 +166,64 @@ export class GuardConfig {
         return true;
     }
 
-    parse_match_obj(match_key: string, match_obj: Match | null): Match {
-        if (!match_obj) {
+    parseMatchObj(matchKey: string, matchObj: Match | null): Match {
+        if (!matchObj) {
             return Match.create();
         }
 
         try {
-            const threshold = match_obj.threshold || DEFAULT_THRESHOLD;
+            const threshold = matchObj.threshold || DEFAULT_THRESHOLD;
             return Match.create(
                 threshold,
-                match_obj.redact,
-                match_obj.count_threshold
+                matchObj.redact,
+                matchObj.countThreshold
             );
         } catch (e) {
             throw new GuardConfigValidationError(
-                `Invalid match configuration for '${match_key}': ${e}`
+                `Invalid match configuration for '${matchKey}': ${e}`
             );
         }
     }
 
-    private _parse_match(match_key: string, match_data: { [key: string]: any }): Match {
+    private parseMatch(matchKey: string, matchData: { [key: string]: any }): Match {
         let threshold = DEFAULT_THRESHOLD;
-        if ('threshold' in match_data) {
+        if ('threshold' in matchData) {
             try {
-                threshold = new Threshold(match_data['threshold'] || '>= 0.0');
+                threshold = new Threshold(matchData['threshold'] || '>= 0.0');
             } catch (e) {
-                throw new GuardConfigValidationError(`Invalid threshold for match ${match_key}`);
+                throw new GuardConfigValidationError(`Invalid threshold for match ${matchKey}`);
             }
         }
 
         return Match.create(
             threshold,
-            match_data['redact'] || false,
-            match_data['count_threshold'] || 0
+            matchData['redact'] || false,
+            matchData['countThreshold'] || 0
         );
     }
 
-    get match_guards(): Guard[] {
-        return this._parsed_guards.filter(guard =>
+    get getMatchGuards(): Guard[] {
+        return this.parsedGuards.filter(guard =>
             Object.keys(guard.matches).length > 0
         );
     }
 
-    get parsed_guards(): Guard[] {
-        return this._parsed_guards;
+    get getParsedGuards(): Guard[] {
+        return this.parsedGuards;
     }
 
-    get simple_guards(): Guard[] {
-        return this._parsed_guards.filter(guard =>
+    get getSimpleGuards(): Guard[] {
+        return this.parsedGuards.filter(guard =>
             Object.keys(guard.matches).length === 0
         );
     }
 
-    get guard_names(): GuardName[] {
-        return this._parsed_guards.map(g => g.name);
+    get guardNames(): GuardName[] {
+        return this.parsedGuards.map(g => g.name);
     }
 
-    get redaction_keys(): string[] {
-        return this.match_guards.flatMap(guard =>
+    get redactionKeys(): string[] {
+        return this.getMatchGuards.flatMap(guard =>
             Object.entries(guard.matches)
                 .filter(([_, match]) => match.redact)
                 .map(([key]) => key)
@@ -231,7 +231,7 @@ export class GuardConfig {
     }
 
     get keywords(): string[] {
-        return this.match_guards
+        return this.getMatchGuards
             .filter(guard => guard.name === GuardName.KEYWORD_DETECTOR)
             .flatMap(guard =>
                 Object.entries(guard.matches)
@@ -240,7 +240,7 @@ export class GuardConfig {
             );
     }
 
-    private _parse_guard(guard: { [key: string]: any }): Guard {
+    private parseGuard(guard: { [key: string]: any }): Guard {
         const name = guard['name'];
 
         // Parse top-level threshold
@@ -252,8 +252,8 @@ export class GuardConfig {
         // Parse matches
         const matches: Record<string, Match> = {};
         if (guard['matches']) {
-            Object.entries(guard['matches']).forEach(([match_key, match_data]) => {
-                matches[match_key] = this._parse_match(match_key, match_data as any);
+            Object.entries(guard['matches']).forEach(([matchKey, matchData]) => {
+                matches[matchKey] = this.parseMatch(matchKey, matchData as any);
             });
         }
 
@@ -262,27 +262,27 @@ export class GuardConfig {
                 name,
                 matches,
                 threshold,
-                guard['count_threshold'] || 0
+                guard['countThreshold'] || 0
             );
         }
         throw new GuardConfigValidationError(`Invalid guard name: ${name}`);
     }
 
-    private _parse_guard_obj(guard: Guard): Guard {
+    private parseGuardObj(guard: Guard): Guard {
         try {
             const guardName = guard.name;
             const threshold = guard.threshold ?? DEFAULT_THRESHOLD;
-            const parsed_matches: Record<string, Match> = {};
+            const parsedMatches: Record<string, Match> = {};
 
-            Object.entries(guard.matches).forEach(([match_key, match_data]) => {
-                parsed_matches[match_key] = this.parse_match_obj(match_key, match_data);
+            Object.entries(guard.matches).forEach(([matchKey, matchData]) => {
+                parsedMatches[matchKey] = this.parseMatchObj(matchKey, matchData);
             });
 
             return Guard.create(
                 guardName,
-                parsed_matches,
+                parsedMatches,
                 threshold,
-                guard.count_threshold || 0
+                guard.countThreshold || 0
             );
         } catch (e) {
             throw new GuardConfigValidationError(`Failed to parse Guard object: ${e}`);

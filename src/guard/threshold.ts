@@ -5,10 +5,10 @@ export class Threshold {
     private operator: ComparisonOperator;
     private value: number;
 
-    constructor(threshold_str: string) {
+    constructor(thresholdStr: string) {
         try {
             // First try to convert the entire string to float (case when only number provided)
-            const numValue = parseFloat(threshold_str);
+            const numValue = parseFloat(thresholdStr);
             if (!isNaN(numValue)) {
                 this.value = numValue;
                 this.operator = ComparisonOperator.GREATER_EQUAL; // Default operator
@@ -16,27 +16,27 @@ export class Threshold {
             }
 
             // If that fails, try to split into operator and value
-            const parts = threshold_str.trim().split(/\s+/);
+            const parts = thresholdStr.trim().split(/\s+/);
             if (parts.length !== 2) {
                 throw new GuardConfigValidationError("Invalid threshold format");
             }
 
-            const [operator_str, value_str] = parts;
-            if (value_str == undefined) {
+            const [operatorStr, valueStr] = parts;
+            if (valueStr == undefined) {
                 throw new GuardConfigValidationError("Invalid threshold value");
             }
-            this.value = parseFloat(value_str);
+            this.value = parseFloat(valueStr);
 
             if (isNaN(this.value)) {
                 throw new GuardConfigValidationError("Invalid threshold value");
             }
 
             // Check if the operator string is a valid ComparisonOperator
-            if (!Object.values(ComparisonOperator).includes(operator_str as ComparisonOperator)) {
-                throw new GuardConfigValidationError(`Invalid operator: ${operator_str}`);
+            if (!Object.values(ComparisonOperator).includes(operatorStr as ComparisonOperator)) {
+                throw new GuardConfigValidationError(`Invalid operator: ${operatorStr}`);
             }
 
-            this.operator = operator_str as ComparisonOperator;
+            this.operator = operatorStr as ComparisonOperator;
 
         } catch (e) {
             if (e instanceof GuardConfigValidationError) {

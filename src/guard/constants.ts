@@ -9,7 +9,7 @@ export enum ComparisonOperator {
 export class GuardName {
 
     static readonly PROMPT_INJECTION = new GuardName("prompt_injection");
-    static readonly JAIL_BREAK = new GuardName("jail_break");
+    static readonly JAIL_BREAK = new GuardName("jailbreak");
     static readonly MALICIOUS_URL = new GuardName("malicious_url");
     static readonly TOXICITY = new GuardName("toxicity");
     static readonly BIAS = new GuardName("bias");

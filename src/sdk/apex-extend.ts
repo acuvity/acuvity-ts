@@ -72,12 +72,12 @@ declare module "./apex.js" {
     }): Promise<ScanResponseMatch>;
 
     /**
-     * _available_analyzers keeps a cache of the available analyzers which is lazily initialized based on the first call made to analyzers.
+     * _availableAnalyzers keeps a cache of the available analyzers which is lazily initialized based on the first call made to analyzers.
      */
-    _available_analyzers?: components.Analyzer[];
+    _availableAnalyzers?: components.Analyzer[];
 
     /**
-     * `list_analyzers()` returns a list of all available analyzers. This call lists all details about the available analyzers.
+     * `listAnalyzers()` returns a list of all available analyzers. This call lists all details about the available analyzers.
      * To get a filtered list of analyzer names or groups that can be used in a scan request, use `list_analyzer_names()` and/or `list_analyzer_groups()`.
      *
      * NOTE: this call is cached for the lifetime of the SDK object.
@@ -85,7 +85,7 @@ declare module "./apex.js" {
     listAnalyzers(): Promise<components.Analyzer[]>;
 
     /**
-     * `list_analyzer_groups()` returns a list of all available analyzer groups. These can be passed in a scan request
+     * `listAnalyzerGroups()` returns a list of all available analyzer groups. These can be passed in a scan request
      * to activate/deactivate a whole group of analyzers at once.
      *
      * NOTE: this call is cached for the lifetime of the SDK object.
@@ -93,7 +93,7 @@ declare module "./apex.js" {
     listAnalyzerGroups(): Promise<string[]>;
 
     /**
-     * `list_analyzer_names()` returns a list of all available analyzer names. These can be passed in a scan request
+     * `listAnalyzerNames()` returns a list of all available analyzer names. These can be passed in a scan request
      * to activate/deactivate specific analyzers.
      *
      * @param group the group of analyzers to filter the list by. If not provided, all analyzers will be returned.
@@ -126,7 +126,7 @@ Apex.prototype.scan = async function ({
 }) {
   const request: components.Scanrequest = {};
 
-  // if guard_config is given, the keywords and redactions args must not be given.
+  // if guardConfig is given, the keywords and redactions args must not be given.
   if (guardConfig && (keywords || redactions)) {
     throw new Error("Cannot specify keywords or redactions in scan args when using guard config. Please use only one.");
   }
@@ -180,7 +180,7 @@ Apex.prototype.scan = async function ({
 
   if (guardConfig) {
     keywords = guardConfig.keywords
-    redactions = guardConfig.redaction_keys
+    redactions = guardConfig.redactionKeys
   }
 
   request.anonymization = components.Anonymization.FixedSize;
@@ -243,11 +243,11 @@ async function readFileAndBase64Encode(filePath: string): Promise<string> {
 }
 
 Apex.prototype.listAnalyzers = async function (): Promise<components.Analyzer[]> {
-  return (this._available_analyzers ??= await this.listAnalyzers());
+  return (this._availableAnalyzers ??= await this.listAnalyzers());
 }
 
 Apex.prototype.listAnalyzerNames = async function (group?: string): Promise<string[]> {
-  const analyzers = (this._available_analyzers ??= await this.listAnalyzers());
+  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
   return analyzers
     .filter((a) => !group || a.group === group)
     .map((a) => a.id ?? "")
@@ -256,7 +256,7 @@ Apex.prototype.listAnalyzerNames = async function (group?: string): Promise<stri
 }
 
 Apex.prototype.listAnalyzerGroups = async function (): Promise<string[]> {
-  const analyzers = (this._available_analyzers ??= await this.listAnalyzers());
+  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
   return analyzers
     .map((a) => a.group ?? "")
     .filter((a) => a !== "")
