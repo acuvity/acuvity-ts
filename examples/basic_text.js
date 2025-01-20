@@ -3,17 +3,14 @@ import { Acuvity, discoverApex } from "@acuvity/acuvity";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
-// Get the directory of the current script
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 
-// Define file paths
 const filePath = resolve(SCRIPT_DIR, "test_data", "pi-test.txt");
 const configPath = resolve(SCRIPT_DIR, "configs", "simple_default_guard_config.yaml");
 
 console.log("File Path:", filePath);
 console.log("Config Path:", configPath);
 
-// Load environment variables
 config();
 console.log("token", process.env.ACUVITY_TOKEN);
 async function run() {
