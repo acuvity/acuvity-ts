@@ -1,5 +1,6 @@
 import { Apex } from "./apex.js";
 import * as components from "../models/components/index.js";
+import { GuardConfig } from "../guard/config.js";
 
 // Extend the BaseClass type using declaration merging
 declare module "./apex.js" {
@@ -111,6 +112,7 @@ Apex.prototype.scan = async function ({
   anonymization,
   redactions,
   keywords,
+  guardConfig,
 }: {
   messages?: string | string[] | undefined,
   files?: string | string[] | undefined,
@@ -119,8 +121,14 @@ Apex.prototype.scan = async function ({
   anonymization?: components.Anonymization | string | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
+  guardConfig?: GuardConfig | undefined,
 }) {
   const request: components.Scanrequest = {};
+
+  // if guard_config is given, the keywords and redactions args must not be given.
+  if (guardConfig && (keywords || redactions)) {
+    throw new Error("Cannot specify keywords or redactions in scan args when using guard config. Please use only one.");
+  }
 
   if (messages) {
     if (typeof messages === "string") {
@@ -167,6 +175,11 @@ Apex.prototype.scan = async function ({
     if (typeof annotations === "object") {
       request.annotations = annotations;
     }
+  }
+
+  if (guardConfig) {
+    keywords = guardConfig.keywords
+    redactions = guardConfig.redaction_keys
   }
 
   request.anonymization = components.Anonymization.FixedSize;
