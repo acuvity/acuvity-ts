@@ -1,6 +1,5 @@
 import { config } from "dotenv";
 import { Acuvity, discoverApex } from "@acuvity/acuvity";
-import { prettyPrintJson } from "pretty-print-json";
 
 // Load environment variables
 config();
