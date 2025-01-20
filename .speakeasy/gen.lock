@@ -3,8 +3,8 @@ id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
   docChecksum: c228280ab24af59505327c759fe66d5f
   docVersion: "1.0"
-  speakeasyVersion: 1.469.0
-  generationVersion: 2.493.21
+  speakeasyVersion: 1.469.8
+  generationVersion: 2.493.29
   releaseVersion: 0.4.15
   configChecksum: 27766e9f1a85f8d280a0e6adeb2f1865
   published: true
@@ -128,21 +128,13 @@ examples:
   create-ScanRequest-as-ScanResponse:
     speakeasy-default-create-scan-request-as-scan-response:
       requestBody:
-        application/json: {"bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8"}
+        application/json: {"analyzers": ["Detectors", "en-text-prompt_injection-detector", "ocr-handwritten-text-extractor"], "annotations": {"key1": "value1", "key2": "value2"}, "anonymization": "FixedSize", "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "keywords": ["legal", "technical", "scientific"], "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "redactions": ["person", "ssn", "location"]}
       responses:
         "200":
-          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "extractions": [{"categories": [], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
+          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
         "400":
           application/json: {}
         "500":
           application/json: {}
-  create-PoliceRequest-as-PoliceResponse:
-    speakeasy-default-create-police-request-as-police-response:
-      requestBody:
-        application/json: {"annotations": {"key1": "value1", "key2": "value2"}, "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "provider": "openai", "user": {"claims": ["@org=acuvity.ai", "given_name=John", "family_name=Doe"], "name": "John Doe"}}
-      responses:
-        "200":
-          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}, {"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"categories": [{"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [], "relevance": 0.9}, {"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
-        "400":
-          application/json: {}
+examplesVersion: 1.0.0
 generatedTests: {}
