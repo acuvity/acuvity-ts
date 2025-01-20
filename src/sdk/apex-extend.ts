@@ -1,6 +1,7 @@
 import { Apex } from "./apex.js";
 import * as components from "../models/components/index.js";
 import { GuardConfig } from "../guard/config.js";
+import { ScanResponseMatch } from "../response/match.js";
 
 // Extend the BaseClass type using declaration merging
 declare module "./apex.js" {
@@ -68,7 +69,7 @@ declare module "./apex.js" {
        * the content policy to run. This is the rego content policy that you can run. If not provided, no content policy will be applied.
        */
       contentPolicy?: string | undefined
-    }): Promise<components.Scanresponse>;
+    }): Promise<ScanResponseMatch>;
 
     /**
      * _available_analyzers keeps a cache of the available analyzers which is lazily initialized based on the first call made to analyzers.
@@ -205,7 +206,19 @@ Apex.prototype.scan = async function ({
     }
   }
 
-  return this.scanRequest(request);
+
+  let gconfig: GuardConfig;
+  try {
+    gconfig = guardConfig ? new GuardConfig(guardConfig) : new GuardConfig();
+  } catch (e) {
+    console.debug("Error while processing the guard config");
+    throw new Error("Cannot process the guard config");
+  }
+
+  const rawScanResponse = await this.scanRequest(request);
+
+  // Return a new ScanResponseMatch instance
+  return new ScanResponseMatch(rawScanResponse, gconfig, files);
 };
 
 async function readFileAndBase64Encode(filePath: string): Promise<string> {
