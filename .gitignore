@@ -18,3 +18,4 @@
 /.tshy-*
 /__tests__
 /examples/node_modules
+/coverage

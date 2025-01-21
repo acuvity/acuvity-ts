@@ -17,11 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/acuvity/acuvity-ts.git"
   },
-  "scripts": {
-    "lint": "eslint --max-warnings=0 src",
-    "build": "tshy",
-    "prepublishOnly": "npm run build"
-  },
   "bugs": {
     "url": "https://github.com/acuvity/acuvity-ts/issues"
   },
@@ -43,6 +38,11 @@
     }
   },
   "sideEffects": false,
+  "scripts": {
+    "lint": "eslint --max-warnings=0 src",
+    "build": "tshy",
+    "prepublishOnly": "npm run build"
+  },
   "peerDependencies": {
     "zod": ">= 3"
   },

@@ -62,7 +62,7 @@ export class Guard {
         // Convert string to GuardName if needed
         let guardName: GuardName;
         if (typeof name === 'string') {
-            if (!(name in GuardName)) {
+            if (!GuardName.values().includes(name)) {
                 const validNames = Object.values(GuardName).join(', ');
                 throw new GuardConfigValidationError(
                     `Invalid guard name: ${name}. Must be one of: ${validNames}`
@@ -140,7 +140,6 @@ export class GuardConfig {
         try {
             const guards = configData['guardrails'] || [configData];
             const guardsList = Array.isArray(guards) ? guards : [guards];
-
             this.parsedGuards = guardsList
                 .filter(guard => this.validateGuard(guard))
                 .map(guard => this.parseGuard(guard));
@@ -159,8 +158,13 @@ export class GuardConfig {
             if (!guard['name']) {
                 throw new GuardConfigValidationError("Guard must have a name");
             }
-            if (!Object.values(GuardName).includes(guard['name'])) {
-                throw new GuardConfigValidationError(`Guard name not present ${guard['name']}`);
+            if (typeof guard['name'] === 'string') {
+                if (!GuardName.values().includes(guard['name'])) {
+                    throw new GuardConfigValidationError(`Guard name str not present ${guard['name']}`);
+                }
+            }
+            else if (!Object.values(GuardName).includes(guard['name'])) {
+                throw new GuardConfigError(`Guard name not present ${guard['name']}`);
             }
         }
         return true;
@@ -257,7 +261,7 @@ export class GuardConfig {
             });
         }
 
-        if (name in GuardName) {
+        if (name) {
             return Guard.create(
                 name,
                 matches,
