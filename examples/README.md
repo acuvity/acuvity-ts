@@ -24,6 +24,14 @@ The JS script demonstrates:
 
 ---
 
+## For local development, after build the local acuvity package.
+
+  ```bash
+  npm link @acuvity/acuvity
+  ```
+
+---
+
 ## How to Run the Examples
 
 1. Install the required dependencies:
@@ -34,7 +42,11 @@ The JS script demonstrates:
     ```bash
     export ACUVITY_TOKEN=<token>
     ```
-3. Run the basic_file.js example:
+3. To fetch all the guard names, available PIIs, secrets, run the following:
+    ```bash
+    node basic_api.js
+    ```
+4. Run the files example:
     ```bash
      node basic_file.js
     ```
