@@ -130,6 +130,8 @@ run();
 
 ```
 
+**NOTE:** If you simply want to get a list of analyzer names or groups that can be used in the scan API, use `listAnalyzerNames()` or `listAnalyzerGroups()` instead.
+
 ### Guard config
 The SDK provides a guard config through which the user can input the guard checks for a particular prompts.
 
@@ -307,7 +309,34 @@ result [
 ]
 ```
 
-**NOTE:** If you simply want to get a list of analyzer names or groups that can be used in the scan API, use `listAnalyzerNames()` or `listAnalyzerGroups()` instead.
+### List all available guards, secrets and piis
+
+Now you can list all available analyzers that can be used in the Scan API.
+
+```typescript
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
+
+async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
+  const guardNames = await acuvity.apex.listAvailableGuards()
+  console.log("\n guardnames: ", guardNames)
+  const secretsNames = await acuvity.apex.listDetectableSecrets()
+  console.log("\n secrets: ", secretsNames)
+  const piisNames = await acuvity.apex.listDetectablePIIs()
+  console.log("\n PIIs: ", secretsNames)
+}
+
+run();
+
+```
+
+
+
 <!-- No SDK Example Usage [usage] -->
 
 <!-- Start Available Resources and Operations [operations] -->
