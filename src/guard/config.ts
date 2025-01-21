@@ -1,6 +1,8 @@
-import { DEFAULT_THRESHOLD, Threshold } from "./threshold.js";
+import { DEFAULT_THRESHOLD, Threshold } from './threshold.js'
 import { GuardName } from "./constants.js";
 import { GuardConfigValidationError, GuardConfigError } from "./errors.js";
+import fs from 'fs';
+import * as YAML from 'yaml';
 
 export class Match {
     readonly threshold: Threshold;
@@ -111,12 +113,10 @@ export class GuardConfig {
         this.parseConfig(config);
     }
 
-    private static loadYaml(_: string): { [key: string]: any } {
+    private static loadYaml(path: string): { [key: string]: any } {
         try {
-            // Note: You'll need to use an appropriate YAML library for TypeScript
-            // For example: import yaml from 'js-yaml';
-            // return yaml.load(fs.readFileSync(path, 'utf8'));
-            throw new Error('YAML loading not implemented');
+            const fileContent = fs.readFileSync(path, 'utf8');
+            return YAML.parse(fileContent);
         } catch (e) {
             throw new GuardConfigError(`Failed to load config file: ${e}`);
         }

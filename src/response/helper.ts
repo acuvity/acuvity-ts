@@ -6,16 +6,6 @@ import { GuardMatch, ResponseMatch } from "./result.js";
 import { Extraction } from "../models/components/extraction.js";
 import { Textualdetection, TextualdetectionType } from "../models/components/textualdetection.js";
 
-// Return type interfaces
-// interface GuardValueResult {
-//     exists: boolean;
-//     value: number;
-// }
-
-// interface TextDetectionResult extends GuardValueResult {
-//     matchCount: number;
-// }
-
 // Discriminated union for all possible return types
 type ValueGetterResult =
     | { type: 'boolean'; exists: boolean; }
