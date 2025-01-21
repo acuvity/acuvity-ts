@@ -211,8 +211,7 @@ Apex.prototype.scan = async function ({
   try {
     gconfig = guardConfig ? new GuardConfig(guardConfig) : new GuardConfig();
   } catch (e) {
-    console.debug("Error while processing the guard config");
-    throw new Error("Cannot process the guard config");
+    throw new Error(`Failed to init config file: ${e}`);
   }
 
   const rawScanResponse = await this.scanRequest(request);
