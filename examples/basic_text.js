@@ -12,7 +12,6 @@ console.log("File Path:", filePath);
 console.log("Config Path:", configPath);
 
 config();
-console.log("token", process.env.ACUVITY_TOKEN);
 async function run() {
     const acuvity = new Acuvity(await discoverApex({
         security: {
