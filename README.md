@@ -242,7 +242,7 @@ result [
       {
         "responseMatch": "NO",
         "guardName": {
-          "value": "toxicity"
+          "value": "toxic"
         },
         "threshold": ">= 0",
         "actualValue": 0,
@@ -251,7 +251,7 @@ result [
       {
         "responseMatch": "NO",
         "guardName": {
-          "value": "bias"
+          "value": "biased"
         },
         "threshold": ">= 0",
         "actualValue": 0,

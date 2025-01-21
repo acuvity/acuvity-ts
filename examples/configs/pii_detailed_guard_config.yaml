@@ -1,0 +1,30 @@
+guardrails:
+  - name: pii_detector
+    count_threshold: 2
+    matches:
+      # example: Optional redact: true, default redact: False
+      email_address:
+        threshold: "0.5"
+        count_threshold: 1
+        redact: true
+      ssn:
+        threshold: "0.5"
+        count_threshold: 1
+        redact: true
+      person:
+        threshold: "0.5"
+        count_threshold: 2
+        redact: true
+      # all possible PIIs (redact default False)
+      aba_routing_number:
+      address:
+      bank_account:
+      bitcoin_wallet:
+      credit_card:
+      driver_license:
+      itin_number:
+      location:
+      medical_license:
+      money_amount:
+      passport_number:
+      phone_number:

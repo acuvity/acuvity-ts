@@ -11,8 +11,8 @@ export class GuardName {
     static readonly PROMPT_INJECTION = new GuardName("prompt_injection");
     static readonly JAIL_BREAK = new GuardName("jailbreak");
     static readonly MALICIOUS_URL = new GuardName("malicious_url");
-    static readonly TOXICITY = new GuardName("toxicity");
-    static readonly BIAS = new GuardName("bias");
+    static readonly TOXIC = new GuardName("toxic");
+    static readonly BIASED = new GuardName("biased");
     static readonly HARMFUL_CONTENT = new GuardName("harmful");
     static readonly LANGUAGE = new GuardName("language");
     static readonly MODALITY = new GuardName("modality");

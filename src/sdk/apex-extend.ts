@@ -47,11 +47,6 @@ declare module "./apex.js" {
       bypassHash?: string | undefined,
 
       /**
-       * the anonymization to use. This is the anonymization that you want to use. If not provided, but the returned detections contain redactions, then the system will use the internal defaults for anonymization which is subject to change.
-       */
-      anonymization?: components.Anonymization | string | undefined,
-
-      /**
        * the redactions to apply. If your want to redact certain parts of the returned detections, you can provide a list of redactions that you want to apply. If not provided, no redactions will be applied.
        */
       redactions?: string[] | undefined,
@@ -60,16 +55,11 @@ declare module "./apex.js" {
        * the keywords to detect in the input. If you want to detect certain keywords in the input, you can provide a list of keywords that you want to detect. If not provided, no keyword detection will be run.
        */
       keywords?: string[] | undefined,
-
       /**
-       * the access policy to run. This is the rego access policy that you can run. If not provided, no access policy will be applied.
+       * the guard config used to do the response eval for matches. If not provided, the default guard config will be used.
        */
-      accessPolicy?: string | undefined,
+      guardConfig?: GuardConfig | undefined,
 
-      /**
-       * the content policy to run. This is the rego content policy that you can run. If not provided, no content policy will be applied.
-       */
-      contentPolicy?: string | undefined
     }): Promise<ScanResponseMatch>;
 
     /**

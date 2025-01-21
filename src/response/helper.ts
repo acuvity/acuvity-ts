@@ -21,8 +21,8 @@ export class ResponseHelper {
             [GuardName.PROMPT_INJECTION.toString()]: this.getGuardValue.bind(this),
             [GuardName.JAIL_BREAK.toString()]: this.getGuardValue.bind(this),
             [GuardName.MALICIOUS_URL.toString()]: this.getGuardValue.bind(this),
-            [GuardName.TOXICITY.toString()]: this.getGuardValue.bind(this),
-            [GuardName.BIAS.toString()]: this.getGuardValue.bind(this),
+            [GuardName.TOXIC.toString()]: this.getGuardValue.bind(this),
+            [GuardName.BIASED.toString()]: this.getGuardValue.bind(this),
             [GuardName.HARMFUL_CONTENT.toString()]: this.getGuardValue.bind(this),
             [GuardName.LANGUAGE.toString()]: this.getLanguageValue.bind(this),
             [GuardName.PII_DETECTOR.toString()]: this.getTextDetections.bind(this),
@@ -90,8 +90,8 @@ export class ResponseHelper {
         _?: string
     ): ValueGetterResult {
         const isTopicGuard = [
-            GuardName.TOXICITY,
-            GuardName.BIAS,
+            GuardName.TOXIC,
+            GuardName.BIASED,
             GuardName.HARMFUL_CONTENT
         ].some(g => g.equals(guard.name));
 

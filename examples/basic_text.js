@@ -32,3 +32,25 @@ async function run() {
     }
 }
 run();
+
+async function run_config() {
+    const acuvity = new Acuvity(await discoverApex({
+        security: {
+            token: process.env.ACUVITY_TOKEN,
+        },
+    }));
+    console.log("acuvity", acuvity);
+    try {
+        const result = await acuvity.apex.scan({
+            messages: [
+                "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
+            ],
+            guardConfig: configPath,
+        });
+        console.log("result", JSON.stringify(result.matches(), null, 2));
+    }
+    catch (error) {
+        console.error("Error while scanning:", error.message || error);
+    }
+}
+run_config();

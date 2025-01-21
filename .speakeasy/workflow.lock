@@ -2,7 +2,7 @@ speakeasyVersion: 1.469.12
 sources:
     Acuvity-OAS:
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:b9af43994620dc8834bb23e7f98fac78ea9e05f3269133296bf0319d8a7af8df
+        sourceRevisionDigest: sha256:f40517971eb0d8f45bb279a9af88fed414b49fc88ff8830687c399455fc8e6cd
         sourceBlobDigest: sha256:b385e91e0858fc55af8c1907e20cb3153930b6e1fefbf46e7e1e250015891f7c
         tags:
             - latest
@@ -25,10 +25,10 @@ targets:
     typescript:
         source: Acuvity-OAS
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:b9af43994620dc8834bb23e7f98fac78ea9e05f3269133296bf0319d8a7af8df
+        sourceRevisionDigest: sha256:f40517971eb0d8f45bb279a9af88fed414b49fc88ff8830687c399455fc8e6cd
         sourceBlobDigest: sha256:b385e91e0858fc55af8c1907e20cb3153930b6e1fefbf46e7e1e250015891f7c
         codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:79aa7c535f2cf6ea9265c73b5dcaa37366905a6965a6f357993ff039c2f32f2f
+        codeSamplesRevisionDigest: sha256:1b65da91f184fa25b9659b5309325b9c4db2d6a84b8ec1ca0bf20a58383fa464
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

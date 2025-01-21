@@ -1,0 +1,11 @@
+guardrails:
+  - name: prompt_injection
+  - name: toxic
+  - name: jailbreak
+  - name: biased
+  - name: harmful
+  - name: modality
+  - name: language
+  - name: pii_detector
+  - name: secrets_detector
+  - name: malicious_url

@@ -238,9 +238,9 @@ describe('GuardConfig Array Tests', () => {
                 'phone': Match.create('>= 0.8', true)
             }),
             // Guard without matches
-            Guard.create(GuardName.TOXICITY),
+            Guard.create(GuardName.TOXIC),
             // Guard with custom threshold
-            Guard.create(GuardName.BIAS, {}, '>= 0.7')
+            Guard.create(GuardName.BIASED, {}, '>= 0.7')
         ];
 
         const config = new GuardConfig(guards);
@@ -260,17 +260,17 @@ describe('GuardConfig Array Tests', () => {
                 expect(piiGuard.matches['phone'].threshold.toString()).toBe('>= 0.8');
             }
         }
-        // Check toxicity guard
-        const toxicityGuard = parsedGuards[1];
-        if (toxicityGuard) {
-            expect(toxicityGuard.name).toBe(GuardName.TOXICITY);
-            expect(Object.keys(toxicityGuard.matches).length).toBe(0);
+        // Check toxic guard
+        const toxicGuard = parsedGuards[1];
+        if (toxicGuard) {
+            expect(toxicGuard.name).toBe(GuardName.TOXIC);
+            expect(Object.keys(toxicGuard.matches).length).toBe(0);
         }
 
-        // Check bias guard
+        // Check biased guard
         const biasGuard = parsedGuards[2];
         if (biasGuard) {
-            expect(biasGuard.name).toBe(GuardName.BIAS);
+            expect(biasGuard.name).toBe(GuardName.BIASED);
             expect(biasGuard.threshold.toString()).toBe('>= 0.7');
         }
     });
