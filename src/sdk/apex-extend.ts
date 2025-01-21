@@ -2,6 +2,7 @@ import { Apex } from "./apex.js";
 import * as components from "../models/components/index.js";
 import { GuardConfig } from "../guard/config.js";
 import { ScanResponseMatch } from "../response/match.js";
+import { GuardName } from "../guard/constants.js";
 
 // Extend the BaseClass type using declaration merging
 declare module "./apex.js" {
@@ -82,7 +83,7 @@ declare module "./apex.js" {
      *
      * NOTE: this call is cached for the lifetime of the SDK object.
      */
-    listAnalyzers(): Promise<components.Analyzer[]>;
+    listAvailableAnalyzers(): Promise<components.Analyzer[]>;
 
     /**
      * `listAnalyzerGroups()` returns a list of all available analyzer groups. These can be passed in a scan request
@@ -101,6 +102,20 @@ declare module "./apex.js" {
      * NOTE: this call is cached for the lifetime of the SDK object.
      */
     listAnalyzerNames(group?: string): Promise<string[]>;
+
+    /**
+     * `listAvailableGuards()` returns a list of all available guard names that can be used in the guard config.
+     */
+    listAvailableGuards(): Promise<string[]>;
+
+    /**
+     * listDetectableSecrets: Returns a list of all detectable secrets.
+     */
+    listDetectableSecrets(): Promise<string[]>;
+    /**
+     * listDetectablePIIs: Returns a list of all detectable Personally Identifiable Information (PIIs).
+     */
+    listDetectablePIIs(): Promise<string[]>;
   }
 }
 
@@ -230,7 +245,7 @@ async function readFileAndBase64Encode(filePath: string): Promise<string> {
   }
 }
 
-Apex.prototype.listAnalyzers = async function (): Promise<components.Analyzer[]> {
+Apex.prototype.listAvailableAnalyzers = async function (): Promise<components.Analyzer[]> {
   return (this._availableAnalyzers ??= await this.listAnalyzers());
 }
 
@@ -250,4 +265,45 @@ Apex.prototype.listAnalyzerGroups = async function (): Promise<string[]> {
     .filter((a) => a !== "")
     .filter((v, i, a) => a.indexOf(v) === i)
     .sort();
+}
+
+Apex.prototype.listAvailableGuards = async function (): Promise<string[]> {
+  return GuardName.values();
+}
+
+
+Apex.prototype.listDetectableSecrets = async function (): Promise<string[]> {
+  const detectableSecrets: string[] = [];
+
+  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
+
+  for (const analyzer of analyzers) {
+    if (analyzer.detectors) {
+      const secrets = analyzer.detectors
+        .filter((detector) => detector.group === "Secrets" && detector.name !== undefined)
+        .map((detector) => detector.name as string);
+      detectableSecrets.push(...secrets);
+    }
+  }
+
+  return detectableSecrets.sort();
+}
+
+
+Apex.prototype.listDetectablePIIs = async function (): Promise<string[]> {
+  const detectablePIIs: string[] = [];
+
+  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
+
+
+  for (const analyzer of analyzers) {
+    if (analyzer.detectors) {
+      const piis = analyzer.detectors
+        .filter((detector) => detector.group === "PIIs" && detector.name !== undefined)
+        .map((detector) => detector.name as string);
+      detectablePIIs.push(...piis);
+    }
+  }
+
+  return detectablePIIs.sort();
 }
