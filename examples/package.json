@@ -4,7 +4,7 @@
   "main": "basic_text.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node basic_file.js && node basic_text.js"
   },
   "keywords": [],
   "author": "",
