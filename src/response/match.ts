@@ -39,7 +39,15 @@ export class ScanResponseMatch {
     }
 
     // Overall match
-    public matches(fileIndex: number = -1, msgIndex: number = -1): Matches[] {
+
+    public matches(options: { fileIndex?: number; msgIndex?: number } = {}): Matches[] {
+        const { fileIndex = -1, msgIndex = -1 } = options;
+
+        if (this.numberOfFiles === 0 && fileIndex !== -1) {
+            throw new Error("cannot specify file index, as no files found in the scan request")
+        }
+
+
         const searchAtIndex = (idx: number): Matches => {
             if (idx >= 0 && idx < this.matchDetails.length) {
                 const match = this.matchDetails[idx];
