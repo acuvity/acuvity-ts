@@ -110,7 +110,6 @@ Apex.prototype.scan = async function ({
   files,
   requestType,
   annotations,
-  anonymization,
   redactions,
   keywords,
   guardConfig,
@@ -119,7 +118,6 @@ Apex.prototype.scan = async function ({
   files?: string | string[] | undefined,
   requestType?: components.Type | string | undefined,
   annotations?: { [k: string]: string } | undefined,
-  anonymization?: components.Anonymization | string | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
   guardConfig?: GuardConfig | undefined,
@@ -184,15 +182,6 @@ Apex.prototype.scan = async function ({
   }
 
   request.anonymization = components.Anonymization.FixedSize;
-  if (anonymization) {
-    if (typeof anonymization === "string") {
-      if (anonymization === "FixedSize" || anonymization === "VariableSize") {
-        request.anonymization = anonymization;
-      }
-    } else if (typeof anonymization === "object") {
-      request.anonymization = anonymization;
-    }
-  }
 
   if (redactions) {
     if (Array.isArray(redactions) && redactions.every((r) => typeof r === "string")) {
