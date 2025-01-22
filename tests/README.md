@@ -13,6 +13,8 @@ Ensure you have the following installed:
 
 ## Running Tests
 
+### NOTE: `Run all the npx commands from the root dir: acuivty-ts`.
+
 ### Direct CLI Commands
 
 1. Run all tests:
