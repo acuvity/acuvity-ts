@@ -158,6 +158,57 @@ guardrails:
         }
     });
 
+    test('should load valid PII YAML configuration', () => {
+        // Create test YAML content
+        const yamlContent = `
+guardrails:
+  - name: prompt_injection
+    threshold: ">= 0.5"
+  - name: pii_detector
+    count_threshold: 2
+    matches:
+        # example: Optional redact: true, default redact: False
+        email_address:
+            threshold: "0.5"
+            count_threshold: 1
+            redact: true
+        ssn:
+            threshold: "0.5"
+            count_threshold: 1
+            redact: true
+        person:
+            threshold: "0.5"
+            count_threshold: 2
+            redact: true
+`;
+        // Write YAML to temporary file
+        fs.writeFileSync(tempFilePath, yamlContent, 'utf8');
+
+        // Load configuration
+        const config = new GuardConfig(tempFilePath);
+        const guards = config.getParsedGuards;
+
+        // Verify configuration
+        expect(guards.length).toBe(2);
+
+        // Check PII detector guard
+        const piiGuard = guards[1];
+        if (piiGuard) {
+            expect(piiGuard.name).toBe(GuardName.PII_DETECTOR);
+            expect(piiGuard.countThreshold).toBe(2)
+            expect(Object.keys(piiGuard.matches).length).toBe(3);
+            if (piiGuard.matches['email']) {
+                expect(piiGuard.matches['email'].threshold.toString()).toBe('>= 0.5');
+            }
+            if (piiGuard.matches['ssn']) {
+                expect(piiGuard.matches['ssn'].threshold.toString()).toBe('>= 0.5');
+            }
+            if (piiGuard.matches['person']) {
+                expect(piiGuard.matches['person'].threshold.toString()).toBe('>= 0.5');
+            }
+        }
+    });
+
     test('should throw error for invalid YAML format', () => {
         // Create invalid YAML content
         const invalidYamlContent = `

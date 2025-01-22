@@ -1,12 +1,9 @@
 guardrails:
   - name: pii_detector
-    count_threshold: 2
+    count_threshold: 1
     matches:
       # example: Optional redact: true, default redact: False
       email_address:
-        threshold: "0.5"
-        count_threshold: 1
-        redact: true
       ssn:
         threshold: "0.5"
         count_threshold: 1

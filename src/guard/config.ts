@@ -191,19 +191,22 @@ export class GuardConfig {
 
     private parseMatch(matchKey: string, matchData: { [key: string]: any }): Match {
         let threshold = DEFAULT_THRESHOLD;
-        if ('threshold' in matchData) {
-            try {
-                threshold = new Threshold(matchData['threshold'] || '>= 0.0');
-            } catch (e) {
-                throw new GuardConfigValidationError(`Invalid threshold for match ${matchKey}`);
+        if (matchData) {
+            if (matchData['threshold']) {
+                try {
+                    threshold = new Threshold(matchData['threshold'] || '>= 0.0');
+                } catch (e) {
+                    throw new GuardConfigValidationError(`Invalid threshold for match ${matchKey}`);
+                }
             }
-        }
 
-        return Match.create(
-            threshold,
-            matchData['redact'] || false,
-            matchData['countThreshold'] || 0
-        );
+            return Match.create(
+                threshold,
+                matchData['redact'] || false,
+                matchData['count_threshold'] || 0
+            );
+        }
+        return Match.create()
     }
 
     get getMatchGuards(): Guard[] {
@@ -249,10 +252,9 @@ export class GuardConfig {
 
         // Parse top-level threshold
         let threshold = DEFAULT_THRESHOLD;
-        if ('threshold' in guard) {
+        if (guard['threshold'] !== undefined) {
             threshold = new Threshold(guard['threshold'] || '>= 0.0');
         }
-
         // Parse matches
         const matches: Record<string, Match> = {};
         if (guard['matches']) {
@@ -266,7 +268,7 @@ export class GuardConfig {
                 name,
                 matches,
                 threshold,
-                guard['countThreshold'] || 0
+                guard['count_threshold'] || 0
             );
         }
         throw new GuardConfigValidationError(`Invalid guard name: ${name}`);
