@@ -2,8 +2,6 @@ import { config } from "dotenv";
 import { Acuvity, discoverApex } from "@acuvity/acuvity";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
-import { Guard } from "@acuvity/acuvity";
-import { GuardName } from "@acuvity/acuvity";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 
