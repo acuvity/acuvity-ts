@@ -2,9 +2,11 @@ import { config } from "dotenv";
 import { Acuvity, discoverApex } from "@acuvity/acuvity";
 
 import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
+import { getFileURLImport } from "./utils.js";
 
-const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+// Get the current script directory
+const fileURLImport = await getFileURLImport();
+const SCRIPT_DIR = dirname(fileURLImport(import.meta.url))
 
 const filePath = resolve(SCRIPT_DIR, "test_data", "pi-test.txt");
 const configPath = resolve(SCRIPT_DIR, "configs", "simple_default_guard_config.yaml");
@@ -25,7 +27,8 @@ async function run() {
             messages: [
                 "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
             ],
-            files: filePath
+            files: filePath,
+            guardConfig: configPath,
         });
         console.log("result", JSON.stringify(result.matches(), null, 2));
     }

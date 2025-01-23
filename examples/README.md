@@ -2,6 +2,8 @@
 
 This folder contains example scripts to demonstrate the usage of the Acuvity SDK in TypeScript/JavaScript. These examples provide practical use cases and instructions for integrating and using the SDK in your projects.
 
+This example scripts have tested from 3 runtimes, Node, Bun, Deno.
+
 ---
 
 ## Files in this Folder
@@ -10,7 +12,6 @@ The JS script demonstrates:
 - How to load configurations and file paths dynamically.
 - How to initialize the Acuvity SDK and use it to run a scan on given messages or files.
 - How to handle responses from the scan and log them.
-- How to handle potential errors during the scanning process.
 
 ---
 
@@ -33,40 +34,33 @@ The JS script demonstrates:
 ## How to Run the Examples
 
 ### Node
-1. Install the required dependencies:
-   ```bash
-   npm install
-   ```
-2. Ensure your ACUVITY_TOKEN environment variable is set. You can do this by adding the following line to a .env file in your project root:
+
+1. Ensure your ACUVITY_TOKEN environment variable is set. You can do this by adding the following line to a .env file in your project root:
     ```bash
     export ACUVITY_TOKEN=<token>
     ```
-3. To fetch all the guard names, available PIIs, secrets, run the following:
+2. Run the all example:
+    ```bash
+     npm test
+    ```
+3. To fetch all the guard names, available PIIs, secrets, run the following, similarly you run individual files from examples:
     ```bash
     node basic_api.js
-    ```
-4. Run the files example:
-    ```bash
-     node basic_file.js
     ```
 
 ### bun
 
-1. Install the required dependencies:
-   ```bash
-   bun install
-   ```
-2. Ensure your ACUVITY_TOKEN environment variable is set. You can do this by adding the following line to a .env file in your project root:
+1. Ensure your ACUVITY_TOKEN environment variable is set. You can do this by adding the following line to a .env file in your project root:
     ```bash
     export ACUVITY_TOKEN=<token>
     ```
-3. To fetch all the guard names, available PIIs, secrets, run the following:
+2. Run the all example:
     ```bash
-    bun basic_api.js
+     npm run test_bun
     ```
-4. Run the files example:
+3. To fetch all the guard names, available PIIs, secrets, run the following, similarly you run individual files from examples:
     ```bash
-     bun basic_file.js
+     bun basic_api.js
     ```
 
 ### deno
@@ -75,7 +69,11 @@ The JS script demonstrates:
     ```bash
     export ACUVITY_TOKEN=<token>
     ```
-2. To fetch all the guard names, available PIIs, secrets, run the following:
+2. Run all examples:
     ```bash
-    deno run --allow-net --allow-read --allow-env --unstable-sloppy-imports deno_basic_file.js
+    deno task all
+    ```
+3. To fetch all the guard names, available PIIs, secrets, run the following, similarly you run individual files from examples:
+    ```bash
+     deno run --allow-net --allow-read --allow-env basic_api.js
     ```

@@ -20,5 +20,3 @@
 /examples/node_modules
 /coverage
 /bun.*
-/examples/bun.*
-/examples/deno.lock

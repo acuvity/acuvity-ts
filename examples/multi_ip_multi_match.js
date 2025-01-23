@@ -1,11 +1,13 @@
 import { config } from "dotenv";
 import { Acuvity, discoverApex } from "@acuvity/acuvity";
 import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
-import { Guard } from "@acuvity/acuvity";
 import { GuardName } from "@acuvity/acuvity";
 
-const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+import { getFileURLImport } from "./utils.js";
+
+// Get the current script directory
+const fileURLImport = await getFileURLImport();
+const SCRIPT_DIR = dirname(fileURLImport(import.meta.url))
 
 const filePath = resolve(SCRIPT_DIR, "test_data", "pi-test.txt");
 const configPath = resolve(SCRIPT_DIR, "configs", "simple_default_guard_config.yaml");

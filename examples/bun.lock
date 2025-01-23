@@ -1,0 +1,17 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "acuvity-ts-examples",
+      "dependencies": {
+        "@acuvity/acuvity": "link:@acuvity/acuvity",
+        "dotenv": "^16.4.7",
+      },
+    },
+  },
+  "packages": {
+    "@acuvity/acuvity": ["@acuvity/acuvity@link:@acuvity/acuvity", {}],
+
+    "dotenv": ["dotenv@16.4.7", "", {}, "sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ=="],
+  }
+}

@@ -1,6 +1,18 @@
 {
     "tasks": {
-        "deno_basic_file": "deno run --unstable-sloppy-imports --allow-net --allow-read --allow-env deno_basic_file.js",
-        "all": "deno task deno_basic_file"
+        "deno_basic_api": "deno run --allow-net --allow-read --allow-env basic_api.js",
+        "deno_basic_file": "deno run --allow-net --allow-read --allow-env basic_file.js",
+        "deno_basic_text": "deno run --allow-net --allow-read --allow-env basic_text.js",
+        "deno_pii": "deno run --allow-net --allow-read --allow-env pii_detailed.js",
+        "deno_prompt_injection": "deno run --allow-net --allow-read --allow-env prompt_injection.js",
+        "deno_multi": "deno run --allow-net --allow-read --allow-env multi_ip_multi_match.js",
+        "deno_gib": "deno run --allow-net --allow-read --allow-env gibberish_guard_obj.js",
+        "all": "deno task deno_basic_api && deno task deno_basic_file && deno task deno_basic_text && deno task deno_pii && deno task deno_prompt_injection && deno task deno_multi && deno task deno_gib"
+    },
+    "imports": {
+        "@acuvity/acuvity": "npm:@acuvity/acuvity",
+        "path": "jsr:@std/path@^1.0.8",
+        "url": "jsr:@std/path@^1.0.8",
+        "dotenv": "npm:dotenv"
     }
 }
