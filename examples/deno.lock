@@ -1,0 +1,84 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@std/path@^1.0.8": "1.0.8",
+    "npm:@acuvity/acuvity@*": "0.5.0_zod@3.24.1",
+    "npm:@acuvity/acuvity@0.5": "0.5.0_zod@3.24.1",
+    "npm:dotenv@*": "16.4.7",
+    "npm:dotenv@^16.4.7": "16.4.7"
+  },
+  "jsr": {
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    }
+  },
+  "npm": {
+    "@acuvity/acuvity@0.5.0_zod@3.24.1": {
+      "integrity": "sha512-5bmEz3M3JYjvnihFJYthxl6EaRjqPZ3rBv3FhOcCSAvkkVMUfFfF3YUk7y1A/j7pAfzZd6yNv4cySXWNRtB54Q==",
+      "dependencies": [
+        "jwt-decode",
+        "yaml",
+        "zod"
+      ]
+    },
+    "dotenv@16.4.7": {
+      "integrity": "sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ=="
+    },
+    "jwt-decode@4.0.0": {
+      "integrity": "sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA=="
+    },
+    "yaml@2.7.0": {
+      "integrity": "sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA=="
+    },
+    "zod@3.24.1": {
+      "integrity": "sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A=="
+    }
+  },
+  "redirects": {
+    "https://esm.sh/@acuvity/acuvity": "https://esm.sh/@acuvity/acuvity@0.4.0",
+    "https://esm.sh/jwt-decode@^4.0.0?target=denonext": "https://esm.sh/jwt-decode@4.0.0?target=denonext",
+    "https://esm.sh/zod@^3.24.1?target=denonext": "https://esm.sh/zod@3.24.1?target=denonext"
+  },
+  "remote": {
+    "https://deno.land/std@0.193.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
+    "https://deno.land/std@0.193.0/_util/os.ts": "d932f56d41e4f6a6093d56044e29ce637f8dcc43c5a90af43504a889cf1775e3",
+    "https://deno.land/std@0.193.0/collections/filter_values.ts": "5b9feaf17b9a6e5ffccdd36cf6f38fa4ffa94cff2602d381c2ad0c2a97929652",
+    "https://deno.land/std@0.193.0/collections/without_all.ts": "a89f5da0b5830defed4f59666e188df411d8fece35a5f6ca69be6ca71a95c185",
+    "https://deno.land/std@0.193.0/dotenv/mod.ts": "39e5d19e077e55d7e01ea600eb1c6d1e18a8dfdfc65d68826257a576788da3a4",
+    "https://deno.land/std@0.193.0/path/_constants.ts": "e49961f6f4f48039c0dfed3c3f93e963ca3d92791c9d478ac5b43183413136e0",
+    "https://deno.land/std@0.193.0/path/_interface.ts": "6471159dfbbc357e03882c2266d21ef9afdb1e4aa771b0545e90db58a0ba314b",
+    "https://deno.land/std@0.193.0/path/_util.ts": "d7abb1e0dea065f427b89156e28cdeb32b045870acdf865833ba808a73b576d0",
+    "https://deno.land/std@0.193.0/path/common.ts": "ee7505ab01fd22de3963b64e46cff31f40de34f9f8de1fff6a1bd2fe79380000",
+    "https://deno.land/std@0.193.0/path/glob.ts": "d479e0a695621c94d3fd7fe7abd4f9499caf32a8de13f25073451c6ef420a4e1",
+    "https://deno.land/std@0.193.0/path/mod.ts": "f065032a7189404fdac3ad1a1551a9ac84751d2f25c431e101787846c86c79ef",
+    "https://deno.land/std@0.193.0/path/posix.ts": "8b7c67ac338714b30c816079303d0285dd24af6b284f7ad63da5b27372a2c94d",
+    "https://deno.land/std@0.193.0/path/separator.ts": "0fb679739d0d1d7bf45b68dacfb4ec7563597a902edbaf3c59b50d5bcadd93b1",
+    "https://deno.land/std@0.193.0/path/win32.ts": "d186344e5583bcbf8b18af416d13d82b35a317116e6460a5a3953508c3de5bba",
+    "https://esm.sh/@acuvity/acuvity@0.4.0": "5a74b4a069f2bf60c824857fe709c84acb23421b1a6be76a0b5bcb2734728dec",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/acuvity.mjs": "fa30b3d7f9af7dd5df89c6aea98c8cc1145c8f4556a945efcab1afc6637dc65f",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/dist/esm/lib/schemas.mjs": "2fdec188857c921e710b0b313867d2f7c5ff578ce06cae168f9d2ba26ef89a64",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/dist/esm/models/errors/apierror.mjs": "848a538180d54f265b80f68ace63f378ef7d8628217880c47824f2e0f300bed4",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/dist/esm/models/errors/httpclienterrors.mjs": "50e13914ef1dad8e3481305637a503fe2daaf74f4cc03c09313918a87232f707",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/dist/esm/models/errors/sdkvalidationerror.mjs": "d9a72e828058c19de9782f3e158a75e2825f46227b5f3897796da69df8398f5d",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/dist/esm/types/fp.mjs": "051416387fe0bf9681e4e2d19665443c1f0e9bd08df1829607ebc5cc437e45b4",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/models/components.mjs": "1ae6fba640dfc71ec8648fdbdb2f16324c072c65d17172db5274aed54f700f67",
+    "https://esm.sh/@acuvity/acuvity@0.4.0/denonext/models/errors.mjs": "b39ccf9fe7955308d74e062fd79843123c915c312de0fb10a6cfa260ed5d384e",
+    "https://esm.sh/jwt-decode@4.0.0/denonext/jwt-decode.mjs": "28e66aac193162dfe94f01047badfa3a25c8627739f3bcef48dbca15e18ddbc8",
+    "https://esm.sh/jwt-decode@4.0.0?target=denonext": "894ef5eb71557cf0d0975ec191d5f464ce42993b88784b2d1b76fa4e3772d04e",
+    "https://esm.sh/zod@3.24.1/denonext/zod.mjs": "32cf72ac44d794592028cb8e423d1f0c80525c49acf01f702c7dc6195b94eda3",
+    "https://esm.sh/zod@3.24.1?target=denonext": "d8f5c6cf2c4ed543003211dcd9278e94544788f5cb36549ee0490dd27238fe82"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/path@^1.0.8",
+      "npm:@acuvity/acuvity@*",
+      "npm:dotenv@*"
+    ],
+    "packageJson": {
+      "dependencies": [
+        "npm:@acuvity/acuvity@0.5",
+        "npm:dotenv@^16.4.7"
+      ]
+    }
+  }
+}

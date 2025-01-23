@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { AcuvityCore } from "../core.js";
 import * as M from "../lib/matchers.js";
+import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -31,6 +32,7 @@ export async function apexListAnalyzers(
   Result<
     Array<components.Analyzer>,
     | errors.Elementalerror
+    | errors.Elementalerror
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -42,9 +44,9 @@ export async function apexListAnalyzers(
 > {
   const path = pathToFunc("/_acuvity/analyzers")();
 
-  const headers = new Headers({
+  const headers = new Headers(compactMap({
     Accept: "application/json",
-  });
+  }));
 
   const securityInput = await extractSecurity(client._options.security);
   const requestSecurity = resolveGlobalSecurity(securityInput);
@@ -104,6 +106,7 @@ export async function apexListAnalyzers(
   const [result] = await M.match<
     Array<components.Analyzer>,
     | errors.Elementalerror
+    | errors.Elementalerror
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -113,8 +116,10 @@ export async function apexListAnalyzers(
     | ConnectionError
   >(
     M.json(200, z.array(components.Analyzer$inboundSchema)),
-    M.jsonErr([400, 401, 500], errors.Elementalerror$inboundSchema),
-    M.fail(["4XX", "5XX"]),
+    M.jsonErr([400, 401], errors.Elementalerror$inboundSchema),
+    M.jsonErr(500, errors.Elementalerror$inboundSchema),
+    M.fail("4XX"),
+    M.fail("5XX"),
   )(response, { extraFields: responseFields });
   if (!result.ok) {
     return result;

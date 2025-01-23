@@ -1,0 +1,53 @@
+guardrails:
+  - name: prompt_injection
+    threshold: ">= 0.7"
+  - name: toxic
+    threshold: "0.7"
+  - name: gibberish
+    threshold: ">= 0.8"
+  - name: jailbreak
+    threshold: ">= 1.0"
+  - name: biased
+    threshold: "0.8"
+  - name: harmful
+    threshold: ">= 0.9"
+  - name: modality
+    matches:
+      unknown:
+        threshold: "0.7"
+      document:
+        threshold: "0.7"
+      executable:
+        threshold: "0.7"
+      application:
+        threshold: "0.7"
+      code:
+        threshold: "0.7"
+      image:
+        threshold: "0.7"
+      archive:
+        threshold: "0.7"
+      text:
+        threshold: "0.7"
+      audio:
+        threshold: "0.7"
+      video:
+        threshold: "0.7"
+  - name: language
+    matches:
+      gibberish:
+        threshold: "0.5"
+      english:
+        threshold: "0.7"
+      french:
+        threshold: "0.5"
+      spanish:
+        threshold: "0.6"
+      german:
+        threshold: "0.6"
+      russian:
+        threshold: "0.6"
+      chinese:
+        threshold: "0.6"
+      japanese:
+        threshold: "0.6"

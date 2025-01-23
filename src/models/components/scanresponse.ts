@@ -36,7 +36,7 @@ import {
 /**
  * Tell what was the decision about the data.
  */
-export const ScanresponseDecision = {
+export const Decision = {
   Deny: "Deny",
   Allow: "Allow",
   Ask: "Ask",
@@ -46,7 +46,7 @@ export const ScanresponseDecision = {
 /**
  * Tell what was the decision about the data.
  */
-export type ScanresponseDecision = ClosedEnum<typeof ScanresponseDecision>;
+export type Decision = ClosedEnum<typeof Decision>;
 
 /**
  * The type of text.
@@ -87,7 +87,7 @@ export type Scanresponse = {
   /**
    * Tell what was the decision about the data.
    */
-  decision?: ScanresponseDecision | undefined;
+  decision?: Decision | undefined;
   /**
    * The extractions to log.
    */
@@ -131,24 +131,22 @@ export type Scanresponse = {
 };
 
 /** @internal */
-export const ScanresponseDecision$inboundSchema: z.ZodNativeEnum<
-  typeof ScanresponseDecision
-> = z.nativeEnum(ScanresponseDecision);
+export const Decision$inboundSchema: z.ZodNativeEnum<typeof Decision> = z
+  .nativeEnum(Decision);
 
 /** @internal */
-export const ScanresponseDecision$outboundSchema: z.ZodNativeEnum<
-  typeof ScanresponseDecision
-> = ScanresponseDecision$inboundSchema;
+export const Decision$outboundSchema: z.ZodNativeEnum<typeof Decision> =
+  Decision$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScanresponseDecision$ {
-  /** @deprecated use `ScanresponseDecision$inboundSchema` instead. */
-  export const inboundSchema = ScanresponseDecision$inboundSchema;
-  /** @deprecated use `ScanresponseDecision$outboundSchema` instead. */
-  export const outboundSchema = ScanresponseDecision$outboundSchema;
+export namespace Decision$ {
+  /** @deprecated use `Decision$inboundSchema` instead. */
+  export const inboundSchema = Decision$inboundSchema;
+  /** @deprecated use `Decision$outboundSchema` instead. */
+  export const outboundSchema = Decision$outboundSchema;
 }
 
 /** @internal */
@@ -183,7 +181,7 @@ export const Scanresponse$inboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   client: z.string().optional(),
   clientVersion: z.string().optional(),
-  decision: ScanresponseDecision$inboundSchema.optional(),
+  decision: Decision$inboundSchema.optional(),
   extractions: z.array(Extraction$inboundSchema).optional(),
   hash: z.string().optional(),
   latency: Latency$inboundSchema.optional(),
@@ -232,7 +230,7 @@ export const Scanresponse$outboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   client: z.string().optional(),
   clientVersion: z.string().optional(),
-  decision: ScanresponseDecision$outboundSchema.optional(),
+  decision: Decision$outboundSchema.optional(),
   extractions: z.array(Extraction$outboundSchema).optional(),
   hash: z.string().optional(),
   latency: Latency$outboundSchema.optional(),

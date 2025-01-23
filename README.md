@@ -131,6 +131,213 @@ run();
 ```
 
 **NOTE:** If you simply want to get a list of analyzer names or groups that can be used in the scan API, use `listAnalyzerNames()` or `listAnalyzerGroups()` instead.
+
+### Guard config
+
+The SDK provides a guard config through which the user can input the guard checks for a particular prompts.
+
+If no guard config is provided then by default all the guards will be run.
+
+example:
+```yaml
+guardrails:
+  - name: prompt_injection
+    threshold: ">= 0.7"
+  - name: toxic
+    threshold: "0.7"
+  - name: gibberish
+    threshold: ">= 0.8"
+  - name: jailbreak
+    threshold: ">= 1.0"
+  - name: biased
+    threshold: "0.8"
+  - name: harmful
+```
+If no threshold is given then by default its 0.
+
+Use the above guard_config to be passed in the scan request as below:
+
+```typescript
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+
+const filePath = resolve(SCRIPT_DIR, "test_data", "pi-test.txt");
+
+const result = await acuvity.apex.scan({
+            messages: [
+                "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
+            ],
+            files: filePath
+        });
+console.log("result", JSON.stringify(result.matches(), null, 2));
+```
+
+#### Evaluate the scan response as per the guard config.
+
+Once the prompt with the guard config is passed to the SDK, the scan response will have the evaluation/match
+of the request prompt with respect to the guard config.
+It will show all the guards that we matched on the corresponding input.
+
+```typescript
+
+const result = await acuvity.apex.scan({
+            messages: [
+                "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
+            ],
+        });
+console.log("result", JSON.stringify(result.matches()));
+```
+
+The output of the above would be a list of guard matches with a match as YES or NO.
+
+```json
+[
+  {
+    "inputData": "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
+    "responseMatch": "YES",
+    "matchedChecks": [
+      {
+        "responseMatch": "YES",
+        "guardName": {
+          "value": "modality"
+        },
+        "threshold": ">= 0",
+        "actualValue": 1,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "YES",
+        "guardName": {
+          "value": "pii_detector"
+        },
+        "threshold": ">= 0",
+        "actualValue": 1,
+        "matchCount": 3
+      }
+    ],
+    "allChecks": [
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "prompt_injection"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "jailbreak"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "malicious_url"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "toxic"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "biased"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "harmful"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "language"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "YES",
+        "guardName": {
+          "value": "modality"
+        },
+        "threshold": ">= 0",
+        "actualValue": 1,
+        "matchCount": 0
+      },
+      {
+        "responseMatch": "YES",
+        "guardName": {
+          "value": "pii_detector"
+        },
+        "threshold": ">= 0",
+        "actualValue": 1,
+        "matchCount": 3
+      },
+      {
+        "responseMatch": "NO",
+        "guardName": {
+          "value": "secrets_detector"
+        },
+        "threshold": ">= 0",
+        "actualValue": 0,
+        "matchCount": 0
+      }
+    ]
+  }
+]
+```
+
+### List all available guards, secrets and piis
+
+Now you can list all available analyzers that can be used in the Scan API.
+
+```typescript
+import { Acuvity, discoverApex } from "@acuvity/acuvity";
+
+async function run() {
+  const acuvity = new Acuvity(await discoverApex({
+    security: {
+      token: process.env.ACUVITY_TOKEN,
+    },
+  }));
+
+  const guardNames = await acuvity.apex.listAvailableGuards()
+  console.log("\n guardnames: ", guardNames)
+  const secretsNames = await acuvity.apex.listDetectableSecrets()
+  console.log("\n secrets: ", secretsNames)
+  const piisNames = await acuvity.apex.listDetectablePIIs()
+  console.log("\n PIIs: ", secretsNames)
+}
+
+run();
+
+```
+
+
+
 <!-- No SDK Example Usage [usage] -->
 
 <!-- Start Available Resources and Operations [operations] -->
@@ -143,7 +350,6 @@ run();
 ### [apex](docs/sdks/apex/README.md)
 
 * [listAnalyzers](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
-* [policeRequest](docs/sdks/apex/README.md#policerequest) - Processes the scan and police request.
 * [scanRequest](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
@@ -165,7 +371,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`apexListAnalyzers`](docs/sdks/apex/README.md#listanalyzers) - List of all available analyzers.
-- [`apexPoliceRequest`](docs/sdks/apex/README.md#policerequest) - Processes the scan and police request.
 - [`apexScanRequest`](docs/sdks/apex/README.md#scanrequest) - Processes the scan request.
 
 </details>
@@ -458,5 +663,5 @@ looking for the latest version.
 
 ## Contributions
 
-While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
-We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
+While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation.
+We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release.

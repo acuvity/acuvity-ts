@@ -1,0 +1,208 @@
+guardrails:
+  # This guard denies access if the prompt injection threshold is crossed in the scan response.
+  # Found in the 'exploits' field of the response.
+  - name: prompt_injection
+    threshold: ">= 0.7"
+
+  # This guard denies access if the toxic threshold is crossed in the scan response.
+  # Similar to prompt injection, found in the 'topics' field of the response.
+  - name: toxic
+    threshold: "0.7"
+
+  # This guard denies access if the gibberish threshold is crossed in the scan response.
+  # Similar to prompt injection, found in the ‘language’ field of the response.
+  - name: gibberish
+    threshold: ">= 0.8"
+
+  # This guard denies access if the jail break threshold is crossed in the scan response.
+  # Similar to prompt injection, found in the 'exploits' field of the response.
+  - name: jailbreak
+    threshold: ">= 1.0"
+
+  # This guard denies access if the biased threshold is crossed in the scan response.
+  # Similar to prompt injection, found in the 'topics' field of the response.
+  - name: biased
+    threshold: "0.8"
+
+  # This guard denies access if the harmful content threshold is crossed in the scan response.
+  # Similar to prompt injection, found in the 'topics' field of the response with content prefix.
+  - name: harmful_content
+    threshold: ">= 0.9"
+
+  # This guard logs and allows the request, identifying modality types from the scan response.
+  # Found in the 'categories' or 'modalities' fields of the response.
+  - name: modality
+    matches:
+      unknown:
+        threshold: "0.7"
+      document:
+        threshold: "0.7"
+      executable:
+        threshold: "0.7"
+      application:
+        threshold: "0.7"
+      code:
+        threshold: "0.7"
+      image:
+        threshold: "0.7"
+      archive:
+        threshold: "0.7"
+      text:
+        threshold: "0.7"
+      audio:
+        threshold: "0.7"
+      video:
+        threshold: "0.7"
+
+  # This guard denies access if the language-specific thresholds are crossed in the scan response.
+  # Found in the 'languages' field of the response.
+  - name: language
+    matches:
+      gibberish:
+        threshold: "0.5"
+      english:
+        threshold: "0.7"
+      french:
+        threshold: "0.5"
+      spanish:
+        threshold: "0.6"
+      german:
+        threshold: "0.6"
+      russian:
+        threshold: "0.6"
+      chinese:
+        threshold: "0.6"
+      japanese:
+        threshold: "0.6"
+
+  # This guard logs and allows requests while redacting detected Personally Identifiable Information (PII).
+  # Found in the 'pi_is' or 'detections' fields of the response.
+  - name: pii_detector
+    matches:
+      # example: Optional redact: true, default redact: False
+      email_address:
+        redact: true
+      ssn:
+        redact: true
+      person:
+        redact: true
+      # all possible PIIs (redact default False)
+      aba_routing_number:
+      address:
+      bank_account:
+      bitcoin_wallet:
+      credit_card:
+      driver_license:
+      itin_number:
+      location:
+      medical_license:
+      money_amount:
+      passport_number:
+      phone_number:
+
+  - name: secrets_detector
+    matches:
+      # example Optional redact: true, default redact: False
+      email_address:
+        redact: true
+      ssn:
+        redact: true
+      person:
+        redact: true
+      # all possible secrets (redact default False)
+      adafruit:
+      alibaba:
+      anthropic:
+      apideck:
+      apify:
+      atlassian:
+      aws_secret_key:
+      buildkite:
+      checkout:
+      clickuppersonal:
+      contentfulpersonalaccess:
+      credentials:
+      database_url_with_credentials:
+      databricks:
+      denodeploy:
+      dfuse:
+      digitalocean:
+      discord_webhook:
+      docker_hub:
+      doppler:
+      dropbox:
+      endorlabs:
+      fleetbase:
+      flutterwave:
+      frameio:
+      freshdesk:
+      fullstory:
+      github:
+      gitlab:
+      gocardless:
+      google_api:
+      grafana:
+      groq:
+      huggingface:
+      intra42:
+      jwt:
+      klaviyo:
+      launchdarkly:
+      linearapi:
+      locationiq:
+      mailchimp:
+      mailgun:
+      mapbox:
+      maxmind:
+      microsoft_teams_webhook:
+      nightfall:
+      notion:
+      npm:
+      openai:
+      pagarme:
+      paystack:
+      planetscale:
+      planetscaledb:
+      portainer:
+      posthog:
+      postman:
+      prefect:
+      private_key:
+      pubnub_publish:
+      pubnub_subscribe:
+      pulumi:
+      ramp:
+      razorpay:
+      readme:
+      rechargepayments:
+      replicate:
+      rubygems:
+      salesforce:
+      sendgrid:
+      sendinblue:
+      shopify:
+      slack_access:
+      slack_bot:
+      slack_refresh:
+      slack_user:
+      slack_webhook:
+      slack_workflow_webhook:
+      sourcegraph:
+      sourcegraphcody:
+      squareapp:
+      squareup:
+      stripe:
+      supabase:
+      tailscale:
+      tines_webhook:
+      trufflehog:
+      twilio:
+      ubidots:
+      voiceflow:
+      web_url_with_credentials:
+      zapierwebhook:
+
+  # This guard denies access if the malicious URL threshold is crossed in the scan response.
+  # Found in the 'exploits' field of the response.
+  - name: malicious_url
+    threshold: "0.9"
