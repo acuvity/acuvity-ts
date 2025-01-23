@@ -35,20 +35,14 @@ jobs:
         run: |
           npm link
 
-      - name: Debug file structure
-        run: ls -R
-        
       - name: test
         run: |
           echo "Running all tests ..."
           npx jest --debug
 
-      - name: Install
+      - name: Run examples
         run: |
           cd examples
           npm link @acuvity/acuvity
-
-      - name: Run examples
-        run: |
           echo "Running all examples ..."
           ./run.sh
