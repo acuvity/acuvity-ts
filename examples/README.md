@@ -20,13 +20,19 @@ The JS script demonstrates:
 ### Node
 - The Acuvity SDK installed via npm in the project:
   ```bash
-  npm install @acuvity/acuvity
+  npm install
     ```
 
 ### bun
 - The Acuvity SDK installed via bun in the project:
   ```bash
-  bun install @acuvity/acuvity
+  bun install
+    ```
+
+### bun
+- The Acuvity SDK installed via bun in the project:
+  ```bash
+  deno install
     ```
 
 ---
