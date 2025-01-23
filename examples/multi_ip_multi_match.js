@@ -34,10 +34,10 @@ async function run_config() {
             ],
             guardConfig: configPath,
         });
-        console.log("simple result", JSON.stringify(result.matches(), null, 2));
-        console.log("msg ndex result", JSON.stringify(result.matches({ msgIndex: 1 }), null, 2));
-        console.log("file index result", JSON.stringify(result.matches({ fileIndex: 0 }), null, 2));
-        console.log("individual check", JSON.stringify(result.guardMatch(GuardName.BIASED)));
+        console.log("simple result\n", JSON.stringify(result.matches(), null, 2));
+        console.log("msg ndex result\n", JSON.stringify(result.matches({ msgIndex: 1 }), null, 2));
+        console.log("file index result\n", JSON.stringify(result.matches({ fileIndex: 0 }), null, 2));
+        console.log("individual check\n", JSON.stringify(result.guardMatch(GuardName.BIASED)));
     }
     catch (error) {
         console.error("Error while scanning:", error.message || error);

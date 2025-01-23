@@ -24,11 +24,11 @@ async function run() {
     console.log("acuvity", acuvity);
     try {
         const guardNames = await acuvity.apex.listAvailableGuards()
-        console.log("\n acuvity guardnames: ", guardNames)
+        console.log("\n acuvity guardnames: \n", guardNames)
         const secretsNames = await acuvity.apex.listDetectableSecrets()
-        console.log("\n acuvity secrets: ", secretsNames)
+        console.log("\n acuvity secrets: \n", secretsNames)
         const piisNames = await acuvity.apex.listDetectablePIIs()
-        console.log("\n acuvity piis: ", piisNames)
+        console.log("\n acuvity piis: \n", piisNames)
     }
     catch (error) {
         console.error("Error while scanning:", error.message || error);

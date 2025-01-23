@@ -191,7 +191,7 @@ The output of the above would be a list of guard matches with a match as YES or 
 
 ```json
 [
-{
+  {
     "inputData": "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
     "responseMatch": "YES",
     "matchedChecks": [

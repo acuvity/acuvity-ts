@@ -30,7 +30,7 @@ async function run() {
             files: filePath,
             guardConfig: configPath,
         });
-        console.log("result", JSON.stringify(result.matches(), null, 2));
+        console.log("result\n", JSON.stringify(result.matches(), null, 2));
     }
     catch (error) {
         console.error("Error while scanning:", error.message || error);

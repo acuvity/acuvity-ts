@@ -18,7 +18,7 @@ async function run() {
             ],
             guardConfig: [Guard.create(GuardName.LANGUAGE)],
         });
-        console.log("result", JSON.stringify(result.matches(), null, 2));
+        console.log("result\n", JSON.stringify(result.matches(), null, 2));
     }
     catch (error) {
         console.error("Error while scanning:", error.message || error);
