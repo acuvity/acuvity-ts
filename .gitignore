@@ -21,4 +21,4 @@
 /coverage
 /bun.*
 /examples/bun.*
-/examples/deno.*
+/examples/deno.lock

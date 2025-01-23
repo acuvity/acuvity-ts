@@ -1,0 +1,6 @@
+{
+    "tasks": {
+        "deno_basic_file": "deno run --unstable-sloppy-imports --allow-net --allow-read --allow-env deno_basic_file.js",
+        "all": "deno task deno_basic_file"
+    }
+}
