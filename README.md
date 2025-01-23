@@ -133,6 +133,7 @@ run();
 **NOTE:** If you simply want to get a list of analyzer names or groups that can be used in the scan API, use `listAnalyzerNames()` or `listAnalyzerGroups()` instead.
 
 ### Guard config
+
 The SDK provides a guard config through which the user can input the guard checks for a particular prompts.
 
 If no guard config is provided then by default all the guards will be run.
@@ -189,7 +190,7 @@ console.log("result", JSON.stringify(result.matches()));
 The output of the above would be a list of guard matches with a match as YES or NO.
 
 ```json
-result [
+[
 {
     "inputData": "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
     "responseMatch": "YES",
