@@ -2,8 +2,8 @@
   "version": "4",
   "specifiers": {
     "jsr:@std/path@^1.0.8": "1.0.8",
-    "npm:@acuvity/acuvity@*": "0.4.0_zod@3.24.1",
-    "npm:@acuvity/acuvity@0.4": "0.4.0_zod@3.24.1",
+    "npm:@acuvity/acuvity@*": "0.5.0_zod@3.24.1",
+    "npm:@acuvity/acuvity@0.5": "0.5.0_zod@3.24.1",
     "npm:dotenv@*": "16.4.7",
     "npm:dotenv@^16.4.7": "16.4.7"
   },
@@ -13,10 +13,11 @@
     }
   },
   "npm": {
-    "@acuvity/acuvity@0.4.0_zod@3.24.1": {
-      "integrity": "sha512-q47+A4BJNbhhha5/NP5iiwA5DXxrtFRzEZMSx1CbO9Io94XU9K+d1vZLVRTiB+PXVsnjWlghqZH1MtmepJqqbA==",
+    "@acuvity/acuvity@0.5.0_zod@3.24.1": {
+      "integrity": "sha512-5bmEz3M3JYjvnihFJYthxl6EaRjqPZ3rBv3FhOcCSAvkkVMUfFfF3YUk7y1A/j7pAfzZd6yNv4cySXWNRtB54Q==",
       "dependencies": [
         "jwt-decode",
+        "yaml",
         "zod"
       ]
     },
@@ -25,6 +26,9 @@
     },
     "jwt-decode@4.0.0": {
       "integrity": "sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA=="
+    },
+    "yaml@2.7.0": {
+      "integrity": "sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA=="
     },
     "zod@3.24.1": {
       "integrity": "sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A=="
@@ -72,7 +76,7 @@
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@acuvity/acuvity@0.4",
+        "npm:@acuvity/acuvity@0.5",
         "npm:dotenv@^16.4.7"
       ]
     }
