@@ -2,13 +2,6 @@
   "name": "@acuvity/acuvity",
   "version": "0.5.0",
   "author": "Acuvity, Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acuvity/acuvity-ts.git"
-  },
-  "bugs": {
-    "url": "https://github.com/acuvity/acuvity-ts/issues"
-  },
   "description": "The official Acuvity TypeScript SDK",
   "homepage": "https://acuvity.ai/",
   "keywords": [
@@ -22,6 +15,13 @@
     "nodejs"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acuvity/acuvity-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acuvity/acuvity-ts/issues"
+  },
   "type": "module",
   "tshy": {
     "sourceDialects": [

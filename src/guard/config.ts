@@ -1,8 +1,6 @@
 import { DEFAULT_THRESHOLD, Threshold } from './threshold.js'
 import { GuardName } from "./constants.js";
 import { GuardConfigValidationError, GuardConfigError } from "./errors.js";
-import fs from 'fs';
-import * as YAML from 'yaml';
 
 export class Match {
     readonly threshold: Threshold;
@@ -113,12 +111,26 @@ export class GuardConfig {
         this.parseConfig(config);
     }
 
-    private static loadYaml(path: string): { [key: string]: any } {
+    private static async loadYaml(path: string): Promise<{ [key: string]: any }> {
         try {
-            const fileContent = fs.readFileSync(path, 'utf8');
-            return YAML.parse(fileContent);
+            let fileContent: string;
+
+            if (typeof Deno !== "undefined") {
+                // Deno environment
+                const decoder = new TextDecoder("utf-8");
+                const data = await Deno.readFile(path);
+                fileContent = decoder.decode(data);
+            } else {
+                // Node.js environment
+                const { readFileSync } = await import("fs");
+                fileContent = readFileSync(path, "utf8");
+            }
+
+            // Parse YAML content dynamically
+            const { parse } = await import("yaml");
+            return parse(fileContent);
         } catch (e) {
-            throw new GuardConfigError(`Failed to load config file: ${e}`);
+            throw new Error(`Failed to load config file: ${e}`);
         }
     }
 

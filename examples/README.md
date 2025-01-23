@@ -44,6 +44,10 @@ The JS script demonstrates:
   bun link @acuvity/acuvity
   ```
 
+### deno
+  ```bash
+  curl -fsSL https://deno.land/install.sh | bash
+  ```
 ---
 
 ## How to Run the Examples
@@ -83,4 +87,15 @@ The JS script demonstrates:
 4. Run the files example:
     ```bash
      bun basic_file.js
+    ```
+
+### deno
+
+1. Ensure your ACUVITY_TOKEN environment variable is set. You can do this by adding the following line to a .env file in your project root:
+    ```bash
+    export ACUVITY_TOKEN=<token>
+    ```
+2. To fetch all the guard names, available PIIs, secrets, run the following:
+    ```bash
+    deno run --unstable --allow-net --allow-read --allow-env --unstable-sloppy-imports deno_basic_file.js
     ```
