@@ -1,9 +1,9 @@
-speakeasyVersion: 1.466.1
+speakeasyVersion: 1.473.0
 sources:
     Acuvity-OAS:
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:3830341969da97cbc4f3bb8bfdc9db0365932fac4a43dad4193e5958888ca2f6
-        sourceBlobDigest: sha256:27a806e25f5634135bf8120f42952b8dfe2d3f48f9001ac9571d648690863aea
+        sourceRevisionDigest: sha256:4246ca56c35bd528971b22bab92ac318746c8ca88acb12ee65e7486b2c54b321
+        sourceBlobDigest: sha256:b385e91e0858fc55af8c1907e20cb3153930b6e1fefbf46e7e1e250015891f7c
         tags:
             - latest
             - "1.0"
@@ -25,10 +25,10 @@ targets:
     typescript:
         source: Acuvity-OAS
         sourceNamespace: acuvity-oas
-        sourceRevisionDigest: sha256:3830341969da97cbc4f3bb8bfdc9db0365932fac4a43dad4193e5958888ca2f6
-        sourceBlobDigest: sha256:27a806e25f5634135bf8120f42952b8dfe2d3f48f9001ac9571d648690863aea
+        sourceRevisionDigest: sha256:4246ca56c35bd528971b22bab92ac318746c8ca88acb12ee65e7486b2c54b321
+        sourceBlobDigest: sha256:b385e91e0858fc55af8c1907e20cb3153930b6e1fefbf46e7e1e250015891f7c
         codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:4315e3468107d17fb303f0e81fa726f89a5c559c03e8317c8dc747e75de62f61
+        codeSamplesRevisionDigest: sha256:b3689a2b5878570554b371ade8bd769b75ce9e0692cdf510ecdbed8d06f4d083
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
