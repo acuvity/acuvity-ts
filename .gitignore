@@ -19,3 +19,5 @@
 /__tests__
 /examples/node_modules
 /coverage
+/bun.*
+/examples/bun.*
