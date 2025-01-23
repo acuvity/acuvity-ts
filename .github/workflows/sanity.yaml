@@ -1,0 +1,50 @@
+# This runs on
+# - Push to main
+# - PRs
+name: test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  ACUVITY_TOKEN: ${{ secrets.ACUVITY_TOKEN }}
+
+jobs:
+  sanity:
+    name: Sanity
+    runs-on: ubuntu-latest
+    concurrency:
+      group: matrix-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          npm run build
+
+      - name: Link
+        run: |
+          npm link
+
+      - name: test
+        run: |
+          echo "Running all tests ..."
+          npx jest
+
+      - name: Install
+        run: |
+          cd examples
+          npm link @acuvity/acuvity
+
+      - name: Run examples
+        run: |
+          echo "Running all examples ..."
+          ./run.sh
