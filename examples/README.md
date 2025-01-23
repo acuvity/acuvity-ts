@@ -17,37 +17,17 @@ The JS script demonstrates:
 ## Prerequisites
 
 ### Node
-- Node.js installed (v16+ recommended).
 - The Acuvity SDK installed via npm in the project:
   ```bash
   npm install @acuvity/acuvity
     ```
 
 ### bun
-- bun installed
 - The Acuvity SDK installed via bun in the project:
   ```bash
   bun install @acuvity/acuvity
     ```
 
----
-
-## For local development, after build the local acuvity package.
-
-### Node
-  ```bash
-  npm link @acuvity/acuvity
-  ```
-
-### bun
-  ```bash
-  bun link @acuvity/acuvity
-  ```
-
-### deno
-  ```bash
-  curl -fsSL https://deno.land/install.sh | bash
-  ```
 ---
 
 ## How to Run the Examples
@@ -97,5 +77,5 @@ The JS script demonstrates:
     ```
 2. To fetch all the guard names, available PIIs, secrets, run the following:
     ```bash
-    deno run --unstable --allow-net --allow-read --allow-env --unstable-sloppy-imports deno_basic_file.js
+    deno run --allow-net --allow-read --allow-env --unstable-sloppy-imports deno_basic_file.js
     ```

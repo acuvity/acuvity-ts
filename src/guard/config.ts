@@ -92,12 +92,16 @@ export class Guard {
 export class GuardConfig {
     private parsedGuards: Guard[] = [];
 
-    constructor(config?: string | { [key: string]: any } | Guard[]) {
+    private constructor() { }
+
+    static async create(config?: string | { [key: string]: any } | Guard[]): Promise<GuardConfig> {
+        const instance = new GuardConfig();
+
         if (!config) {
             // Handle default configuration
             Object.values(GuardName).forEach(guard => {
                 if (guard !== GuardName.KEYWORD_DETECTOR) {
-                    this.parsedGuards.push(Guard.create(
+                    instance.parsedGuards.push(Guard.create(
                         guard,
                         {},
                         DEFAULT_THRESHOLD,
@@ -105,50 +109,31 @@ export class GuardConfig {
                     ));
                 }
             });
-            return;
+        } else {
+            await instance.parseConfig(config);
         }
 
-        this.parseConfig(config);
+        return instance;
     }
 
-    private static async loadYaml(path: string): Promise<{ [key: string]: any }> {
-        try {
-            let fileContent: string;
-
-            if (typeof Deno !== "undefined") {
-                // Deno environment
-                const decoder = new TextDecoder("utf-8");
-                const data = await Deno.readFile(path);
-                fileContent = decoder.decode(data);
+    private async parseConfig(config: string | { [key: string]: any } | Guard[]): Promise<Guard[]> {
+        if (Array.isArray(config)) {
+            if (config.every(guard => guard instanceof Guard)) {
+                this.parsedGuards = config
+                    .filter(guard => this.validateGuard(guard))
+                    .map(guard => this.parseGuardObj(guard));
+                return this.parsedGuards;
             } else {
-                // Node.js environment
-                const { readFileSync } = await import("fs");
-                fileContent = readFileSync(path, "utf8");
+                throw new GuardConfigError(`failed to parse config, array should be of type Guard objects`);
             }
-
-            // Parse YAML content dynamically
-            const { parse } = await import("yaml");
-            return parse(fileContent);
-        } catch (e) {
-            throw new Error(`Failed to load config file: ${e}`);
-        }
-    }
-
-    private parseConfig(config: string | { [key: string]: any } | Guard[]): Guard[] {
-        if (Array.isArray(config) && config.every(guard => guard instanceof Guard)) {
-            this.parsedGuards = config
-                .filter(guard => this.validateGuard(guard))
-                .map(guard => this.parseGuardObj(guard));
-            return this.parsedGuards;
         }
 
         let configData: { [key: string]: any };
         if (typeof config === 'string') {
-            configData = GuardConfig.loadYaml(config);
+            configData = await GuardConfig.loadYaml(config);
         } else {
             configData = config;
         }
-
         try {
             const guards = configData['guardrails'] || [configData];
             const guardsList = Array.isArray(guards) ? guards : [guards];
@@ -158,6 +143,26 @@ export class GuardConfig {
             return this.parsedGuards;
         } catch (e) {
             throw new GuardConfigError(`Failed to parse config: ${e}`);
+        }
+    }
+
+    private static async loadYaml(filePath: string): Promise<{ [key: string]: any }> {
+        try {
+            let fileContent: string;
+
+            if (typeof Deno !== "undefined") {
+                const { readFile } = await import("node:fs/promises");
+                // read file
+                fileContent = (await readFile(filePath)).toString();
+            } else {
+                const { readFile } = await import("fs/promises");
+                // read file
+                fileContent = (await readFile(filePath)).toString();
+            }
+            const YAML = await import('yaml');
+            return YAML.parse(fileContent);
+        } catch (e) {
+            throw new GuardConfigError(`Failed to load config file: ${e}`);
         }
     }
 
@@ -242,11 +247,17 @@ export class GuardConfig {
     }
 
     get redactionKeys(): string[] {
-        return this.getMatchGuards.flatMap(guard =>
-            Object.entries(guard.matches)
-                .filter(([_, match]) => match.redact)
-                .map(([key]) => key)
-        );
+        const result = this.getMatchGuards.flatMap(guard => {
+
+            const entries = Object.entries(guard.matches);
+            const filtered = entries.filter(([_, match]) => {
+                return match.redact;
+            });
+
+            const mapped = filtered.map(([key]) => key);
+            return mapped;
+        });
+        return result;
     }
 
     get keywords(): string[] {

@@ -181,12 +181,19 @@ Apex.prototype.scan = async function ({
     }
   }
 
-  if (guardConfig) {
-    keywords = guardConfig.keywords
-    redactions = guardConfig.redactionKeys
+  request.anonymization = components.Anonymization.FixedSize;
+
+  let gconfig: GuardConfig;
+  try {
+    gconfig = guardConfig ? await GuardConfig.create(guardConfig) : await GuardConfig.create();
+  } catch (e) {
+    throw new Error(`Failed to init config file: ${e}`);
   }
 
-  request.anonymization = components.Anonymization.FixedSize;
+  if (gconfig) {
+    keywords = gconfig.keywords
+    redactions = gconfig.redactionKeys
+  }
 
   if (redactions) {
     if (Array.isArray(redactions) && redactions.every((r) => typeof r === "string")) {
@@ -198,14 +205,6 @@ Apex.prototype.scan = async function ({
     if (Array.isArray(keywords) && keywords.every((k) => typeof k === "string")) {
       request.keywords = keywords;
     }
-  }
-
-
-  let gconfig: GuardConfig;
-  try {
-    gconfig = guardConfig ? new GuardConfig(guardConfig) : new GuardConfig();
-  } catch (e) {
-    throw new Error(`Failed to init config file: ${e}`);
   }
 
   const rawScanResponse = await this.scanRequest(request);

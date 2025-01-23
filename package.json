@@ -2,7 +2,6 @@
   "name": "@acuvity/acuvity",
   "version": "0.5.0",
   "author": "Acuvity, Inc.",
-  "description": "The official Acuvity TypeScript SDK",
   "homepage": "https://acuvity.ai/",
   "keywords": [
     "security",
@@ -22,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/acuvity/acuvity-ts/issues"
   },
+  "description": "The official Acuvity TypeScript SDK",
   "type": "module",
   "tshy": {
     "sourceDialects": [

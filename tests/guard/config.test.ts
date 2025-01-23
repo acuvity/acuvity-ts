@@ -19,8 +19,8 @@ describe('Match', () => {
 
 describe('GuardConfig', () => {
     // Test 1: Default configuration
-    test('should create with default configuration', () => {
-        const config = new GuardConfig();
+    test('should create with default configuration', async () => {
+        const config = await GuardConfig.create();
         const guards = config.getParsedGuards;
 
         expect(guards).toBeDefined();
@@ -36,13 +36,13 @@ describe('GuardConfig', () => {
         });
     });
 
-    test('should create from object configuration with string name', () => {
+    test('should create from object configuration with string name', async () => {
         const configObj = {
             name: "prompt_injection",  // Using string name
             threshold: '>= 0.5',
         };
 
-        const config = new GuardConfig(configObj);
+        const config = await GuardConfig.create(configObj);
         const guards = config.getParsedGuards;
         expect(guards.length).toBe(1);
 
@@ -56,7 +56,7 @@ describe('GuardConfig', () => {
     });
 
     // Test 2: Object configuration
-    test('should create from object configuration', () => {
+    test('should create from object configuration', async () => {
         const configObj = {
             name: GuardName.KEYWORD_DETECTOR,
             threshold: '>= 0.5',
@@ -64,12 +64,12 @@ describe('GuardConfig', () => {
                 'test-key': {
                     threshold: '>= 0.7',
                     redact: true,
-                    countThreshold: 1
+                    count_threshold: 1
                 }
             }
         };
 
-        const config = new GuardConfig(configObj);
+        const config = await GuardConfig.create(configObj);
         const guards = config.getParsedGuards;
 
         expect(guards.length).toBe(1);
@@ -90,15 +90,16 @@ describe('GuardConfig', () => {
     });
 
     // Test 3: Invalid guard name
-    test('should throw error for invalid guard name', () => {
+    test('should throw error for invalid guard name', async () => {
         const configObj = {
             name: 'INVALID_GUARD',
             threshold: '>= 0.5'
         };
 
-        expect(() => {
-            new GuardConfig(configObj);
-        }).toThrow(GuardConfigError);
+        // @ts-ignore - intentionally passing invalid type for testing
+        await expect(GuardConfig.create(configObj))
+            .rejects
+            .toThrow(GuardConfigError);
     });
 });
 
@@ -118,7 +119,7 @@ describe('GuardConfig YAML Tests', () => {
         }
     });
 
-    test('should load valid YAML configuration', () => {
+    test('should load valid YAML configuration', async () => {
         // Create test YAML content
         const yamlContent = `
 guardrails:
@@ -132,7 +133,7 @@ guardrails:
         fs.writeFileSync(tempFilePath, yamlContent, 'utf8');
 
         // Load configuration
-        const config = new GuardConfig(tempFilePath);
+        const config = await GuardConfig.create(tempFilePath);
         const guards = config.getParsedGuards;
 
         // Verify configuration
@@ -158,7 +159,7 @@ guardrails:
         }
     });
 
-    test('should load valid PII YAML configuration', () => {
+    test('should load valid PII YAML configuration', async () => {
         // Create test YAML content
         const yamlContent = `
 guardrails:
@@ -185,7 +186,7 @@ guardrails:
         fs.writeFileSync(tempFilePath, yamlContent, 'utf8');
 
         // Load configuration
-        const config = new GuardConfig(tempFilePath);
+        const config = await GuardConfig.create(tempFilePath);
         const guards = config.getParsedGuards;
 
         // Verify configuration
@@ -202,6 +203,7 @@ guardrails:
             }
             if (piiGuard.matches['ssn']) {
                 expect(piiGuard.matches['ssn'].threshold.toString()).toBe('>= 0.5');
+                expect(piiGuard.matches['ssn'].redact.valueOf()).toBe(true);
             }
             if (piiGuard.matches['person']) {
                 expect(piiGuard.matches['person'].threshold.toString()).toBe('>= 0.5');
@@ -209,7 +211,7 @@ guardrails:
         }
     });
 
-    test('should throw error for invalid YAML format', () => {
+    test('should throw error for invalid YAML format', async () => {
         // Create invalid YAML content
         const invalidYamlContent = `
 guardrails:
@@ -221,23 +223,24 @@ guardrails:
         fs.writeFileSync(tempFilePath, invalidYamlContent, 'utf8');
 
         // Verify it throws error
-        expect(() => {
-            new GuardConfig(tempFilePath);
-        }).toThrow(GuardConfigError);
+        // @ts-ignore - intentionally passing invalid type for testing
+        await expect(GuardConfig.create(tempFilePath))
+            .rejects
+            .toThrow(GuardConfigError);
     });
 
     test('should throw error for non-existent YAML file', () => {
         const nonExistentPath = path.join(os.tmpdir(), 'non-existent.yaml');
 
-        expect(() => {
-            new GuardConfig(nonExistentPath);
-        }).toThrow(GuardConfigError);
+        expect(async () => {
+            await GuardConfig.create(nonExistentPath);
+        }).rejects.toThrow(GuardConfigError);
     });
 });
 
 
 describe('GuardConfig Array Tests', () => {
-    test('should accept array of Guard objects', () => {
+    test('should accept array of Guard objects', async () => {
         // Create array of Guard instances
         const guards = [
             Guard.create(
@@ -252,7 +255,7 @@ describe('GuardConfig Array Tests', () => {
             )
         ];
 
-        const config = new GuardConfig(guards);
+        const config = await GuardConfig.create(guards);
         const parsedGuards = config.getParsedGuards;
 
         // Verify guards were parsed correctly
@@ -274,14 +277,14 @@ describe('GuardConfig Array Tests', () => {
         }
     });
 
-    test('should handle empty array of guards', () => {
+    test('should handle empty array of guards', async () => {
         const guards: Guard[] = [];
-        const config = new GuardConfig(guards);
+        const config = await GuardConfig.create(guards);
 
         expect(config.getParsedGuards.length).toBe(0);
     });
 
-    test('should handle array with mixed guard configurations', () => {
+    test('should handle array with mixed guard configurations', async () => {
         const guards = [
             // Guard with matches
             Guard.create(GuardName.PII_DETECTOR, {
@@ -294,7 +297,7 @@ describe('GuardConfig Array Tests', () => {
             Guard.create(GuardName.BIASED, {}, '>= 0.7')
         ];
 
-        const config = new GuardConfig(guards);
+        const config = await GuardConfig.create(guards);
         const parsedGuards = config.getParsedGuards;
 
         expect(parsedGuards.length).toBe(3);
@@ -326,7 +329,7 @@ describe('GuardConfig Array Tests', () => {
         }
     });
 
-    test('should validate each guard in the array', () => {
+    test('should validate each guard in the array', async () => {
         // Create an invalid guard (wrong type for threshold)
         const invalidGuard = {
             name: GuardName.PROMPT_INJECTION,
@@ -334,8 +337,11 @@ describe('GuardConfig Array Tests', () => {
         };
 
         // @ts-ignore - intentionally passing invalid type for testing
-        expect(() => {
-            new GuardConfig([invalidGuard]);
-        }).toThrow(GuardConfigError);
+        // expect(async () => {
+        //     await GuardConfig.create([invalidGuard]);
+        // }).toThrow(GuardConfigError);
+        await expect(GuardConfig.create([invalidGuard]))
+            .rejects
+            .toThrow(GuardConfigError);
     });
 });

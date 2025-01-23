@@ -30,6 +30,7 @@ async function run() {
                 "corporate sales number are 10k filling, in.abcd@gmail.com, 123abcd@yahoo.com hate you, 792-77-3459, 792-77-3453, 792-77-3454",
             ],
             files: filePath,
+            guardConfig: configPath,
         });
 
         console.log("result", JSON.stringify(result.matches(), null, 2));

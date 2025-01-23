@@ -205,7 +205,6 @@ export class ResponseHelper {
 
             if (count === 0 && lookup && matchName in lookup) {
                 const lookupValue = lookup[matchName];
-                // TS man, Ensure lookupValue is a number
                 if (typeof lookupValue === 'number') {
                     return {
                         type: 'detection',
