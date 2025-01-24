@@ -25,17 +25,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
 
       - name: Build
         run: |
           npm install
           npm run build
-
-      - name: Install Bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          echo 'Adding Bun to PATH'
-          echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
       - name: Verify Bun installation
         run: bun --version
