@@ -34,15 +34,15 @@ jobs:
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
-          echo 'export PATH="$HOME/.bun/bin:$PATH"' >> $GITHUB_ENV
-          source $GITHUB_ENV
+          echo 'Adding Bun to PATH'
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
       - name: Verify Bun installation
         run: bun --version
 
       - name: Install Deno
         run: |
-          curl -fsSL https://deno.land/install.sh | sh
+          curl -fsSL https://deno.land/install.sh | bash
           echo 'export PATH="$HOME/.deno/bin:$PATH"' >> $GITHUB_ENV
           source $GITHUB_ENV
 
