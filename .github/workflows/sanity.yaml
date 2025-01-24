@@ -26,6 +26,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
+      - uses: denoland/setup-deno@v2
 
       - name: Build
         run: |
@@ -34,12 +35,6 @@ jobs:
 
       - name: Verify Bun installation
         run: bun --version
-
-      - name: Install Deno
-        run: |
-          curl -fsSL https://deno.land/install.sh | bash
-          echo 'export PATH="$HOME/.deno/bin:$PATH"' >> $GITHUB_ENV
-          source $GITHUB_ENV
 
       - name: Verify Deno installation
         run: deno --version
