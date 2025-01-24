@@ -12,6 +12,7 @@ export interface GuardMatch {
     actualValue: number;   // Using number instead of float
     threshold: string;
     matchCount?: number;    // With default 0
+    matchValues?: string[] | [];
 }
 
 // matches.ts

@@ -29,6 +29,7 @@ export class ResponseProcessor {
     private processMatchGuard(guard: Guard, extraction: Extraction): GuardMatch {
         let matchCounter = 0
         let resultMatch = ResponseMatch.NO
+        let matchList: string[] = []
         for (const [matchName, matchNameGuard] of Object.entries(guard.matches)) {
             const result = this.processGuardCheck(guard, extraction, matchName)
 
@@ -36,6 +37,9 @@ export class ResponseProcessor {
                 result.matchCount != undefined &&
                 result.matchCount >= matchNameGuard.countThreshold) {
                 matchCounter += result.matchCount
+                if (result.matchValues) {
+                    matchList.push(matchName)
+                }
             }
 
             if (matchCounter >= guard.countThreshold) {
@@ -43,12 +47,17 @@ export class ResponseProcessor {
             }
         }
 
+        if (resultMatch === ResponseMatch.NO) {
+            matchList = []
+        }
+
         console.debug(
-            "match guard %s, check %s, total match %s, guard threshold %s",
+            "match guard %s, check %s, total match %s, guard threshold %s, match values %s",
             guard.name.toString(),
             resultMatch,
             matchCounter,
-            guard.threshold.toString()
+            guard.threshold.toString(),
+            matchList
         );
 
         return {
@@ -56,7 +65,8 @@ export class ResponseProcessor {
             guardName: guard.name,
             threshold: guard.threshold.toString(),
             actualValue: 1.0,
-            matchCount: matchCounter
+            matchCount: matchCounter,
+            matchValues: matchList
         }
     }
 

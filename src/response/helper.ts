@@ -10,7 +10,7 @@ import { Textualdetection, TextualdetectionType } from "../models/components/tex
 type ValueGetterResult =
     | { type: 'boolean'; exists: boolean; }
     | { type: 'guard'; exists: boolean; value: number; }
-    | { type: 'detection'; exists: boolean; value: number; matchCount: number; };
+    | { type: 'detection'; exists: boolean; value: number; matchCount: number; matchValues: string[] | [] };
 
 export class ResponseHelper {
     private valueGetters: Record<string, (
@@ -45,7 +45,8 @@ export class ResponseHelper {
                     guardName: guard.name,
                     threshold: guard.threshold.toString(),
                     actualValue: 'value' in result ? result.value : 0,
-                    matchCount: 'matchCount' in result ? result.matchCount : 0
+                    matchCount: 'matchCount' in result ? result.matchCount : 0,
+                    matchValues: []
                 };
             }
 
@@ -58,7 +59,8 @@ export class ResponseHelper {
                 guardName: guard.name,
                 threshold: guard.threshold.toString(),
                 actualValue: 'value' in result ? result.value : 1,
-                matchCount: 'matchCount' in result ? result.matchCount : 0
+                matchCount: 'matchCount' in result ? result.matchCount : 0,
+                matchValues: 'matchValues' in result ? result.matchValues : []
             };
         } catch (e) {
             throw new Error(`Error in evaluation: ${e instanceof Error ? e.message : String(e)}`);
@@ -175,7 +177,7 @@ export class ResponseHelper {
                     matchName
                 );
             default:
-                return { type: 'detection', exists: false, value: 0, matchCount: 0 };
+                return { type: 'detection', exists: false, value: 0, matchCount: 0, matchValues: [] };
         }
     }
 
@@ -188,7 +190,7 @@ export class ResponseHelper {
     ): ValueGetterResult {
         if (matchName) {
             if (!detections) {
-                return { type: 'detection', exists: false, value: 0, matchCount: 0 };
+                return { type: 'detection', exists: false, value: 0, matchCount: 0, matchValues: [] };
             }
 
             const textMatches = detections
@@ -210,13 +212,14 @@ export class ResponseHelper {
                         type: 'detection',
                         exists: true,
                         value: lookupValue,
-                        matchCount: 1
+                        matchCount: 1,
+                        matchValues: [matchName]
                     };
                 }
             }
 
             if (count === 0) {
-                return { type: 'detection', exists: false, value: 0, matchCount: 0 };
+                return { type: 'detection', exists: false, value: 0, matchCount: 0, matchValues: [] };
             }
 
             const maxScore = textMatches.length > 0 ? Math.max(...textMatches) : 0;
@@ -224,7 +227,8 @@ export class ResponseHelper {
                 type: 'detection',
                 exists: true,
                 value: maxScore,
-                matchCount: count
+                matchCount: count,
+                matchValues: [matchName]
             };
         }
 
@@ -233,7 +237,8 @@ export class ResponseHelper {
             type: 'detection',
             exists,
             value: exists ? 1.0 : 0.0,
-            matchCount: lookup ? Object.keys(lookup).length : 0
+            matchCount: lookup ? Object.keys(lookup).length : 0,
+            matchValues: lookup ? Object.keys(lookup) : []
         };
     }
 
