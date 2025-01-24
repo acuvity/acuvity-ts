@@ -1,0 +1,56 @@
+# This runs on
+# - Push to main
+# - PRs
+name: test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  ACUVITY_TOKEN: ${{ secrets.ACUVITY_TOKEN }}
+
+jobs:
+  sanity:
+    name: Sanity
+    runs-on: ubuntu-latest
+    concurrency:
+      group: matrix-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - uses: denoland/setup-deno@v2
+
+      - name: Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Verify Bun installation
+        run: bun --version
+
+      - name: Verify Deno installation
+        run: deno --version
+
+      - name: Link
+        run: |
+          npm link
+
+      - name: test
+        run: |
+          echo "Running all tests ..."
+          npx jest --debug
+
+      - name: Run examples
+        run: |
+          cd examples
+          npm link @acuvity/acuvity
+          echo "Running all examples ..."
+          ./run.sh
