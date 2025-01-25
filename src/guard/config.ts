@@ -286,6 +286,10 @@ export class GuardConfig {
             });
         }
 
+        if (guard['count_threshold'] && guard['count_threshold'] > 0 && Object.keys(matches).length == 0) {
+            throw new GuardConfigError("cannot have count_threshold without matches");
+        }
+
         if (name) {
             return Guard.create(
                 name,
@@ -306,6 +310,10 @@ export class GuardConfig {
             Object.entries(guard.matches).forEach(([matchKey, matchData]) => {
                 parsedMatches[matchKey] = this.parseMatchObj(matchKey, matchData);
             });
+
+            if (guard.countThreshold > 0 && Object.keys(parsedMatches).length == 0) {
+                throw new GuardConfigError("cannot have count_threshold without matches");
+            }
 
             return Guard.create(
                 guardName,
