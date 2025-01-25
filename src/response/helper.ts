@@ -10,7 +10,7 @@ import { Textualdetection, TextualdetectionType } from "../models/components/tex
 type ValueGetterResult =
     | { type: 'boolean'; exists: boolean; }
     | { type: 'guard'; exists: boolean; value: number; }
-    | { type: 'detection'; exists: boolean; value: number; matchCount: number; matchValues: string[] | [] };
+    | { type: 'detection'; exists: boolean; value: number; matchCount: number; matchValues: string[] };
 
 export class ResponseHelper {
     private valueGetters: Record<string, (
