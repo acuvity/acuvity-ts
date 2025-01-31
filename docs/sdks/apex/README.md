@@ -113,7 +113,6 @@ async function run() {
       "key1": "value1",
       "key2": "value2",
     },
-    anonymization: "FixedSize",
     bypassHash: "6f37d752-bce1-4973-88f6-28b6c100ceb8",
     keywords: [
       "legal",
@@ -165,7 +164,6 @@ async function run() {
       "key1": "value1",
       "key2": "value2",
     },
-    anonymization: "FixedSize",
     bypassHash: "6f37d752-bce1-4973-88f6-28b6c100ceb8",
     keywords: [
       "legal",
