@@ -68,32 +68,6 @@ declare module "./apex.js" {
     _availableAnalyzers?: components.Analyzer[];
 
     /**
-     * `listAnalyzers()` returns a list of all available analyzers. This call lists all details about the available analyzers.
-     * To get a filtered list of analyzer names or groups that can be used in a scan request, use `list_analyzer_names()` and/or `list_analyzer_groups()`.
-     *
-     * NOTE: this call is cached for the lifetime of the SDK object.
-     */
-    listAvailableAnalyzers(): Promise<components.Analyzer[]>;
-
-    /**
-     * `listAnalyzerGroups()` returns a list of all available analyzer groups. These can be passed in a scan request
-     * to activate/deactivate a whole group of analyzers at once.
-     *
-     * NOTE: this call is cached for the lifetime of the SDK object.
-     */
-    listAnalyzerGroups(): Promise<string[]>;
-
-    /**
-     * `listAnalyzerNames()` returns a list of all available analyzer names. These can be passed in a scan request
-     * to activate/deactivate specific analyzers.
-     *
-     * @param group the group of analyzers to filter the list by. If not provided, all analyzers will be returned.
-     *
-     * NOTE: this call is cached for the lifetime of the SDK object.
-     */
-    listAnalyzerNames(group?: string): Promise<string[]>;
-
-    /**
      * `listAvailableGuards()` returns a list of all available guard names that can be used in the guard config.
      */
     listAvailableGuards(): Promise<string[]>;
@@ -234,27 +208,6 @@ async function readFileAndBase64Encode(filePath: string): Promise<string> {
   }
 }
 
-Apex.prototype.listAvailableAnalyzers = async function (): Promise<components.Analyzer[]> {
-  return (this._availableAnalyzers ??= await this.listAnalyzers());
-}
-
-Apex.prototype.listAnalyzerNames = async function (group?: string): Promise<string[]> {
-  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
-  return analyzers
-    .filter((a) => !group || a.group === group)
-    .map((a) => a.id ?? "")
-    .filter((a) => a !== "")
-    .sort();
-}
-
-Apex.prototype.listAnalyzerGroups = async function (): Promise<string[]> {
-  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
-  return analyzers
-    .map((a) => a.group ?? "")
-    .filter((a) => a !== "")
-    .filter((v, i, a) => a.indexOf(v) === i)
-    .sort();
-}
 
 Apex.prototype.listAvailableGuards = async function (): Promise<string[]> {
   return GuardName.values();
