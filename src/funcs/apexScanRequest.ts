@@ -132,8 +132,8 @@ export async function apexScanRequest(
   >(
     M.json(200, components.Scanresponse$inboundSchema),
     M.jsonErr([400, 403, 422], errors.Elementalerror$inboundSchema),
-    M.fail([401, 429, "4XX"]),
     M.jsonErr(500, errors.Elementalerror$inboundSchema),
+    M.fail([401, 429, "4XX"]),
     M.fail("5XX"),
   )(response, { extraFields: responseFields });
   if (!result.ok) {
