@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "example:basic_api": "node basic_api.js",
-    "example:basic_file": "node basic_file.js",
-    "example:basic_text": "node basic_text.js",
+    "example:basic_file": "node standalone_basic_file.js",
+    "example:basic_text": "node standalone_basic_text.js",
     "example:gibberish_guard_obj": "node gibberish_guard_obj.js",
     "example:multi_ip_multi_match": "node multi_ip_multi_match.js",
     "example:pii_detailed": "node pii_detailed.js",
     "example:prompt_injection": "node prompt_injection.js",
     "test": "npm run example:basic_api && npm run example:basic_file && npm run example:basic_text && npm run example:gibberish_guard_obj && npm run example:multi_ip_multi_match && npm run example:pii_detailed && npm run example:prompt_injection",
-    "test_bun": "bun basic_api.js && bun basic_file.js && bun basic_text.js && bun gibberish_guard_obj.js && bun multi_ip_multi_match.js && bun pii_detailed.js && bun prompt_injection.js"
+    "test_bun": "bun basic_api.js && bun standalone_basic_file.js && bun standalone_basic_file.js && bun gibberish_guard_obj.js && bun multi_ip_multi_match.js && bun pii_detailed.js && bun prompt_injection.js"
   },
   "keywords": [],
   "author": "",

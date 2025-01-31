@@ -1,9 +1,10 @@
 {
     "tasks": {
         "basic_api": "deno run --allow-net --allow-read --allow-env basic_api.js",
-        "basic_file": "deno run --allow-net --allow-read --allow-env basic_file.js",
-        "basic_text": "deno run --allow-net --allow-read --allow-env basic_text.js",
+        "basic_file": "deno run --allow-net --allow-read --allow-env --allow-write standalone_basic_file.js",
+        "basic_text": "deno run --allow-net --allow-read --allow-env --allow-write standalone_basic_text.js",
         "pii": "deno run --allow-net --allow-read --allow-env pii_detailed.js",
+        "standalone_pii": "deno run --allow-net --allow-read --allow-env --allow-write standalone_pii.js",
         "prompt_injection": "deno run --allow-net --allow-read --allow-env prompt_injection.js",
         "multi": "deno run --allow-net --allow-read --allow-env multi_ip_multi_match.js",
         "gib": "deno run --allow-net --allow-read --allow-env gibberish_guard_obj.js",

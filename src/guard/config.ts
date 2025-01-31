@@ -286,6 +286,10 @@ export class GuardConfig {
             });
         }
 
+        if (guard['count_threshold'] && guard['count_threshold'] < 0) {
+            throw new GuardConfigError("count_threshold should be a positive number");
+        }
+
         if (guard['count_threshold'] && guard['count_threshold'] > 0 && Object.keys(matches).length == 0) {
             throw new GuardConfigError("cannot have count_threshold without matches");
         }
