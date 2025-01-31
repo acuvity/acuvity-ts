@@ -58,7 +58,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
   const serverParams: Params[] = [
     {
-      "apex_domain": options.apexDomain ?? "apex.acuvity.ai",
+      "apex_domain": options.apexDomain ?? "api.apex.acuvity.ai",
       "apex_port": options.apexPort ?? "443",
     },
   ];

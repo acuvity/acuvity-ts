@@ -873,7 +873,7 @@ servers:
     url: https://{apex_domain}:{apex_port}
     variables:
       apex_domain:
-        default: apex.acuvity.ai
+        default: api.apex.acuvity.ai
         description: |-
           The Apex domain to use which is specific to each customer and environment.
           This can be determined through the well known Apex info response from the Acuvity backend API.

@@ -34,6 +34,10 @@ export class Threshold {
                 throw new GuardConfigValidationError("Invalid threshold value");
             }
 
+            if (this.value < 0 || this.value > 1) {
+                throw new GuardConfigValidationError("Invalid threshold value");
+            }
+
             // Check if the operator string is a valid ComparisonOperator
             if (!Object.values(ComparisonOperator).includes(operatorStr as ComparisonOperator)) {
                 throw new GuardConfigValidationError(`Invalid operator: ${operatorStr}`);
