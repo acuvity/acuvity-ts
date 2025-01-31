@@ -11,6 +11,9 @@ export class Threshold {
             const numValue = parseFloat(thresholdStr);
             if (!isNaN(numValue)) {
                 this.value = numValue;
+                if (this.value < 0 || this.value > 1) {
+                    throw new GuardConfigValidationError("Invalid threshold value");
+                }
                 this.operator = ComparisonOperator.GREATER_EQUAL; // Default operator
                 return;
             }
@@ -18,7 +21,7 @@ export class Threshold {
             // If that fails, try to split into operator and value
             const parts = thresholdStr.trim().split(/\s+/);
             if (parts.length !== 2) {
-                throw new GuardConfigValidationError("Invalid threshold format");
+                throw new GuardConfigValidationError("Invalid threshold format, correct example: '>= 0.2'");
             }
 
             const [operatorStr, valueStr] = parts;
