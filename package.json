@@ -2,16 +2,6 @@
   "name": "@acuvity/acuvity",
   "version": "0.5.1",
   "author": "Acuvity, Inc.",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acuvity/acuvity-ts.git"
-  },
-  "bugs": {
-    "url": "https://github.com/acuvity/acuvity-ts/issues"
-  },
-  "description": "The official Acuvity TypeScript SDK",
-  "homepage": "https://acuvity.ai/",
   "keywords": [
     "security",
     "genai",
@@ -22,6 +12,16 @@
     "library",
     "nodejs"
   ],
+  "license": "Apache-2.0",
+  "repository": {
+    "url": "git+https://github.com/acuvity/acuvity-ts.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/acuvity/acuvity-ts/issues"
+  },
+  "description": "The official Acuvity TypeScript SDK",
+  "homepage": "https://acuvity.ai/",
   "type": "module",
   "tshy": {
     "sourceDialects": [
@@ -64,5 +64,77 @@
   "dependencies": {
     "jwt-decode": "^4.0.0",
     "yaml": "^2.7.0"
-  }
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "@acuvity/acuvity/source": "./src/index.ts",
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./package.json": "./package.json",
+    "./types": {
+      "import": {
+        "@acuvity/acuvity/source": "./src/types/index.ts",
+        "types": "./dist/esm/types/index.d.ts",
+        "default": "./dist/esm/types/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/types/index.d.ts",
+        "default": "./dist/commonjs/types/index.js"
+      }
+    },
+    "./models/errors": {
+      "import": {
+        "@acuvity/acuvity/source": "./src/models/errors/index.ts",
+        "types": "./dist/esm/models/errors/index.d.ts",
+        "default": "./dist/esm/models/errors/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/models/errors/index.d.ts",
+        "default": "./dist/commonjs/models/errors/index.js"
+      }
+    },
+    "./models/components": {
+      "import": {
+        "@acuvity/acuvity/source": "./src/models/components/index.ts",
+        "types": "./dist/esm/models/components/index.d.ts",
+        "default": "./dist/esm/models/components/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/models/components/index.d.ts",
+        "default": "./dist/commonjs/models/components/index.js"
+      }
+    },
+    "./*.js": {
+      "import": {
+        "@acuvity/acuvity/source": "./src/*.ts",
+        "types": "./dist/esm/*.d.ts",
+        "default": "./dist/esm/*.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/*.d.ts",
+        "default": "./dist/commonjs/*.js"
+      }
+    },
+    "./*": {
+      "import": {
+        "@acuvity/acuvity/source": "./src/*.ts",
+        "types": "./dist/esm/*.d.ts",
+        "default": "./dist/esm/*.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/*.d.ts",
+        "default": "./dist/commonjs/*.js"
+      }
+    }
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "module": "./dist/esm/index.js"
 }
