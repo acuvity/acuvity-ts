@@ -164,7 +164,7 @@ Apex.prototype.scan = async function ({
     throw new Error(`Failed to init config file: ${e}`);
   }
 
-  if (gconfig) {
+  if (guardConfig) {
     keywords = gconfig.keywords
     redactions = gconfig.redactionKeys
   }
