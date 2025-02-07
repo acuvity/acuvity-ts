@@ -26,6 +26,16 @@ import {
 export type Extraction = {
   /**
    * The PIIs found during classification.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups 'PIIs' accross all analyzers.
+   *
+   * Example of PIIs detected: aba_routing_number, address, bank_account,
+   * bitcoin_wallet, credit_card, driver_license, email_address, itin_number,
+   * location, medical_license, money_amount, passport_number, person, phone_number,
+   * ssn.
    */
   piIs?: { [k: string]: number } | undefined;
   /**
@@ -45,11 +55,18 @@ export type Extraction = {
    */
   data?: string | undefined;
   /**
-   * The detections found while applying policies.
+   * The textual detections found while applying policies.
    */
   detections?: Array<Textualdetection> | undefined;
   /**
    * The various exploits attempts.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups 'Exploits' accross all analyzers.
+   *
+   * Example of exploits detected: jailbreak, prompt_injection, malicious_url.
    */
   exploits?: { [k: string]: number } | undefined;
   /**
@@ -58,6 +75,13 @@ export type Extraction = {
   hash?: string | undefined;
   /**
    * The estimated intent embodied into the text.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups 'Intent' accross all analyzers.
+   *
+   * Example of intent detected: explain, outline, summarize, write.
    */
   intent?: { [k: string]: number } | undefined;
   /**
@@ -67,6 +91,14 @@ export type Extraction = {
    * systems to mark an extraction as internal only as opposed to user facing.
    */
   internal?: boolean | undefined;
+  /**
+   * If true, the data of the extraction is a file.
+   */
+  isFile?: boolean | undefined;
+  /**
+   * If true, indicates that the file has been stored.
+   */
+  isStored?: boolean | undefined;
   /**
    * The keywords found during classification.
    */
@@ -80,8 +112,27 @@ export type Extraction = {
   label?: string | undefined;
   /**
    * The language of the classification.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups 'Languages' accross all analyzers.
+   *
+   * Example of languages: chinese, english, french, german, gibberish, japanese,
+   * russian, spanish.
    */
   languages?: { [k: string]: number } | undefined;
+  /**
+   * The various malcontents attempts.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups 'Malcontents' accross all analyzers.
+   *
+   * Example of malcontents: biased, harmful, toxic.
+   */
+  malcontents?: { [k: string]: number } | undefined;
   /**
    * The modalities of data detected in the data.
    */
@@ -92,10 +143,65 @@ export type Extraction = {
   relevance?: number | undefined;
   /**
    * The secrets found during classification.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups 'Secrets' accross all analyzers.
+   *
+   * Example of secrets: adafruit, alibaba, anthropic, apideck, apify, atlassian,
+   * aws_secret_key, buildkite, checkout, clickuppersonal, contentfulpersonalaccess,
+   * credentials, database_url_with_credentials, databricks, denodeploy, dfuse,
+   * digitalocean, discord_webhook, docker_hub, doppler, dropbox, endorlabs,
+   * fleetbase, flutterwave, frameio, freshdesk, fullstory, github, gitlab,
+   * gocardless, google_api, grafana, groq, huggingface, intra42, jwt, klaviyo,
+   * launchdarkly, linearapi, locationiq, mailchimp, mailgun, mapbox, maxmind,
+   * microsoft_teams_webhook, nightfall, notion, npm, openai, otp_auth_url, pagarme,
+   * paystack, planetscale, planetscaledb, portainer, posthog, postman, prefect,
+   * private_key, pubnub_publish, pubnub_subscribe, pulumi, ramp, razorpay, readme,
+   * rechargepayments, replicate, rubygems, salesforce, sendgrid, sendinblue,
+   * shopify, slack_access, slack_bot, slack_refresh, slack_user, slack_webhook,
+   * slack_workflow_webhook, sourcegraph, sourcegraphcody, squareapp, squareup,
+   * stripe, supabase, tailscale, tines_webhook, trufflehog, twilio, ubidots,
+   * voiceflow, web_url_with_credentials, zapierwebhook.
    */
   secrets?: { [k: string]: number } | undefined;
   /**
    * The topic of the classification.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API, with the following
+   * conditions:
+   *   1. Includes all analyzers EXCEPT those in the 'Modality' group
+   *   2. Includes all analyzer detectors EXCEPT those in these groups:
+   *     - 'Secrets'
+   *     - 'Exploits'
+   *     - 'Intent'
+   *     - 'PIIs'
+   *     - 'Malcontents'
+   *
+   * Example of topics: category/enterprise, category/healthcare, category/medical,
+   * category/personal, contains/blank_image, contains/certificate_signing_request,
+   * contains/database_url, contains/handwritten_text, contains/printed_text,
+   * contains/public_key, contains/ssh_public_key, contains/web_url,
+   * decoded/base32_data, decoded/base58_data, decoded/base64_data,
+   * decoded/base64_url_data, decoded/base85_data, decoded/hexadecimal_data,
+   * decoded/puny_code_data, decoded/quoted_printable_data,
+   * decoded/url_encoding_data, department/compliance, department/cybersecurity,
+   * department/finance, department/human_resources,
+   * department/information_technology, department/legal, department/logistics,
+   * department/marketing, department/performance_evaluation,
+   * department/product_management, department/project_management, department/sales,
+   * department/strategy, department/support, depict/check, depict/code,
+   * depict/document, depict/unclassified, depict/whiteboard, domain/commercial,
+   * domain/development, domain/financial, domain/general, domain/regulatory,
+   * domain/workforce, extracted/csv_cell_content, extracted/document_text_content,
+   * extracted/handwritten_text_content, extracted/pdf_text_content,
+   * extracted/pptx_text_content, extracted/spreadsheet_text_content,
+   * extracted/typed_text_content, timeframe/current_year, timeframe/future,
+   * timeframe/last_year, timeframe/next_year, timeframe/past,
+   * transcribed/audio_text_content.
    */
   topics?: { [k: string]: number } | undefined;
 };
@@ -116,9 +222,12 @@ export const Extraction$inboundSchema: z.ZodType<
   hash: z.string().optional(),
   intent: z.record(z.number()).optional(),
   internal: z.boolean().optional(),
+  isFile: z.boolean().optional(),
+  isStored: z.boolean().optional(),
   keywords: z.record(z.number()).optional(),
   label: z.string().optional(),
   languages: z.record(z.number()).optional(),
+  malcontents: z.record(z.number()).optional(),
   modalities: z.array(Modality$inboundSchema).optional(),
   relevance: z.number().optional(),
   secrets: z.record(z.number()).optional(),
@@ -141,9 +250,12 @@ export type Extraction$Outbound = {
   hash?: string | undefined;
   intent?: { [k: string]: number } | undefined;
   internal?: boolean | undefined;
+  isFile?: boolean | undefined;
+  isStored?: boolean | undefined;
   keywords?: { [k: string]: number } | undefined;
   label?: string | undefined;
   languages?: { [k: string]: number } | undefined;
+  malcontents?: { [k: string]: number } | undefined;
   modalities?: Array<Modality$Outbound> | undefined;
   relevance?: number | undefined;
   secrets?: { [k: string]: number } | undefined;
@@ -166,9 +278,12 @@ export const Extraction$outboundSchema: z.ZodType<
   hash: z.string().optional(),
   intent: z.record(z.number()).optional(),
   internal: z.boolean().optional(),
+  isFile: z.boolean().optional(),
+  isStored: z.boolean().optional(),
   keywords: z.record(z.number()).optional(),
   label: z.string().optional(),
   languages: z.record(z.number()).optional(),
+  malcontents: z.record(z.number()).optional(),
   modalities: z.array(Modality$outboundSchema).optional(),
   relevance: z.number().optional(),
   secrets: z.record(z.number()).optional(),
