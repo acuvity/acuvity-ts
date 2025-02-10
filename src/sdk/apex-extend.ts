@@ -157,16 +157,18 @@ Apex.prototype.scan = async function ({
 
   request.anonymization = components.Anonymization.FixedSize;
 
-  let gconfig: GuardConfig;
+  let finalGuardConfig: GuardConfig;
   try {
-    gconfig = guardConfig ? await GuardConfig.create(guardConfig) : await GuardConfig.create();
+    // If user guardConfig is given then use it else create a default.
+    if (guardConfig) {
+      finalGuardConfig = await GuardConfig.create(guardConfig);
+      keywords = finalGuardConfig.keywords;
+      redactions = finalGuardConfig.redactionKeys;
+    } else {
+      finalGuardConfig = await GuardConfig.create();
+    }
   } catch (e) {
     throw new Error(`Failed to init config file: ${e}`);
-  }
-
-  if (gconfig) {
-    keywords = gconfig.keywords
-    redactions = gconfig.redactionKeys
   }
 
   if (redactions) {
@@ -184,7 +186,7 @@ Apex.prototype.scan = async function ({
   const rawScanResponse = await this.scanRequest(request);
 
   // Return a new ScanResponseMatch instance
-  return new ScanResponseMatch(rawScanResponse, gconfig, files);
+  return new ScanResponseMatch(rawScanResponse, finalGuardConfig, files);
 };
 
 async function readFileAndBase64Encode(filePath: string): Promise<string> {

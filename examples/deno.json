@@ -8,7 +8,8 @@
         "prompt_injection": "deno run --allow-net --allow-read --allow-env prompt_injection.js",
         "multi": "deno run --allow-net --allow-read --allow-env multi_ip_multi_match.js",
         "gib": "deno run --allow-net --allow-read --allow-env gibberish_guard_obj.js",
-        "all": "deno task basic_api && deno task basic_file && deno task basic_text && deno task pii && deno task prompt_injection && deno task multi && deno task gib"
+        "mal_content": "deno run --allow-net --allow-read --allow-env --allow-write standalone_malcontent.js",
+        "all": "deno task basic_api && deno task mal_content && deno task basic_file && deno task basic_text && deno task pii && deno task prompt_injection && deno task multi && deno task gib"
     },
     "imports": {
         "@acuvity/acuvity": "npm:@acuvity/acuvity",

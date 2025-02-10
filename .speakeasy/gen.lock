@@ -1,10 +1,10 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: 7c335c3dd2980171feb91c16ef4bab7a
+  docChecksum: 504bbb8137418b3d210d6141404f7de1
   docVersion: "1.0"
-  speakeasyVersion: 1.481.1
-  generationVersion: 2.500.5
+  speakeasyVersion: 1.488.0
+  generationVersion: 2.506.0
   releaseVersion: 0.5.1
   configChecksum: d55a39df36bbbc4425e7d87605d18535
   published: true
@@ -12,7 +12,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.22
+    core: 3.19.0
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
@@ -36,12 +36,16 @@ generatedFiles:
   - docs/models/components/analyzermodel.md
   - docs/models/components/anonymization.md
   - docs/models/components/authtype.md
+  - docs/models/components/confidence.md
   - docs/models/components/decision.md
+  - docs/models/components/detectionmatcher.md
   - docs/models/components/detector.md
   - docs/models/components/extraction.md
   - docs/models/components/extractionrequest.md
+  - docs/models/components/extractionsummary.md
   - docs/models/components/latency.md
   - docs/models/components/modality.md
+  - docs/models/components/operator.md
   - docs/models/components/principal.md
   - docs/models/components/principalapp.md
   - docs/models/components/principaltype.md
@@ -85,9 +89,11 @@ generatedFiles:
   - src/models/components/alertevent.ts
   - src/models/components/analyzer.ts
   - src/models/components/analyzermodel.ts
+  - src/models/components/detectionmatcher.ts
   - src/models/components/detector.ts
   - src/models/components/extraction.ts
   - src/models/components/extractionrequest.ts
+  - src/models/components/extractionsummary.ts
   - src/models/components/index.ts
   - src/models/components/latency.ts
   - src/models/components/modality.ts
@@ -120,7 +126,7 @@ examples:
     speakeasy-default-get-all-analyzers:
       responses:
         "200":
-          application/json: [{"triggers": ["Code/*"]}, {"triggers": ["Code/*"]}]
+          application/json: [{}, {}]
         "400":
           application/json: {}
         "500":
@@ -128,7 +134,7 @@ examples:
   create-ScanRequest-as-ScanResponse:
     speakeasy-default-create-scan-request-as-scan-response:
       requestBody:
-        application/json: {"analyzers": ["Detectors", "en-text-prompt_injection-detector", "ocr-handwritten-text-extractor"], "annotations": {"key1": "value1", "key2": "value2"}, "anonymization": "FixedSize", "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "keywords": ["legal", "technical", "scientific"], "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "redactions": ["person", "ssn", "location"]}
+        application/json: {"analyzers": ["Malcontents"], "annotations": {"key1": "value1", "key2": "value2"}, "anonymization": "FixedSize", "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "keywords": ["legal", "technical", "scientific"], "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "redactions": ["person", "ssn", "location"]}
       responses:
         "200":
           application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}

@@ -105,7 +105,7 @@ export async function apexScanRequest(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "422", "429", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "415", "422", "429", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -131,7 +131,7 @@ export async function apexScanRequest(
     | ConnectionError
   >(
     M.json(200, components.Scanresponse$inboundSchema),
-    M.jsonErr([400, 403, 422], errors.Elementalerror$inboundSchema),
+    M.jsonErr([400, 403, 415, 422], errors.Elementalerror$inboundSchema),
     M.jsonErr(500, errors.Elementalerror$inboundSchema),
     M.fail([401, 429, "4XX"]),
     M.fail("5XX"),
