@@ -91,7 +91,7 @@ Apex.prototype.scan = async function ({
   annotations,
   redactions,
   keywords,
-  guardConfig,
+  userGuardConfig,
 }: {
   messages?: string | string[] | undefined,
   files?: string | string[] | undefined,
@@ -99,12 +99,12 @@ Apex.prototype.scan = async function ({
   annotations?: { [k: string]: string } | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
-  guardConfig?: GuardConfig | undefined,
+  userGuardConfig?: GuardConfig | undefined,
 }) {
   const request: components.Scanrequest = {};
 
   // if guardConfig is given, the keywords and redactions args must not be given.
-  if (guardConfig && (keywords || redactions)) {
+  if (userGuardConfig && (keywords || redactions)) {
     throw new Error("Cannot specify keywords or redactions in scan args when using guard config. Please use only one.");
   }
 
@@ -159,8 +159,8 @@ Apex.prototype.scan = async function ({
 
   let gconfig: GuardConfig;
   try {
-    if (guardConfig) {
-      gconfig = await GuardConfig.create(guardConfig);
+    if (userGuardConfig) {
+      gconfig = await GuardConfig.create(userGuardConfig);
       keywords = gconfig.keywords;
       redactions = gconfig.redactionKeys;
     } else {
