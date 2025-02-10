@@ -159,14 +159,15 @@ Apex.prototype.scan = async function ({
 
   let gconfig: GuardConfig;
   try {
-    gconfig = guardConfig ? await GuardConfig.create(guardConfig) : await GuardConfig.create();
+    if (guardConfig) {
+      gconfig = await GuardConfig.create(guardConfig);
+      keywords = gconfig.keywords;
+      redactions = gconfig.redactionKeys;
+    } else {
+      gconfig = await GuardConfig.create();
+    }
   } catch (e) {
     throw new Error(`Failed to init config file: ${e}`);
-  }
-
-  if (guardConfig) {
-    keywords = gconfig.keywords
-    redactions = gconfig.redactionKeys
   }
 
   if (redactions) {
