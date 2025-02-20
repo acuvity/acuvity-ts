@@ -27,6 +27,14 @@ export type Extractionrequest = {
    */
   internal?: boolean | undefined;
   /**
+   * If true, the data of the extraction is a file.
+   */
+  isFile?: boolean | undefined;
+  /**
+   * If true, indicates that the file has been stored.
+   */
+  isStored?: boolean | undefined;
+  /**
    * A means of distinguishing what was extracted, such as prompt, input file or
    *
    * @remarks
@@ -44,6 +52,8 @@ export const Extractionrequest$inboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   data: z.string().optional(),
   internal: z.boolean().optional(),
+  isFile: z.boolean().optional(),
+  isStored: z.boolean().optional(),
   label: z.string().optional(),
 });
 
@@ -52,6 +62,8 @@ export type Extractionrequest$Outbound = {
   annotations?: { [k: string]: string } | undefined;
   data?: string | undefined;
   internal?: boolean | undefined;
+  isFile?: boolean | undefined;
+  isStored?: boolean | undefined;
   label?: string | undefined;
 };
 
@@ -64,6 +76,8 @@ export const Extractionrequest$outboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   data: z.string().optional(),
   internal: z.boolean().optional(),
+  isFile: z.boolean().optional(),
+  isStored: z.boolean().optional(),
   label: z.string().optional(),
 });
 

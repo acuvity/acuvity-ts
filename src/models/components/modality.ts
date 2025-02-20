@@ -13,10 +13,48 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 export type Modality = {
   /**
    * The group of data.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector groups in the 'Modality' analyzer group.
+   *
+   * Example of group: application, archive, audio, code, document, executable, font,
+   * image, text, unknown, video.
    */
   group: string;
   /**
    * The type of data.
+   *
+   * @remarks
+   *
+   * The current list can be obtained through the analyzers API by searching for
+   * detector names in the 'Modality' analyzer group.
+   *
+   * Example of type: 3dsm, 3gp, 3mf, ace, ada, ai, apk, applebplist, appleplist, ar,
+   * arc, arj, asc, asf, asm, asp, au, autohotkey, autoit, avi, avif, awk, ax, batch,
+   * bazel, bcad, bib, bmp, bpg, brainfuck, brf, bzip, bzip3, c, cab, cat, cdf, chm,
+   * clojure, cmake, cobol, coff, coffeescript, com, cpl, cpp, crt, crx, cs, csproj,
+   * css, csv, dart, deb, dex, dey, dicom, diff, django, dll, dm, dmg, dmigd,
+   * dmscript, doc, dockerfile, docx, dotx, dwg, dxf, dylib, elf, elixir, emf, eml,
+   * epub, erb, erlang, exe, flac, flv, fortran, fpx, gemfile, gemspec, gif,
+   * gitattributes, gitmodules, gleam, go, gradle, groovy, gzip, h, h5, handlebars,
+   * haskell, hcl, heif, hlp, hpp, hta, htaccess, html, hwp, icns, ico, ics,
+   * ignorefile, ini, internetshortcut, ipynb, iso, jar, java, javabytecode,
+   * javascript, jinja, jng, jnlp, jp2, jpeg, json, jsonl, jsx, julia, jxl, ko,
+   * kotlin, latex, lha, license, lisp, lnk, lock, lua, lz, lz4, m3u, m4, macho,
+   * makefile, markdown, matlab, mht, midi, mkv, mp3, mp4, mpegts, mscompress, msi,
+   * msix, mui, mum, npy, npz, objectivec, ocaml, ocx, odex, odin, odp, ods, odt,
+   * ogg, one, onnx, otf, outlook, pascal, pcap, pdb, pdf, pebin, pem, perl, php,
+   * pickle, png, po, postscript, powershell, ppt, pptx, prolog, proteindb, proto,
+   * psd, python, pythonbytecode, pytorch, qoi, qt, r, randomascii, rar, rdf, rlib,
+   * rll, rpm, rst, rtf, ruby, rust, scala, scheme, scr, scss, sevenzip, sgml, shell,
+   * smali, snap, so, solidity, sql, sqlite, squashfs, srt, stlbinary, stltext, sum,
+   * svg, swf, swift, symlinktext, sys, tar, tcl, textproto, tga, thumbsdb, tiff,
+   * toml, torrent, tsv, tsx, ttf, twig, txt, txtascii, txtutf16, txtutf8,
+   * typescript, vba, vbe, vcxproj, verilog, vhdl, visio, vtt, vue, wad, wasm, wav,
+   * webm, webp, webtemplate, winregistry, wma, wmf, wmv, woff, woff2, xar, xcf, xls,
+   * xlsb, xlsx, xml, xpi, xz, yaml, yara, zig, zip, zlibstream, zst.
    */
   type: string;
 };

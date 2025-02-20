@@ -265,7 +265,6 @@ export class GuardConfig {
             .filter(guard => guard.name === GuardName.KEYWORD_DETECTOR)
             .flatMap(guard =>
                 Object.entries(guard.matches)
-                    .filter(([_, match]) => match.redact)
                     .map(([key]) => key)
             );
     }
@@ -284,6 +283,10 @@ export class GuardConfig {
             Object.entries(guard['matches']).forEach(([matchKey, matchData]) => {
                 matches[matchKey] = this.parseMatch(matchKey, matchData as any);
             });
+        }
+
+        if (guard['count_threshold'] && guard['count_threshold'] < 0) {
+            throw new GuardConfigError("count_threshold should be a positive number");
         }
 
         if (guard['count_threshold'] && guard['count_threshold'] > 0 && Object.keys(matches).length == 0) {
@@ -310,6 +313,10 @@ export class GuardConfig {
             Object.entries(guard.matches).forEach(([matchKey, matchData]) => {
                 parsedMatches[matchKey] = this.parseMatchObj(matchKey, matchData);
             });
+
+            if (guard.countThreshold < 0) {
+                throw new GuardConfigError("count_threshold should be a positive number");
+            }
 
             if (guard.countThreshold > 0 && Object.keys(parsedMatches).length == 0) {
                 throw new GuardConfigError("cannot have count_threshold without matches");

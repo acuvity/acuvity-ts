@@ -21,6 +21,12 @@ import {
   Extraction$outboundSchema,
 } from "./extraction.js";
 import {
+  Extractionsummary,
+  Extractionsummary$inboundSchema,
+  Extractionsummary$Outbound,
+  Extractionsummary$outboundSchema,
+} from "./extractionsummary.js";
+import {
   Latency,
   Latency$inboundSchema,
   Latency$Outbound,
@@ -121,6 +127,10 @@ export type Scanresponse = {
    */
   reasons?: Array<string> | undefined;
   /**
+   * Represents the summary of the extractions.
+   */
+  summary?: Extractionsummary | undefined;
+  /**
    * Set the time of the message request.
    */
   time?: Date | undefined;
@@ -190,6 +200,7 @@ export const Scanresponse$inboundSchema: z.ZodType<
   principal: Principal$inboundSchema,
   provider: z.string().optional(),
   reasons: z.array(z.string()).optional(),
+  summary: Extractionsummary$inboundSchema.optional(),
   time: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
   type: ScanresponseType$inboundSchema.optional(),
@@ -215,6 +226,7 @@ export type Scanresponse$Outbound = {
   principal: Principal$Outbound;
   provider?: string | undefined;
   reasons?: Array<string> | undefined;
+  summary?: Extractionsummary$Outbound | undefined;
   time?: string | undefined;
   type?: string | undefined;
 };
@@ -239,6 +251,7 @@ export const Scanresponse$outboundSchema: z.ZodType<
   principal: Principal$outboundSchema,
   provider: z.string().optional(),
   reasons: z.array(z.string()).optional(),
+  summary: Extractionsummary$outboundSchema.optional(),
   time: z.date().transform(v => v.toISOString()).optional(),
   type: ScanresponseType$outboundSchema.optional(),
 }).transform((v) => {

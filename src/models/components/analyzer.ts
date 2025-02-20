@@ -14,6 +14,12 @@ import {
   Analyzermodel$outboundSchema,
 } from "./analyzermodel.js";
 import {
+  Detectionmatcher,
+  Detectionmatcher$inboundSchema,
+  Detectionmatcher$Outbound,
+  Detectionmatcher$outboundSchema,
+} from "./detectionmatcher.js";
+import {
   Detector,
   Detector$inboundSchema,
   Detector$Outbound,
@@ -32,6 +38,10 @@ export type Analyzer = {
    * The description of the analyzer.
    */
   description?: string | undefined;
+  /**
+   * A list of detection matcher that will trigger the analyzer.
+   */
+  detectionMatchers?: Array<Detectionmatcher> | undefined;
   /**
    * The detectors the analyzer can use.
    */
@@ -56,13 +66,6 @@ export type Analyzer = {
    * The namespace of the object.
    */
   namespace?: string | undefined;
-  /**
-   * A list of trigger or globl pattern that the analyzer will react on.
-   *
-   * @remarks
-   * A trigger is the detector Group and Name separated with a /.
-   */
-  triggers?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -73,13 +76,13 @@ export const Analyzer$inboundSchema: z.ZodType<
 > = z.object({
   ID: z.string().optional(),
   description: z.string().optional(),
+  detectionMatchers: z.array(Detectionmatcher$inboundSchema).optional(),
   detectors: z.array(Detector$inboundSchema).optional(),
   enabled: z.boolean().optional(),
   group: z.string().optional(),
   models: z.array(Analyzermodel$inboundSchema).optional(),
   name: z.string().optional(),
   namespace: z.string().optional(),
-  triggers: z.array(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "ID": "id",
@@ -90,13 +93,13 @@ export const Analyzer$inboundSchema: z.ZodType<
 export type Analyzer$Outbound = {
   ID?: string | undefined;
   description?: string | undefined;
+  detectionMatchers?: Array<Detectionmatcher$Outbound> | undefined;
   detectors?: Array<Detector$Outbound> | undefined;
   enabled?: boolean | undefined;
   group?: string | undefined;
   models?: Array<Analyzermodel$Outbound> | undefined;
   name?: string | undefined;
   namespace?: string | undefined;
-  triggers?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -107,13 +110,13 @@ export const Analyzer$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
+  detectionMatchers: z.array(Detectionmatcher$outboundSchema).optional(),
   detectors: z.array(Detector$outboundSchema).optional(),
   enabled: z.boolean().optional(),
   group: z.string().optional(),
   models: z.array(Analyzermodel$outboundSchema).optional(),
   name: z.string().optional(),
   namespace: z.string().optional(),
-  triggers: z.array(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     id: "ID",

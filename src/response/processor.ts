@@ -40,10 +40,9 @@ export class ResponseProcessor {
                 if (result.matchValues) {
                     matchList.push(matchName)
                 }
-            }
-
-            if (matchCounter >= guard.countThreshold) {
-                resultMatch = ResponseMatch.YES
+                if (matchCounter >= guard.countThreshold) {
+                    resultMatch = ResponseMatch.YES
+                }
             }
         }
 
