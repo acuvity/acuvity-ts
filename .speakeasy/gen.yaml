@@ -15,7 +15,7 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
 typescript:
-  version: 0.5.1
+  version: 0.6.0
   additionalDependencies:
     dependencies:
       jwt-decode: ^4.0.0
