@@ -4,6 +4,33 @@ import { SDKOptions } from "../lib/config.js";
 import { Security } from "../models/components/index.js";
 
 export async function discoverApex(options: SDKOptions = {}): Promise<SDKOptions> {
+  // If there are no security options, we cannot perform discovery
+  // However, this is why this function was called. So we throw an error.
+  // Also, there are no unauthenticated routes in the Apex API, so we need a token.
+  if (options.security === undefined || options.security === null) {
+    throw new Error("No security options provided for discovery. Did you forget to set the AppToken?");
+  }
+
+  // extract the token form options.security if it is defined
+  let sec: Security;
+  if (typeof options.security === 'function') {
+    sec = await options.security();
+  } else if (options.security !== undefined) {
+    sec = options.security;
+  } else {
+    throw new Error("No security options provided for discovery. Did you forget to set the AppToken?");
+  }
+
+  // extract the token now and get the API URL from the token which is the issuer URL
+  // if there is no token, we cannot perform discovery. So we throw an error.
+  const token = sec.token ?? sec.cookie;
+  if (token === undefined || token === null || token === "") {
+    throw new Error("No token provided in security options. Did you forget to set the AppToken?");
+  }
+
+  // NOTE: at this point we know that we have a token, but server URLs might have been overwritten
+  // by either a serverURL or an apexDomain. If that is the case, we don't need to perform discovery.
+
   // If a serverUrl is given, we don't need to perform discovery at all
   if (options.serverURL !== undefined && options.serverURL !== null && options.serverURL !== "") {
     return options;
@@ -14,26 +41,7 @@ export async function discoverApex(options: SDKOptions = {}): Promise<SDKOptions
     return options;
   }
 
-  // If there are no security options, we cannot perform discovery
-  if (options.security === undefined || options.security === null) {
-    return options;
-  }
-
-  // extract the token form options.security if it is defined
-  let sec: Security;
-  if (typeof options.security === 'function') {
-    sec = await options.security();
-  } else if (options.security !== undefined) {
-    sec = options.security;
-  } else {
-    return options;
-  }
-
-  // extract the token now and get the API URL from the token which is the issuer URL
-  const token = sec.token ?? sec.cookie;
-  if (token === undefined) {
-    return options;
-  }
+  // we need to perform discovery, so we decode the JWT
   const decodedToken: any = jwtDecode(token);
 
   // check if the apex-url is within the opaque of the token

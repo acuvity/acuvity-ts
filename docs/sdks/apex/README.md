@@ -105,15 +105,12 @@ const acuvity = new Acuvity({
 async function run() {
   const result = await acuvity.apex.scanRequest({
     analyzers: [
-      "Detectors",
-      "en-text-prompt_injection-detector",
-      "ocr-handwritten-text-extractor",
+      "Malcontents",
     ],
     annotations: {
       "key1": "value1",
       "key2": "value2",
     },
-    anonymization: "FixedSize",
     bypassHash: "6f37d752-bce1-4973-88f6-28b6c100ceb8",
     keywords: [
       "legal",
@@ -157,15 +154,12 @@ const acuvity = new AcuvityCore({
 async function run() {
   const res = await apexScanRequest(acuvity, {
     analyzers: [
-      "Detectors",
-      "en-text-prompt_injection-detector",
-      "ocr-handwritten-text-extractor",
+      "Malcontents",
     ],
     annotations: {
       "key1": "value1",
       "key2": "value2",
     },
-    anonymization: "FixedSize",
     bypassHash: "6f37d752-bce1-4973-88f6-28b6c100ceb8",
     keywords: [
       "legal",
@@ -213,6 +207,6 @@ run();
 
 | Error Type            | Status Code           | Content Type          |
 | --------------------- | --------------------- | --------------------- |
-| errors.Elementalerror | 400, 403, 422         | application/json      |
+| errors.Elementalerror | 400, 403, 415, 422    | application/json      |
 | errors.Elementalerror | 500                   | application/json      |
 | errors.APIError       | 4XX, 5XX              | \*/\*                 |
