@@ -3,21 +3,21 @@ id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
   docChecksum: 504bbb8137418b3d210d6141404f7de1
   docVersion: "1.0"
-  speakeasyVersion: 1.488.0
-  generationVersion: 2.506.0
+  speakeasyVersion: 1.498.1
+  generationVersion: 2.518.1
   releaseVersion: 0.5.1
-  configChecksum: d55a39df36bbbc4425e7d87605d18535
+  configChecksum: 9d920b58ef08bd975adf55d98326058d
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.19.0
+    core: 3.20.0
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
     examples: 2.81.5
-    globalSecurity: 2.82.12
+    globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
     ignores: 2.81.1
@@ -112,6 +112,7 @@ generatedFiles:
   - src/sdk/apex.ts
   - src/sdk/index.ts
   - src/sdk/sdk.ts
+  - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
   - src/types/enums.ts
@@ -137,7 +138,7 @@ examples:
         application/json: {"analyzers": ["Malcontents"], "annotations": {"key1": "value1", "key2": "value2"}, "anonymization": "FixedSize", "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "keywords": ["legal", "technical", "scientific"], "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "redactions": ["person", "ssn", "location"]}
       responses:
         "200":
-          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
+          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"PIIs": {"ssn": 0.8}, "categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "exploits": {"prompt_injection": 0.8}, "intent": {"write": 0.8}, "keywords": {"my_keyworkd": 0.8}, "languages": {"english": 0.8}, "malcontents": {"toxic": 0.8}, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9, "secrets": {"credentials": 0.7}, "topics": {"category/enterprise": 0.7, "department/logistics": 0.8, "depict/document": 0.8, "extracted/typed_text_content": 1, "timeframe/current_year": 0.6}}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
         "400":
           application/json: {}
         "500":
