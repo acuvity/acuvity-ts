@@ -7,11 +7,11 @@ The type of authentication.
 ```typescript
 import { AuthType } from "@acuvity/acuvity/models/components";
 
-let value: AuthType = "AppToken";
+let value: AuthType = "Token";
 ```
 
 ## Values
 
 ```typescript
-"Certificate" | "UserToken" | "AppToken" | "Hostname" | "Token" | "TierToken" | "External"
+"Certificate" | "UserToken" | "AppToken" | "Hostname" | "Token" | "ComponentToken" | "External"
 ```

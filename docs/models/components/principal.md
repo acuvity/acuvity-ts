@@ -9,12 +9,12 @@ import { Principal } from "@acuvity/acuvity/models/components";
 
 let value: Principal = {
   app: {
+    component: "frontend",
     labels: [
       "country=us",
       "another-label",
     ],
     name: "MyApp",
-    tier: "frontend",
   },
   team: "admins",
   tokenName: "my-user-token",

@@ -15,6 +15,7 @@ export const TextualdetectionType = {
   Keyword: "Keyword",
   Pii: "PII",
   Secret: "Secret",
+  Cdt: "CDT",
 } as const;
 /**
  * The type of detection.
