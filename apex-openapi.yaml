@@ -37,12 +37,14 @@ components:
         detectionMatchers:
           description: A list of detection matcher that will trigger the analyzer.
           example:
-            - confidence: Medium
-              group: Text
-              name: txt
-              operator: min
+            - - confidence: Medium
+                group: Text
+                name: txt
+                operator: min
           items:
-            $ref: "#/components/schemas/detectionmatcher"
+            items:
+              type: object
+            type: array
           type: array
         detectors:
           description: The detectors the analyzer can use.
@@ -89,6 +91,7 @@ components:
         to control when and how analyzers engage with incoming detections.
       properties:
         confidence:
+          default: Low
           description: The detection confidence level to operate on.
           enum:
             - Unlikely
@@ -194,6 +197,13 @@ components:
             bitcoin_wallet, credit_card, driver_license, email_address, itin_number,
             location, medical_license, money_amount, passport_number, person, phone_number,
             ssn.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             ssn: 0.8
           type: object
@@ -213,6 +223,21 @@ components:
           description: The level of general confidentiality of the input.
           example: 0.9
           type: number
+        customDataTypes:
+          additionalProperties:
+            type: number
+          description: |-
+            The custom data types found during classification.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            my_cdt: 1
+          type: object
         data:
           description: The data extracted.
           type: string
@@ -231,6 +256,13 @@ components:
             detector groups 'Exploits' accross all analyzers.
 
             Example of exploits detected: jailbreak, prompt_injection, malicious_url.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             prompt_injection: 0.8
           type: object
@@ -247,6 +279,13 @@ components:
             detector groups 'Intent' accross all analyzers.
 
             Example of intent detected: explain, outline, summarize, write.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             write: 0.8
           type: object
@@ -264,9 +303,17 @@ components:
         keywords:
           additionalProperties:
             type: number
-          description: The keywords found during classification.
+          description: |-
+            The keywords found during classification.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
-            my_keyworkd: 0.8
+            my_keywork: 0.8
           type: object
         label:
           description: |-
@@ -284,6 +331,13 @@ components:
 
             Example of languages: chinese, english, french, german, gibberish, japanese,
             russian, spanish.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             english: 0.8
           type: object
@@ -297,6 +351,13 @@ components:
             detector groups 'Malcontents' accross all analyzers.
 
             Example of malcontents: biased, harmful, toxic.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             toxic: 0.8
           type: object
@@ -306,7 +367,15 @@ components:
             $ref: "#/components/schemas/modality"
           type: array
         relevance:
-          description: The level of general organization relevance of the input.
+          description: |-
+            The level of general organization relevance of the input.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example: 0.9
           type: number
         secrets:
@@ -333,6 +402,13 @@ components:
             slack_workflow_webhook, sourcegraph, sourcegraphcody, squareapp, squareup,
             stripe, supabase, tailscale, tines_webhook, trufflehog, twilio, ubidots,
             voiceflow, web_url_with_credentials, zapierwebhook.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             credentials: 0.7
           type: object
@@ -373,6 +449,13 @@ components:
             extracted/typed_text_content, timeframe/current_year, timeframe/future,
             timeframe/last_year, timeframe/next_year, timeframe/past,
             transcribed/audio_text_content.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example:
             category/enterprise: 0.7
             department/logistics: 0.8
@@ -645,6 +728,7 @@ components:
             - Ask
             - Bypassed
             - ForbiddenUser
+            - Skipped
         extractions:
           description: The extractions to log.
           items:
@@ -700,7 +784,7 @@ components:
             - AppToken
             - Hostname
             - Token
-            - TierToken
+            - ComponentToken
             - External
         claims:
           description: List of claims extracted from the user query.
@@ -730,6 +814,10 @@ components:
     principalapp:
       description: Describes the principal information of an application.
       properties:
+        component:
+          description: The component of the application request.
+          example: frontend
+          type: string
         labels:
           description: The list of labels attached to an application request.
           example:
@@ -741,10 +829,6 @@ components:
         name:
           description: The name of the application.
           example: MyApp
-          type: string
-        tier:
-          description: The tier of the application request.
-          example: frontend
           type: string
       type: object
     principaluser:
@@ -907,6 +991,7 @@ components:
             - Ask
             - Bypassed
             - ForbiddenUser
+            - Skipped
         extractions:
           description: The extractions to log.
           items:
@@ -984,6 +1069,7 @@ components:
             - Keyword
             - PII
             - Secret
+            - CDT
       type: object
   securitySchemes:
     cookie:

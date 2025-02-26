@@ -26,25 +26,28 @@ export type SDKOptions = {
   /**
    * The security details required to authenticate the SDK
    */
-  security?: components.Security | (() => Promise<components.Security>);
+  security?:
+    | components.Security
+    | (() => Promise<components.Security>)
+    | undefined;
 
   httpClient?: HTTPClient;
   /**
    * Allows overriding the default server used by the SDK
    */
-  serverIdx?: number;
+  serverIdx?: number | undefined;
   /**
    * Sets the apex_domain variable for url substitution
    */
-  apexDomain?: string;
+  apexDomain?: string | undefined;
   /**
    * Sets the apex_port variable for url substitution
    */
-  apexPort?: string;
+  apexPort?: string | undefined;
   /**
    * Allows overriding the default server URL used by the SDK
    */
-  serverURL?: string;
+  serverURL?: string | undefined;
   /**
    * Allows overriding the default retry config used by the SDK
    */
@@ -81,6 +84,6 @@ export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
   sdkVersion: "0.5.1",
-  genVersion: "2.506.0",
-  userAgent: "speakeasy-sdk/typescript 0.5.1 2.506.0 1.0 @acuvity/acuvity",
+  genVersion: "2.529.2",
+  userAgent: "speakeasy-sdk/typescript 0.5.1 2.529.2 1.0 @acuvity/acuvity",
 } as const;

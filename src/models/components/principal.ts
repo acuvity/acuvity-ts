@@ -29,7 +29,7 @@ export const AuthType = {
   AppToken: "AppToken",
   Hostname: "Hostname",
   Token: "Token",
-  TierToken: "TierToken",
+  ComponentToken: "ComponentToken",
   External: "External",
 } as const;
 /**

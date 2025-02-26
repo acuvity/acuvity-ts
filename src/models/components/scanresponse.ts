@@ -48,6 +48,7 @@ export const Decision = {
   Ask: "Ask",
   Bypassed: "Bypassed",
   ForbiddenUser: "ForbiddenUser",
+  Skipped: "Skipped",
 } as const;
 /**
  * Tell what was the decision about the data.

@@ -21,16 +21,17 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
  * Processes the scan request.
  */
-export async function apexScanRequest(
+export function apexScanRequest(
   client: AcuvityCore,
   request: components.Scanrequest,
   options?: RequestOptions,
-): Promise<
+): APIPromise<
   Result<
     components.Scanresponse,
     | errors.Elementalerror
@@ -44,13 +45,41 @@ export async function apexScanRequest(
     | ConnectionError
   >
 > {
+  return new APIPromise($do(
+    client,
+    request,
+    options,
+  ));
+}
+
+async function $do(
+  client: AcuvityCore,
+  request: components.Scanrequest,
+  options?: RequestOptions,
+): Promise<
+  [
+    Result<
+      components.Scanresponse,
+      | errors.Elementalerror
+      | errors.Elementalerror
+      | APIError
+      | SDKValidationError
+      | UnexpectedClientError
+      | InvalidRequestError
+      | RequestAbortedError
+      | RequestTimeoutError
+      | ConnectionError
+    >,
+    APICall,
+  ]
+> {
   const parsed = safeParse(
     request,
     (value) => components.Scanrequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return parsed;
+    return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = encodeJSON("body", payload, { explode: true });
@@ -66,6 +95,7 @@ export async function apexScanRequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
+    baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "create-ScanRequest-as-ScanResponse",
     oAuth2Scopes: [],
 
@@ -99,7 +129,7 @@ export async function apexScanRequest(
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || 60000,
   }, options);
   if (!requestRes.ok) {
-    return requestRes;
+    return [requestRes, { status: "invalid" }];
   }
   const req = requestRes.value;
 
@@ -110,7 +140,7 @@ export async function apexScanRequest(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return doResult;
+    return [doResult, { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -137,8 +167,8 @@ export async function apexScanRequest(
     M.fail("5XX"),
   )(response, { extraFields: responseFields });
   if (!result.ok) {
-    return result;
+    return [result, { status: "complete", request: req, response }];
   }
 
-  return result;
+  return [result, { status: "complete", request: req, response }];
 }
