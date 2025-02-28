@@ -1,6 +1,6 @@
 import { Apex } from "./apex.js";
 import * as components from "../models/components/index.js";
-import { GuardConfig } from "../guard/config.js";
+import { GuardConfig, Guard } from "../guard/config.js";
 import { ScanResponseMatch } from "../response/match.js";
 import { GuardName } from "../guard/constants.js";
 
@@ -58,7 +58,7 @@ declare module "./apex.js" {
       /**
        * the guard config used to do the response eval for matches. If not provided, the default guard config will be used.
        */
-      guardConfig?: GuardConfig | undefined,
+      guardConfig?: string | { [key: string]: any } | Guard[] | undefined,
 
     }): Promise<ScanResponseMatch>;
 
@@ -99,7 +99,7 @@ Apex.prototype.scan = async function ({
   annotations?: { [k: string]: string } | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
-  guardConfig?: GuardConfig | undefined,
+  guardConfig?: string | { [key: string]: any } | Guard[] | undefined,
 }) {
   const request: components.Scanrequest = {};
 
