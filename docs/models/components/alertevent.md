@@ -11,12 +11,12 @@ let value: Alertevent = {
   alertDefinition: "warning-notification",
   principal: {
     app: {
+      component: "frontend",
       labels: [
         "country=us",
         "another-label",
       ],
       name: "MyApp",
-      tier: "frontend",
     },
     team: "admins",
     tokenName: "my-user-token",

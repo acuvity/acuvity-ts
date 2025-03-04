@@ -5,7 +5,6 @@
 export * from "./alertevent.js";
 export * from "./analyzer.js";
 export * from "./analyzermodel.js";
-export * from "./detectionmatcher.js";
 export * from "./detector.js";
 export * from "./extraction.js";
 export * from "./extractionrequest.js";

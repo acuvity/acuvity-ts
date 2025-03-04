@@ -14,17 +14,13 @@ import {
   Analyzermodel$outboundSchema,
 } from "./analyzermodel.js";
 import {
-  Detectionmatcher,
-  Detectionmatcher$inboundSchema,
-  Detectionmatcher$Outbound,
-  Detectionmatcher$outboundSchema,
-} from "./detectionmatcher.js";
-import {
   Detector,
   Detector$inboundSchema,
   Detector$Outbound,
   Detector$outboundSchema,
 } from "./detector.js";
+
+export type DetectionMatchers = {};
 
 /**
  * Represents an analyzer.
@@ -41,7 +37,7 @@ export type Analyzer = {
   /**
    * A list of detection matcher that will trigger the analyzer.
    */
-  detectionMatchers?: Array<Detectionmatcher> | undefined;
+  detectionMatchers?: Array<Array<DetectionMatchers>> | undefined;
   /**
    * The detectors the analyzer can use.
    */
@@ -69,6 +65,54 @@ export type Analyzer = {
 };
 
 /** @internal */
+export const DetectionMatchers$inboundSchema: z.ZodType<
+  DetectionMatchers,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type DetectionMatchers$Outbound = {};
+
+/** @internal */
+export const DetectionMatchers$outboundSchema: z.ZodType<
+  DetectionMatchers$Outbound,
+  z.ZodTypeDef,
+  DetectionMatchers
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DetectionMatchers$ {
+  /** @deprecated use `DetectionMatchers$inboundSchema` instead. */
+  export const inboundSchema = DetectionMatchers$inboundSchema;
+  /** @deprecated use `DetectionMatchers$outboundSchema` instead. */
+  export const outboundSchema = DetectionMatchers$outboundSchema;
+  /** @deprecated use `DetectionMatchers$Outbound` instead. */
+  export type Outbound = DetectionMatchers$Outbound;
+}
+
+export function detectionMatchersToJSON(
+  detectionMatchers: DetectionMatchers,
+): string {
+  return JSON.stringify(
+    DetectionMatchers$outboundSchema.parse(detectionMatchers),
+  );
+}
+
+export function detectionMatchersFromJSON(
+  jsonString: string,
+): SafeParseResult<DetectionMatchers, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DetectionMatchers$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DetectionMatchers' from JSON`,
+  );
+}
+
+/** @internal */
 export const Analyzer$inboundSchema: z.ZodType<
   Analyzer,
   z.ZodTypeDef,
@@ -76,7 +120,9 @@ export const Analyzer$inboundSchema: z.ZodType<
 > = z.object({
   ID: z.string().optional(),
   description: z.string().optional(),
-  detectionMatchers: z.array(Detectionmatcher$inboundSchema).optional(),
+  detectionMatchers: z.array(
+    z.array(z.lazy(() => DetectionMatchers$inboundSchema)),
+  ).optional(),
   detectors: z.array(Detector$inboundSchema).optional(),
   enabled: z.boolean().optional(),
   group: z.string().optional(),
@@ -93,7 +139,7 @@ export const Analyzer$inboundSchema: z.ZodType<
 export type Analyzer$Outbound = {
   ID?: string | undefined;
   description?: string | undefined;
-  detectionMatchers?: Array<Detectionmatcher$Outbound> | undefined;
+  detectionMatchers?: Array<Array<DetectionMatchers$Outbound>> | undefined;
   detectors?: Array<Detector$Outbound> | undefined;
   enabled?: boolean | undefined;
   group?: string | undefined;
@@ -110,7 +156,9 @@ export const Analyzer$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  detectionMatchers: z.array(Detectionmatcher$outboundSchema).optional(),
+  detectionMatchers: z.array(
+    z.array(z.lazy(() => DetectionMatchers$outboundSchema)),
+  ).optional(),
   detectors: z.array(Detector$outboundSchema).optional(),
   enabled: z.boolean().optional(),
   group: z.string().optional(),

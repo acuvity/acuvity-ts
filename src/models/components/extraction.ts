@@ -36,6 +36,13 @@ export type Extraction = {
    * bitcoin_wallet, credit_card, driver_license, email_address, itin_number,
    * location, medical_license, money_amount, passport_number, person, phone_number,
    * ssn.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   piIs?: { [k: string]: number } | undefined;
   /**
@@ -50,6 +57,19 @@ export type Extraction = {
    * The level of general confidentiality of the input.
    */
   confidentiality?: number | undefined;
+  /**
+   * The custom data types found during classification.
+   *
+   * @remarks
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
+   */
+  customDataTypes?: { [k: string]: number } | undefined;
   /**
    * The data extracted.
    */
@@ -67,6 +87,13 @@ export type Extraction = {
    * detector groups 'Exploits' accross all analyzers.
    *
    * Example of exploits detected: jailbreak, prompt_injection, malicious_url.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   exploits?: { [k: string]: number } | undefined;
   /**
@@ -82,6 +109,13 @@ export type Extraction = {
    * detector groups 'Intent' accross all analyzers.
    *
    * Example of intent detected: explain, outline, summarize, write.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   intent?: { [k: string]: number } | undefined;
   /**
@@ -101,6 +135,15 @@ export type Extraction = {
   isStored?: boolean | undefined;
   /**
    * The keywords found during classification.
+   *
+   * @remarks
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   keywords?: { [k: string]: number } | undefined;
   /**
@@ -120,6 +163,13 @@ export type Extraction = {
    *
    * Example of languages: chinese, english, french, german, gibberish, japanese,
    * russian, spanish.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   languages?: { [k: string]: number } | undefined;
   /**
@@ -131,6 +181,13 @@ export type Extraction = {
    * detector groups 'Malcontents' accross all analyzers.
    *
    * Example of malcontents: biased, harmful, toxic.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   malcontents?: { [k: string]: number } | undefined;
   /**
@@ -139,6 +196,15 @@ export type Extraction = {
   modalities?: Array<Modality> | undefined;
   /**
    * The level of general organization relevance of the input.
+   *
+   * @remarks
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   relevance?: number | undefined;
   /**
@@ -164,6 +230,13 @@ export type Extraction = {
    * slack_workflow_webhook, sourcegraph, sourcegraphcody, squareapp, squareup,
    * stripe, supabase, tailscale, tines_webhook, trufflehog, twilio, ubidots,
    * voiceflow, web_url_with_credentials, zapierwebhook.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   secrets?: { [k: string]: number } | undefined;
   /**
@@ -202,6 +275,13 @@ export type Extraction = {
    * extracted/typed_text_content, timeframe/current_year, timeframe/future,
    * timeframe/last_year, timeframe/next_year, timeframe/past,
    * transcribed/audio_text_content.
+   *
+   * If a key is not present in the map that implies that entity was not detected. If
+   * an entity is detected then the value is a score. Here's how to interpret the
+   * scores:
+   *   - confidence: 'low', 0 < score <0.33
+   *   - confidence: 'medium', 0.33 <= score < 0.66
+   *   - confidence: 'high', 0.66 <= score <= 1.
    */
   topics?: { [k: string]: number } | undefined;
 };
@@ -216,6 +296,7 @@ export const Extraction$inboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   categories: z.array(Modality$inboundSchema).optional(),
   confidentiality: z.number().optional(),
+  customDataTypes: z.record(z.number()).optional(),
   data: z.string().optional(),
   detections: z.array(Textualdetection$inboundSchema).optional(),
   exploits: z.record(z.number()).optional(),
@@ -244,6 +325,7 @@ export type Extraction$Outbound = {
   annotations?: { [k: string]: string } | undefined;
   categories?: Array<Modality$Outbound> | undefined;
   confidentiality?: number | undefined;
+  customDataTypes?: { [k: string]: number } | undefined;
   data?: string | undefined;
   detections?: Array<Textualdetection$Outbound> | undefined;
   exploits?: { [k: string]: number } | undefined;
@@ -272,6 +354,7 @@ export const Extraction$outboundSchema: z.ZodType<
   annotations: z.record(z.string()).optional(),
   categories: z.array(Modality$outboundSchema).optional(),
   confidentiality: z.number().optional(),
+  customDataTypes: z.record(z.number()).optional(),
   data: z.string().optional(),
   detections: z.array(Textualdetection$outboundSchema).optional(),
   exploits: z.record(z.number()).optional(),

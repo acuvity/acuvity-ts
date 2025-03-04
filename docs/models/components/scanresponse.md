@@ -13,12 +13,12 @@ let value: Scanresponse = {
       alertDefinition: "warning-notification",
       principal: {
         app: {
+          component: "frontend",
           labels: [
             "country=us",
             "another-label",
           ],
           name: "MyApp",
-          tier: "frontend",
         },
         team: "admins",
         tokenName: "my-user-token",
@@ -43,6 +43,9 @@ let value: Scanresponse = {
         },
       ],
       confidentiality: 0.9,
+      customDataTypes: {
+        "my_cdt": 1,
+      },
       exploits: {
         "prompt_injection": 0.8,
       },
@@ -50,7 +53,7 @@ let value: Scanresponse = {
         "write": 0.8,
       },
       keywords: {
-        "my_keyworkd": 0.8,
+        "my_keywork": 0.8,
       },
       languages: {
         "english": 0.8,
@@ -79,12 +82,12 @@ let value: Scanresponse = {
   ],
   principal: {
     app: {
+      component: "frontend",
       labels: [
         "country=us",
         "another-label",
       ],
       name: "MyApp",
-      tier: "frontend",
     },
     team: "admins",
     tokenName: "my-user-token",

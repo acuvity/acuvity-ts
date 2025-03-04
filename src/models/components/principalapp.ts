@@ -12,6 +12,10 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  */
 export type Principalapp = {
   /**
+   * The component of the application request.
+   */
+  component?: string | undefined;
+  /**
    * The list of labels attached to an application request.
    */
   labels?: Array<string> | undefined;
@@ -19,10 +23,6 @@ export type Principalapp = {
    * The name of the application.
    */
   name?: string | undefined;
-  /**
-   * The tier of the application request.
-   */
-  tier?: string | undefined;
 };
 
 /** @internal */
@@ -31,16 +31,16 @@ export const Principalapp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  component: z.string().optional(),
   labels: z.array(z.string()).optional(),
   name: z.string().optional(),
-  tier: z.string().optional(),
 });
 
 /** @internal */
 export type Principalapp$Outbound = {
+  component?: string | undefined;
   labels?: Array<string> | undefined;
   name?: string | undefined;
-  tier?: string | undefined;
 };
 
 /** @internal */
@@ -49,9 +49,9 @@ export const Principalapp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Principalapp
 > = z.object({
+  component: z.string().optional(),
   labels: z.array(z.string()).optional(),
   name: z.string().optional(),
-  tier: z.string().optional(),
 });
 
 /**

@@ -26,7 +26,10 @@ export type SDKOptions = {
   /**
    * The security details required to authenticate the SDK
    */
-  security?: components.Security | (() => Promise<components.Security>);
+  security?:
+    | components.Security
+    | (() => Promise<components.Security>)
+    | undefined;
 
   httpClient?: HTTPClient;
   /**
@@ -81,6 +84,6 @@ export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
   sdkVersion: "0.6.0",
-  genVersion: "2.518.1",
-  userAgent: "speakeasy-sdk/typescript 0.6.0 2.518.1 1.0 @acuvity/acuvity",
+  genVersion: "2.539.1",
+  userAgent: "speakeasy-sdk/typescript 0.6.0 2.539.1 1.0 @acuvity/acuvity",
 } as const;
