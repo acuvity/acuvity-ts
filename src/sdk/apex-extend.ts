@@ -1,6 +1,6 @@
 import { Apex } from "./apex.js";
 import * as components from "../models/components/index.js";
-import { GuardConfig } from "../guard/config.js";
+import { GuardConfig, Guard } from "../guard/config.js";
 import { ScanResponseMatch } from "../response/match.js";
 import { GuardName } from "../guard/constants.js";
 
@@ -58,7 +58,7 @@ declare module "./apex.js" {
       /**
        * the guard config used to do the response eval for matches. If not provided, the default guard config will be used.
        */
-      guardConfig?: GuardConfig | undefined,
+      guardConfig?: string | { [key: string]: any } | Guard[] | undefined,
 
     }): Promise<ScanResponseMatch>;
 
@@ -66,32 +66,6 @@ declare module "./apex.js" {
      * _availableAnalyzers keeps a cache of the available analyzers which is lazily initialized based on the first call made to analyzers.
      */
     _availableAnalyzers?: components.Analyzer[];
-
-    /**
-     * `listAnalyzers()` returns a list of all available analyzers. This call lists all details about the available analyzers.
-     * To get a filtered list of analyzer names or groups that can be used in a scan request, use `list_analyzer_names()` and/or `list_analyzer_groups()`.
-     *
-     * NOTE: this call is cached for the lifetime of the SDK object.
-     */
-    listAvailableAnalyzers(): Promise<components.Analyzer[]>;
-
-    /**
-     * `listAnalyzerGroups()` returns a list of all available analyzer groups. These can be passed in a scan request
-     * to activate/deactivate a whole group of analyzers at once.
-     *
-     * NOTE: this call is cached for the lifetime of the SDK object.
-     */
-    listAnalyzerGroups(): Promise<string[]>;
-
-    /**
-     * `listAnalyzerNames()` returns a list of all available analyzer names. These can be passed in a scan request
-     * to activate/deactivate specific analyzers.
-     *
-     * @param group the group of analyzers to filter the list by. If not provided, all analyzers will be returned.
-     *
-     * NOTE: this call is cached for the lifetime of the SDK object.
-     */
-    listAnalyzerNames(group?: string): Promise<string[]>;
 
     /**
      * `listAvailableGuards()` returns a list of all available guard names that can be used in the guard config.
@@ -125,7 +99,7 @@ Apex.prototype.scan = async function ({
   annotations?: { [k: string]: string } | undefined,
   redactions?: string[] | undefined,
   keywords?: string[] | undefined,
-  guardConfig?: GuardConfig | undefined,
+  guardConfig?: string | { [key: string]: any } | Guard[] | undefined,
 }) {
   const request: components.Scanrequest = {};
 
@@ -183,16 +157,18 @@ Apex.prototype.scan = async function ({
 
   request.anonymization = components.Anonymization.FixedSize;
 
-  let gconfig: GuardConfig;
+  let finalGuardConfig: GuardConfig;
   try {
-    gconfig = guardConfig ? await GuardConfig.create(guardConfig) : await GuardConfig.create();
+    // If user guardConfig is given then use it else create a default.
+    if (guardConfig) {
+      finalGuardConfig = await GuardConfig.create(guardConfig);
+      keywords = finalGuardConfig.keywords;
+      redactions = finalGuardConfig.redactionKeys;
+    } else {
+      finalGuardConfig = await GuardConfig.create();
+    }
   } catch (e) {
     throw new Error(`Failed to init config file: ${e}`);
-  }
-
-  if (gconfig) {
-    keywords = gconfig.keywords
-    redactions = gconfig.redactionKeys
   }
 
   if (redactions) {
@@ -210,7 +186,7 @@ Apex.prototype.scan = async function ({
   const rawScanResponse = await this.scanRequest(request);
 
   // Return a new ScanResponseMatch instance
-  return new ScanResponseMatch(rawScanResponse, gconfig, files);
+  return new ScanResponseMatch(rawScanResponse, finalGuardConfig, files);
 };
 
 async function readFileAndBase64Encode(filePath: string): Promise<string> {
@@ -234,27 +210,6 @@ async function readFileAndBase64Encode(filePath: string): Promise<string> {
   }
 }
 
-Apex.prototype.listAvailableAnalyzers = async function (): Promise<components.Analyzer[]> {
-  return (this._availableAnalyzers ??= await this.listAnalyzers());
-}
-
-Apex.prototype.listAnalyzerNames = async function (group?: string): Promise<string[]> {
-  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
-  return analyzers
-    .filter((a) => !group || a.group === group)
-    .map((a) => a.id ?? "")
-    .filter((a) => a !== "")
-    .sort();
-}
-
-Apex.prototype.listAnalyzerGroups = async function (): Promise<string[]> {
-  const analyzers = (this._availableAnalyzers ??= await this.listAnalyzers());
-  return analyzers
-    .map((a) => a.group ?? "")
-    .filter((a) => a !== "")
-    .filter((v, i, a) => a.indexOf(v) === i)
-    .sort();
-}
 
 Apex.prototype.listAvailableGuards = async function (): Promise<string[]> {
   return GuardName.values();

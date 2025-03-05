@@ -26,25 +26,28 @@ export type SDKOptions = {
   /**
    * The security details required to authenticate the SDK
    */
-  security?: components.Security | (() => Promise<components.Security>);
+  security?:
+    | components.Security
+    | (() => Promise<components.Security>)
+    | undefined;
 
   httpClient?: HTTPClient;
   /**
    * Allows overriding the default server used by the SDK
    */
-  serverIdx?: number;
+  serverIdx?: number | undefined;
   /**
    * Sets the apex_domain variable for url substitution
    */
-  apexDomain?: string;
+  apexDomain?: string | undefined;
   /**
    * Sets the apex_port variable for url substitution
    */
-  apexPort?: string;
+  apexPort?: string | undefined;
   /**
    * Allows overriding the default server URL used by the SDK
    */
-  serverURL?: string;
+  serverURL?: string | undefined;
   /**
    * Allows overriding the default retry config used by the SDK
    */
@@ -58,7 +61,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
   const serverParams: Params[] = [
     {
-      "apex_domain": options.apexDomain ?? "apex.acuvity.ai",
+      "apex_domain": options.apexDomain ?? "api.apex.acuvity.ai",
       "apex_port": options.apexPort ?? "443",
     },
   ];
@@ -80,7 +83,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
-  sdkVersion: "0.5.1",
-  genVersion: "2.496.0",
-  userAgent: "speakeasy-sdk/typescript 0.5.1 2.496.0 1.0 @acuvity/acuvity",
+  sdkVersion: "0.6.0",
+  genVersion: "2.539.1",
+  userAgent: "speakeasy-sdk/typescript 0.6.0 2.539.1 1.0 @acuvity/acuvity",
 } as const;

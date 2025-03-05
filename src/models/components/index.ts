@@ -8,6 +8,7 @@ export * from "./analyzermodel.js";
 export * from "./detector.js";
 export * from "./extraction.js";
 export * from "./extractionrequest.js";
+export * from "./extractionsummary.js";
 export * from "./latency.js";
 export * from "./modality.js";
 export * from "./principal.js";

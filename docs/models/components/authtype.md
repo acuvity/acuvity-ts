@@ -13,5 +13,5 @@ let value: AuthType = "Token";
 ## Values
 
 ```typescript
-"Certificate" | "UserToken" | "AppToken" | "Hostname" | "Token" | "TierToken" | "External"
+"Certificate" | "UserToken" | "AppToken" | "Hostname" | "Token" | "ComponentToken" | "External"
 ```

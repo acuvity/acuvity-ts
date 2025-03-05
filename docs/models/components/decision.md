@@ -7,11 +7,11 @@ Tell what was the decision about the data.
 ```typescript
 import { Decision } from "@acuvity/acuvity/models/components";
 
-let value: Decision = "Ask";
+let value: Decision = "Bypassed";
 ```
 
 ## Values
 
 ```typescript
-"Deny" | "Allow" | "Ask" | "Bypassed" | "ForbiddenUser"
+"Deny" | "Allow" | "Ask" | "Bypassed" | "ForbiddenUser" | "Skipped"
 ```

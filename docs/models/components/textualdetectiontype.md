@@ -7,11 +7,11 @@ The type of detection.
 ```typescript
 import { TextualdetectionType } from "@acuvity/acuvity/models/components";
 
-let value: TextualdetectionType = "PII";
+let value: TextualdetectionType = "Secret";
 ```
 
 ## Values
 
 ```typescript
-"Keyword" | "PII" | "Secret"
+"Keyword" | "PII" | "Secret" | "CDT"
 ```

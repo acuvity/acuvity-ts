@@ -1,33 +1,33 @@
 lockVersion: 2.0.0
 id: b95067c6-660d-4241-9d59-04829c592eb4
 management:
-  docChecksum: c228280ab24af59505327c759fe66d5f
+  docChecksum: d36c489000899aeaa2d939df1cef5a30
   docVersion: "1.0"
-  speakeasyVersion: 1.476.0
-  generationVersion: 2.496.0
-  releaseVersion: 0.5.1
-  configChecksum: d55a39df36bbbc4425e7d87605d18535
+  speakeasyVersion: 1.509.1
+  generationVersion: 2.539.1
+  releaseVersion: 0.6.0
+  configChecksum: 394034ab2f19ab22af03bfc470384d58
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.18
+    core: 3.21.3
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
     examples: 2.81.5
-    globalSecurity: 2.82.12
+    globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
     ignores: 2.81.1
+    mcpServer: 0.4.1
     nameOverrides: 2.81.2
     operationTimeout: 0.2.0
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.2.0
 generatedFiles:
-  - .eslintrc.cjs
   - .gitattributes
   - .npmignore
   - FUNCTIONS.md
@@ -38,9 +38,11 @@ generatedFiles:
   - docs/models/components/anonymization.md
   - docs/models/components/authtype.md
   - docs/models/components/decision.md
+  - docs/models/components/detectionmatchers.md
   - docs/models/components/detector.md
   - docs/models/components/extraction.md
   - docs/models/components/extractionrequest.md
+  - docs/models/components/extractionsummary.md
   - docs/models/components/latency.md
   - docs/models/components/modality.md
   - docs/models/components/principal.md
@@ -58,6 +60,7 @@ generatedFiles:
   - docs/models/errors/elementalerror.md
   - docs/sdks/acuvity/README.md
   - docs/sdks/apex/README.md
+  - eslint.config.mjs
   - jsr.json
   - package.json
   - src/core.ts
@@ -82,12 +85,26 @@ generatedFiles:
   - src/lib/sdks.ts
   - src/lib/security.ts
   - src/lib/url.ts
+  - src/mcp-server/build.mts
+  - src/mcp-server/cli.ts
+  - src/mcp-server/cli/start/command.ts
+  - src/mcp-server/cli/start/impl.ts
+  - src/mcp-server/console-logger.ts
+  - src/mcp-server/mcp-server.ts
+  - src/mcp-server/resources.ts
+  - src/mcp-server/scopes.ts
+  - src/mcp-server/server.ts
+  - src/mcp-server/shared.ts
+  - src/mcp-server/tools.ts
+  - src/mcp-server/tools/apexListAnalyzers.ts
+  - src/mcp-server/tools/apexScanRequest.ts
   - src/models/components/alertevent.ts
   - src/models/components/analyzer.ts
   - src/models/components/analyzermodel.ts
   - src/models/components/detector.ts
   - src/models/components/extraction.ts
   - src/models/components/extractionrequest.ts
+  - src/models/components/extractionsummary.ts
   - src/models/components/index.ts
   - src/models/components/latency.ts
   - src/models/components/modality.ts
@@ -106,6 +123,7 @@ generatedFiles:
   - src/sdk/apex.ts
   - src/sdk/index.ts
   - src/sdk/sdk.ts
+  - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
   - src/types/enums.ts
@@ -120,7 +138,7 @@ examples:
     speakeasy-default-get-all-analyzers:
       responses:
         "200":
-          application/json: [{"triggers": ["Code/*"]}, {"triggers": ["Code/*"]}]
+          application/json: [{}, {}]
         "400":
           application/json: {}
         "500":
@@ -128,10 +146,10 @@ examples:
   create-ScanRequest-as-ScanResponse:
     speakeasy-default-create-scan-request-as-scan-response:
       requestBody:
-        application/json: {"analyzers": ["Detectors", "en-text-prompt_injection-detector", "ocr-handwritten-text-extractor"], "annotations": {"key1": "value1", "key2": "value2"}, "anonymization": "FixedSize", "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "keywords": ["legal", "technical", "scientific"], "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "redactions": ["person", "ssn", "location"]}
+        application/json: {"analyzers": ["Malcontents"], "annotations": {"key1": "value1", "key2": "value2"}, "anonymization": "FixedSize", "bypassHash": "6f37d752-bce1-4973-88f6-28b6c100ceb8", "keywords": ["legal", "technical", "scientific"], "messages": ["Summarize the main points of this article in bullet points.", "Generate a list of creative product names for a futuristic tech gadget."], "redactions": ["person", "ssn", "location"]}
       responses:
         "200":
-          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9}], "principal": {"app": {"labels": ["country=us", "another-label"], "name": "MyApp", "tier": "frontend"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
+          application/json: {"alerts": [{"alertDefinition": "warning-notification", "principal": {"app": {"component": "frontend", "labels": ["country=us", "another-label"], "name": "MyApp"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}}], "client": "curl", "clientVersion": "7.64.1", "extractions": [{"PIIs": {"ssn": 0.8}, "categories": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "confidentiality": 0.9, "customDataTypes": {"my_cdt": 1}, "exploits": {"prompt_injection": 0.8}, "intent": {"write": 0.8}, "keywords": {"my_keywork": 0.8}, "languages": {"english": 0.8}, "malcontents": {"toxic": 0.8}, "modalities": [{"group": "image", "type": "png"}, {"group": "image", "type": "png"}], "relevance": 0.9, "secrets": {"credentials": 0.7}, "topics": {"category/enterprise": 0.7, "department/logistics": 0.8, "depict/document": 0.8, "extracted/typed_text_content": 1, "timeframe/current_year": 0.6}}], "principal": {"app": {"component": "frontend", "labels": ["country=us", "another-label"], "name": "MyApp"}, "team": "admins", "tokenName": "my-user-token", "type": "User", "user": {"name": "user@company.com"}}, "provider": "openai"}
         "400":
           application/json: {}
         "500":

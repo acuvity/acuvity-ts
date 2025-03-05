@@ -34,6 +34,18 @@ components:
         description:
           description: The description of the analyzer.
           type: string
+        detectionMatchers:
+          description: A list of detection matcher that will trigger the analyzer.
+          example:
+            - - confidence: Medium
+                group: Text
+                name: txt
+                operator: min
+          items:
+            items:
+              type: object
+            type: array
+          type: array
         detectors:
           description: The detectors the analyzer can use.
           items:
@@ -57,15 +69,6 @@ components:
           description: The namespace of the object.
           readOnly: true
           type: string
-        triggers:
-          description: |-
-            A list of trigger or globl pattern that the analyzer will react on.
-            A trigger is the detector Group and Name separated with a /.
-          example:
-            - Code/*
-          items:
-            type: string
-          type: array
       type: object
     analyzermodel:
       description: Represent an analyzer model.
@@ -76,6 +79,67 @@ components:
         revision:
           description: The revision of the model.
           type: string
+      type: object
+    detectionmatcher:
+      description: |-
+        Represent a detection matcher.
+        A Detection Matcher serves as a filtering mechanism for analyzers, determining
+        which detections should trigger an analysis. It allows for flexible pattern
+        matching on detection attributes such as name, label, and group using glob-style
+        wildcards. Additionally, it enables confidence-based filtering by defining
+        thresholds and comparison operators. Detection Matchers provide a structured way
+        to control when and how analyzers engage with incoming detections.
+      properties:
+        confidence:
+          default: Low
+          description: The detection confidence level to operate on.
+          enum:
+            - Unlikely
+            - Low
+            - Medium
+            - High
+        description:
+          description: The description of the detection matcher.
+          type: string
+        group:
+          default: "*"
+          description: |-
+            The group pattern used to match detection group. Supports glob-style wildcards
+            (e.g. 'Text*' matches 'Text', 'Text_'). Default value is '*' meaning matching
+            any
+            detection group.
+          example: Text
+          type: string
+        label:
+          default: "*"
+          description: |-
+            The label pattern used to match detection label. Supports glob-style wildcards
+            (e.g. 'txt*' matches 'txt', 'txtuf8'). Default value is '*' meaning matching any
+            detection label.
+          example: txt
+          type: string
+        name:
+          default: "*"
+          description: |-
+            The name pattern used to match detection name. Supports glob-style wildcards
+            (e.g. 'txt*' matches 'txt', 'txtuf8'). Default value is '*' meaning matching any
+            detection name.
+          example: txt
+          type: string
+        operator:
+          default: Min
+          description: |-
+            Specifies how to compare the detection's confidence value against the matcher's
+            threshold:
+            - 'Is': All Detections confidence must exactly match the threshold
+            - 'Min': At least one detection confidence must be greater than or equal to the
+            threshold
+            - 'Max': At least one detection confidence must be less than the threshold
+            The default value is 'Min'.
+          enum:
+            - Is
+            - Min
+            - Max
       type: object
     detector:
       description: Represent a detector an analyzer can use.
@@ -123,7 +187,25 @@ components:
         PIIs:
           additionalProperties:
             type: number
-          description: The PIIs found during classification.
+          description: |-
+            The PIIs found during classification.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups 'PIIs' accross all analyzers.
+
+            Example of PIIs detected: aba_routing_number, address, bank_account,
+            bitcoin_wallet, credit_card, driver_license, email_address, itin_number,
+            location, medical_license, money_amount, passport_number, person, phone_number,
+            ssn.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            ssn: 0.8
           type: object
         annotations:
           additionalProperties:
@@ -131,7 +213,9 @@ components:
           description: Annotations attached to the extraction.
           type: object
         categories:
-          description: The categories are remapping of the modalities in a more human friendly way.
+          description:
+            The categories are remapping of the modalities in a more human
+            friendly way.
           items:
             $ref: "#/components/schemas/modality"
           type: array
@@ -139,18 +223,48 @@ components:
           description: The level of general confidentiality of the input.
           example: 0.9
           type: number
+        customDataTypes:
+          additionalProperties:
+            type: number
+          description: |-
+            The custom data types found during classification.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            my_cdt: 1
+          type: object
         data:
           description: The data extracted.
           type: string
         detections:
-          description: The detections found while applying policies.
+          description: The textual detections found while applying policies.
           items:
             $ref: "#/components/schemas/textualdetection"
           type: array
         exploits:
           additionalProperties:
             type: number
-          description: The various exploits attempts.
+          description: |-
+            The various exploits attempts.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups 'Exploits' accross all analyzers.
+
+            Example of exploits detected: jailbreak, prompt_injection, malicious_url.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            prompt_injection: 0.8
           type: object
         hash:
           description: The hash of the extraction.
@@ -158,17 +272,48 @@ components:
         intent:
           additionalProperties:
             type: number
-          description: The estimated intent embodied into the text.
+          description: |-
+            The estimated intent embodied into the text.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups 'Intent' accross all analyzers.
+
+            Example of intent detected: explain, outline, summarize, write.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            write: 0.8
           type: object
         internal:
           description: |-
             If true, this extraction is for internal use only. This can be used by agentic
             systems to mark an extraction as internal only as opposed to user facing.
           type: boolean
+        isFile:
+          description: If true, the data of the extraction is a file.
+          type: boolean
+        isStored:
+          description: If true, indicates that the file has been stored.
+          type: boolean
         keywords:
           additionalProperties:
             type: number
-          description: The keywords found during classification.
+          description: |-
+            The keywords found during classification.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            my_keywork: 0.8
           type: object
         label:
           description: |-
@@ -178,7 +323,43 @@ components:
         languages:
           additionalProperties:
             type: number
-          description: The language of the classification.
+          description: |-
+            The language of the classification.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups 'Languages' accross all analyzers.
+
+            Example of languages: chinese, english, french, german, gibberish, japanese,
+            russian, spanish.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            english: 0.8
+          type: object
+        malcontents:
+          additionalProperties:
+            type: number
+          description: |-
+            The various malcontents attempts.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups 'Malcontents' accross all analyzers.
+
+            Example of malcontents: biased, harmful, toxic.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            toxic: 0.8
           type: object
         modalities:
           description: The modalities of data detected in the data.
@@ -186,19 +367,109 @@ components:
             $ref: "#/components/schemas/modality"
           type: array
         relevance:
-          description: The level of general organization relevance of the input.
+          description: |-
+            The level of general organization relevance of the input.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
           example: 0.9
           type: number
         secrets:
           additionalProperties:
             type: number
-          description: The secrets found during classification.
+          description: |-
+            The secrets found during classification.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups 'Secrets' accross all analyzers.
+
+            Example of secrets: adafruit, alibaba, anthropic, apideck, apify, atlassian,
+            aws_secret_key, buildkite, checkout, clickuppersonal, contentfulpersonalaccess,
+            credentials, database_url_with_credentials, databricks, denodeploy, dfuse,
+            digitalocean, discord_webhook, docker_hub, doppler, dropbox, endorlabs,
+            fleetbase, flutterwave, frameio, freshdesk, fullstory, github, gitlab,
+            gocardless, google_api, grafana, groq, huggingface, intra42, jwt, klaviyo,
+            launchdarkly, linearapi, locationiq, mailchimp, mailgun, mapbox, maxmind,
+            microsoft_teams_webhook, nightfall, notion, npm, openai, otp_auth_url, pagarme,
+            paystack, planetscale, planetscaledb, portainer, posthog, postman, prefect,
+            private_key, pubnub_publish, pubnub_subscribe, pulumi, ramp, razorpay, readme,
+            rechargepayments, replicate, rubygems, salesforce, sendgrid, sendinblue,
+            shopify, slack_access, slack_bot, slack_refresh, slack_user, slack_webhook,
+            slack_workflow_webhook, sourcegraph, sourcegraphcody, squareapp, squareup,
+            stripe, supabase, tailscale, tines_webhook, trufflehog, twilio, ubidots,
+            voiceflow, web_url_with_credentials, zapierwebhook.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            credentials: 0.7
           type: object
         topics:
           additionalProperties:
             type: number
-          description: The topic of the classification.
+          description: |-
+            The topic of the classification.
+
+            The current list can be obtained through the analyzers API, with the following
+            conditions:
+              1. Includes all analyzers EXCEPT those in the 'Modality' group
+              2. Includes all analyzer detectors EXCEPT those in these groups:
+                - 'Secrets'
+                - 'Exploits'
+                - 'Intent'
+                - 'PIIs'
+                - 'Malcontents'
+
+            Example of topics: category/enterprise, category/healthcare, category/medical,
+            category/personal, contains/blank_image, contains/certificate_signing_request,
+            contains/database_url, contains/handwritten_text, contains/printed_text,
+            contains/public_key, contains/ssh_public_key, contains/web_url,
+            decoded/base32_data, decoded/base58_data, decoded/base64_data,
+            decoded/base64_url_data, decoded/base85_data, decoded/hexadecimal_data,
+            decoded/puny_code_data, decoded/quoted_printable_data,
+            decoded/url_encoding_data, department/compliance, department/cybersecurity,
+            department/finance, department/human_resources,
+            department/information_technology, department/legal, department/logistics,
+            department/marketing, department/performance_evaluation,
+            department/product_management, department/project_management, department/sales,
+            department/strategy, department/support, depict/check, depict/code,
+            depict/document, depict/unclassified, depict/whiteboard, domain/commercial,
+            domain/development, domain/financial, domain/general, domain/regulatory,
+            domain/workforce, extracted/csv_cell_content, extracted/document_text_content,
+            extracted/handwritten_text_content, extracted/pdf_text_content,
+            extracted/pptx_text_content, extracted/spreadsheet_text_content,
+            extracted/typed_text_content, timeframe/current_year, timeframe/future,
+            timeframe/last_year, timeframe/next_year, timeframe/past,
+            transcribed/audio_text_content.
+
+            If a key is not present in the map that implies that entity was not detected. If
+            an entity is detected then the value is a score. Here's how to interpret the
+            scores:
+              - confidence: 'low', 0 < score <0.33
+              - confidence: 'medium', 0.33 <= score < 0.66
+              - confidence: 'high', 0.66 <= score <= 1.
+          example:
+            category/enterprise: 0.7
+            department/logistics: 0.8
+            depict/document: 0.8
+            extracted/typed_text_content: 1
+            timeframe/current_year: 0.6
           type: object
+      type: object
+    extractioninformation:
+      description: Represents extracted information.
+      properties:
+        "n":
+          description: The number of times it has been seen.
+          type: integer
       type: object
     extractionrequest:
       description: Represents the extraction that the user wants to extract.
@@ -217,11 +488,63 @@ components:
             If true, this extraction is for internal use only. This can be used by agentic
             systems to mark an extraction as internal only as opposed to user facing.
           type: boolean
+        isFile:
+          description: If true, the data of the extraction is a file.
+          type: boolean
+        isStored:
+          description: If true, indicates that the file has been stored.
+          type: boolean
         label:
           description: |-
             A means of distinguishing what was extracted, such as prompt, input file or
             code.
           type: string
+      type: object
+    extractionsummary:
+      description: Represents the summary of the extractions.
+      properties:
+        PIIs:
+          additionalProperties: true
+          description: The PIIs found during classification.
+          type: object
+        categories:
+          additionalProperties: true
+          description:
+            The categories are remapping of the modalities in a more human
+            friendly way.
+          type: object
+        exploits:
+          additionalProperties: true
+          description: The various exploits attempts.
+          type: object
+        intent:
+          additionalProperties: true
+          description: The estimated intent embodied into the text.
+          type: object
+        keywords:
+          additionalProperties: true
+          description: The keywords found during classification.
+          type: object
+        languages:
+          additionalProperties: true
+          description: The language of the classification.
+          type: object
+        malcontents:
+          additionalProperties: true
+          description: The various malcontents attempts.
+          type: object
+        modalities:
+          additionalProperties: true
+          description: The modalities of data detected in the data.
+          type: object
+        secrets:
+          additionalProperties: true
+          description: The secrets found during classification.
+          type: object
+        topics:
+          additionalProperties: true
+          description: The topic of the classification.
+          type: object
       type: object
     latency:
       description: Holds information about latencies introduced by Apex.
@@ -239,18 +562,56 @@ components:
           description: How much time it took to run content policy in nanoseconds.
           type: integer
         extraction:
-          description: How much time it took to run input or output extraction in nanoseconds.
+          description:
+            How much time it took to run input or output extraction in
+            nanoseconds.
           type: integer
       type: object
     modality:
       description: Represents the modality of a some data.
       properties:
         group:
-          description: The group of data.
+          description: |-
+            The group of data.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector groups in the 'Modality' analyzer group.
+
+            Example of group: application, archive, audio, code, document, executable, font,
+            image, text, unknown, video.
           example: image
           type: string
         type:
-          description: The type of data.
+          description: |-
+            The type of data.
+
+            The current list can be obtained through the analyzers API by searching for
+            detector names in the 'Modality' analyzer group.
+
+            Example of type: 3dsm, 3gp, 3mf, ace, ada, ai, apk, applebplist, appleplist, ar,
+            arc, arj, asc, asf, asm, asp, au, autohotkey, autoit, avi, avif, awk, ax, batch,
+            bazel, bcad, bib, bmp, bpg, brainfuck, brf, bzip, bzip3, c, cab, cat, cdf, chm,
+            clojure, cmake, cobol, coff, coffeescript, com, cpl, cpp, crt, crx, cs, csproj,
+            css, csv, dart, deb, dex, dey, dicom, diff, django, dll, dm, dmg, dmigd,
+            dmscript, doc, dockerfile, docx, dotx, dwg, dxf, dylib, elf, elixir, emf, eml,
+            epub, erb, erlang, exe, flac, flv, fortran, fpx, gemfile, gemspec, gif,
+            gitattributes, gitmodules, gleam, go, gradle, groovy, gzip, h, h5, handlebars,
+            haskell, hcl, heif, hlp, hpp, hta, htaccess, html, hwp, icns, ico, ics,
+            ignorefile, ini, internetshortcut, ipynb, iso, jar, java, javabytecode,
+            javascript, jinja, jng, jnlp, jp2, jpeg, json, jsonl, jsx, julia, jxl, ko,
+            kotlin, latex, lha, license, lisp, lnk, lock, lua, lz, lz4, m3u, m4, macho,
+            makefile, markdown, matlab, mht, midi, mkv, mp3, mp4, mpegts, mscompress, msi,
+            msix, mui, mum, npy, npz, objectivec, ocaml, ocx, odex, odin, odp, ods, odt,
+            ogg, one, onnx, otf, outlook, pascal, pcap, pdb, pdf, pebin, pem, perl, php,
+            pickle, png, po, postscript, powershell, ppt, pptx, prolog, proteindb, proto,
+            psd, python, pythonbytecode, pytorch, qoi, qt, r, randomascii, rar, rdf, rlib,
+            rll, rpm, rst, rtf, ruby, rust, scala, scheme, scr, scss, sevenzip, sgml, shell,
+            smali, snap, so, solidity, sql, sqlite, squashfs, srt, stlbinary, stltext, sum,
+            svg, swf, swift, symlinktext, sys, tar, tcl, textproto, tga, thumbsdb, tiff,
+            toml, torrent, tsv, tsx, ttf, twig, txt, txtascii, txtutf16, txtutf8,
+            typescript, vba, vbe, vcxproj, verilog, vhdl, visio, vtt, vue, wad, wasm, wav,
+            webm, webp, webtemplate, winregistry, wma, wmf, wmv, woff, woff2, xar, xcf, xls,
+            xlsb, xlsx, xml, xpi, xz, yaml, yara, zig, zip, zlibstream, zst.
           example: png
           type: string
       required:
@@ -292,7 +653,9 @@ components:
           type: object
         anonymization:
           default: FixedSize
-          description: How to anonymize the data. If deanonymize is true, then VariablSize is required.
+          description:
+            How to anonymize the data. If deanonymize is true, then VariablSize
+            is required.
           enum:
             - FixedSize
             - VariableSize
@@ -365,6 +728,7 @@ components:
             - Ask
             - Bypassed
             - ForbiddenUser
+            - Skipped
         extractions:
           description: The extractions to log.
           items:
@@ -393,6 +757,8 @@ components:
           items:
             type: string
           type: array
+        summary:
+          $ref: "#/components/schemas/extractionsummary"
         time:
           description: Set the time of the message request.
           format: date-time
@@ -418,7 +784,7 @@ components:
             - AppToken
             - Hostname
             - Token
-            - TierToken
+            - ComponentToken
             - External
         claims:
           description: List of claims extracted from the user query.
@@ -448,6 +814,10 @@ components:
     principalapp:
       description: Describes the principal information of an application.
       properties:
+        component:
+          description: The component of the application request.
+          example: frontend
+          type: string
         labels:
           description: The list of labels attached to an application request.
           example:
@@ -460,16 +830,14 @@ components:
           description: The name of the application.
           example: MyApp
           type: string
-        tier:
-          description: The tier of the application request.
-          example: frontend
-          type: string
       type: object
     principaluser:
       description: Describes the principal information of a user.
       properties:
         name:
-          description: Identification bit that will be used to identify the origin of the request.
+          description:
+            Identification bit that will be used to identify the origin
+            of the request.
           example: user@company.com
           type: string
       type: object
@@ -489,12 +857,28 @@ components:
           type: string
         analyzers:
           description: |-
-            The name of the analyzers to run by the pipelines. If empty, it means all of
-            them. Possible values are PIIs, Secrets, Topics, Confidentiality, Exploits.
+            The analyzers parameter allows for customizing which analyzers should be used,
+            overriding the default selection. Each analyzer entry can optionally include a
+            prefix to modify its behavior:
+
+              - No prefix: Runs only the specified analyzers and any dependencies required
+            for deeper analyzis (slower but more acurate).
+              - '+' (enable): Activates an analyzer that is disabled by default.
+              - '-' (disable): Disables an analyzer that is enabled by default.
+              - '@' (direct execution): Runs the analyzer immediately, bypassing the deeper
+            analyzis (faster but less acurate).
+
+            An analyzers entry can be specified using:
+              - The analyzer name (e.g., 'Toxicity detector')
+              - The analyzer ID (e.g., 'en-text-toxicity-detector')
+              - The analyzer group (e.g., 'Detectors')
+              - A detector name (e.g., 'toxic')
+              - A detector label (e.g., 'insult')
+              - A detector group (e.g., 'Malcontents')
+
+            If left empty, all default analyzers will be executed.
           example:
-            - Detectors
-            - en-text-prompt_injection-detector
-            - ocr-handwritten-text-extractor
+            - Malcontents
           items:
             type: string
           type: array
@@ -508,7 +892,9 @@ components:
           type: object
         anonymization:
           default: FixedSize
-          description: How to anonymize the data. If deanonymize is true, then VariablSize is required.
+          description:
+            How to anonymize the data. If deanonymize is true, then VariablSize
+            is required.
           enum:
             - FixedSize
             - VariableSize
@@ -605,6 +991,7 @@ components:
             - Ask
             - Bypassed
             - ForbiddenUser
+            - Skipped
         extractions:
           description: The extractions to log.
           items:
@@ -633,6 +1020,8 @@ components:
           items:
             type: string
           type: array
+        summary:
+          $ref: "#/components/schemas/extractionsummary"
         time:
           description: Set the time of the message request.
           format: date-time
@@ -652,7 +1041,9 @@ components:
           description: The end position of the detection in the original data.
           type: integer
         key:
-          description: The key that is used in the name's place, If empty, a sequence of X's are used.
+          description:
+            The key that is used in the name's place, If empty, a sequence
+            of X's are used.
           type: string
         name:
           description: The name of the detection.
@@ -678,6 +1069,7 @@ components:
             - Keyword
             - PII
             - Secret
+            - CDT
       type: object
   securitySchemes:
     cookie:
@@ -738,17 +1130,13 @@ paths:
         - apex
       x-speakeasy-name-override: listAnalyzers
       x-speakeasy-usage-example:
-        description: Now you can list all available analyzers that can be used in the Scan API.
+        description:
+          Now you can list all available analyzers that can be used in
+          the Scan API.
         position: 3
         title: List all available analyzers
   /_acuvity/police:
     post:
-      x-speakeasy-ignore: true
-      x-speakeasy-name-override: policeRequest
-      x-speakeasy-usage-example:
-        description: You can submit a scan and police request using the Scan API.
-        position: 2
-        title: Process a scan and police request
       description: Processes the scan and police request.
       operationId: create-PoliceRequest-as-PoliceResponse
       requestBody:
@@ -763,7 +1151,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/policeresponse"
-          description: Successfully processing a scan and police request returns a police response.
+          description:
+            Successfully processing a scan and police request returns a
+            police response.
         "400":
           content:
             application/json:
@@ -781,13 +1171,23 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/elementalerror"
-          description: The caller is not authorized.
+          description:
+            The caller is not authorized or has a team or policy assignment
+            issue.
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/elementalerror"
+          description: Could not find a supported content type in the provided header.
         "422":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/elementalerror"
-          description: Sending an invalid scan and police request returns an unprocessable entity error. Your models might be outdated.
+          description:
+            Sending an invalid scan and police request returns an unprocessable
+            entity error. Your models might be outdated.
         "429":
           content:
             text/plain:
@@ -799,9 +1199,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/elementalerror"
-          description: Processing the scan and police request failed because policies could not be assigned or running the analysis failed internally.
+          description:
+            Processing the scan and police request failed because policies
+            could not be assigned or running the analysis failed internally.
       tags:
         - apex
+      x-speakeasy-ignore: true
+      x-speakeasy-name-override: policeRequest
+      x-speakeasy-usage-example:
+        description: You can submit a scan and police request using the Scan API.
+        position: 2
+        title: Process a scan and police request
   /_acuvity/scan:
     post:
       description: Processes the scan request.
@@ -836,13 +1244,23 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/elementalerror"
-          description: The caller is not authorized.
+          description:
+            The caller is not authorized or has a team or policy assignment
+            issue.
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/elementalerror"
+          description: Could not find a supported content type in the provided header.
         "422":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/elementalerror"
-          description: Sending an invalid scan request returns an unprocessable entity error. Your models might be outdated.
+          description:
+            Sending an invalid scan request returns an unprocessable entity
+            error. Your models might be outdated.
         "429":
           content:
             text/plain:
@@ -854,7 +1272,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/elementalerror"
-          description: Processing the scan request failed because policies could not be assigned or running the analysis failed internally.
+          description:
+            Processing the scan request failed because policies could not
+            be assigned or running the analysis failed internally.
       tags:
         - apex
       x-speakeasy-name-override: scanRequest
@@ -873,7 +1293,7 @@ servers:
     url: https://{apex_domain}:{apex_port}
     variables:
       apex_domain:
-        default: apex.acuvity.ai
+        default: api.apex.acuvity.ai
         description: |-
           The Apex domain to use which is specific to each customer and environment.
           This can be determined through the well known Apex info response from the Acuvity backend API.

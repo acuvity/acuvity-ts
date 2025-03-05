@@ -1,12 +1,7 @@
 {
   "name": "@acuvity/acuvity",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "author": "Acuvity, Inc.",
-  "bugs": {
-    "url": "https://github.com/acuvity/acuvity-ts/issues"
-  },
-  "description": "The official Acuvity TypeScript SDK",
-  "homepage": "https://acuvity.ai/",
   "keywords": [
     "security",
     "genai",
@@ -22,7 +17,15 @@
     "type": "git",
     "url": "git+https://github.com/acuvity/acuvity-ts.git"
   },
+  "bugs": {
+    "url": "https://github.com/acuvity/acuvity-ts/issues"
+  },
+  "description": "The official Acuvity TypeScript SDK",
+  "homepage": "https://acuvity.ai/",
   "type": "module",
+  "bin": {
+    "mcp": "bin/mcp-server.js"
+  },
   "tshy": {
     "sourceDialects": [
       "@acuvity/acuvity/source"
@@ -39,27 +42,39 @@
   },
   "sideEffects": false,
   "scripts": {
-    "lint": "eslint --max-warnings=0 src",
-    "build": "tshy",
+    "lint": "eslint --cache --max-warnings=0 src",
+    "build:mcp": "bun src/mcp-server/build.mts",
+    "build": "npm run build:mcp && tshy",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
+    "@modelcontextprotocol/sdk": "^1.5.0",
     "zod": ">= 3"
   },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/sdk": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "@stricli/core": "^1.1.1",
     "@types/deno": "^2.0.0",
+    "@types/express": "^4.17.21",
     "@types/jest": "^29.5.14",
     "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.7.1",
-    "@typescript-eslint/parser": "^7.7.1",
-    "eslint": "^8.57.0",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.29.1",
+    "bun": "^1.2.2",
+    "bun-types": "^1.2.2",
+    "eslint": "^9.19.0",
+    "express": "^4.21.2",
+    "globals": "^15.14.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tshy": "^2.0.0",
     "typescript": "^5.4.5",
+    "typescript-eslint": "^8.22.0",
     "zod": "^3.23.4"
   },
   "dependencies": {

@@ -8,12 +8,12 @@ Describes the principal information of an application.
 import { Principalapp } from "@acuvity/acuvity/models/components";
 
 let value: Principalapp = {
+  component: "frontend",
   labels: [
     "country=us",
     "another-label",
   ],
   name: "MyApp",
-  tier: "frontend",
 };
 ```
 
@@ -21,6 +21,6 @@ let value: Principalapp = {
 
 | Field                                                  | Type                                                   | Required                                               | Description                                            | Example                                                |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `component`                                            | *string*                                               | :heavy_minus_sign:                                     | The component of the application request.              | frontend                                               |
 | `labels`                                               | *string*[]                                             | :heavy_minus_sign:                                     | The list of labels attached to an application request. | [<br/>"country=us",<br/>"another-label"<br/>]          |
 | `name`                                                 | *string*                                               | :heavy_minus_sign:                                     | The name of the application.                           | MyApp                                                  |
-| `tier`                                                 | *string*                                               | :heavy_minus_sign:                                     | The tier of the application request.                   | frontend                                               |

@@ -13,12 +13,12 @@ let value: Scanresponse = {
       alertDefinition: "warning-notification",
       principal: {
         app: {
+          component: "frontend",
           labels: [
             "country=us",
             "another-label",
           ],
           name: "MyApp",
-          tier: "frontend",
         },
         team: "admins",
         tokenName: "my-user-token",
@@ -33,6 +33,9 @@ let value: Scanresponse = {
   clientVersion: "7.64.1",
   extractions: [
     {
+      piIs: {
+        "ssn": 0.8,
+      },
       categories: [
         {
           group: "image",
@@ -40,6 +43,24 @@ let value: Scanresponse = {
         },
       ],
       confidentiality: 0.9,
+      customDataTypes: {
+        "my_cdt": 1,
+      },
+      exploits: {
+        "prompt_injection": 0.8,
+      },
+      intent: {
+        "write": 0.8,
+      },
+      keywords: {
+        "my_keywork": 0.8,
+      },
+      languages: {
+        "english": 0.8,
+      },
+      malcontents: {
+        "toxic": 0.8,
+      },
       modalities: [
         {
           group: "image",
@@ -47,16 +68,26 @@ let value: Scanresponse = {
         },
       ],
       relevance: 0.9,
+      secrets: {
+        "credentials": 0.7,
+      },
+      topics: {
+        "category/enterprise": 0.7,
+        "department/logistics": 0.8,
+        "depict/document": 0.8,
+        "extracted/typed_text_content": 1,
+        "timeframe/current_year": 0.6,
+      },
     },
   ],
   principal: {
     app: {
+      component: "frontend",
       labels: [
         "country=us",
         "another-label",
       ],
       name: "MyApp",
-      tier: "frontend",
     },
     team: "admins",
     tokenName: "my-user-token",
@@ -87,5 +118,6 @@ let value: Scanresponse = {
 | `principal`                                                                                   | [components.Principal](../../models/components/principal.md)                                  | :heavy_check_mark:                                                                            | Describe the principal.                                                                       |                                                                                               |
 | `provider`                                                                                    | *string*                                                                                      | :heavy_minus_sign:                                                                            | the provider to use.                                                                          | openai                                                                                        |
 | `reasons`                                                                                     | *string*[]                                                                                    | :heavy_minus_sign:                                                                            | The various reasons returned by the policy engine.                                            |                                                                                               |
+| `summary`                                                                                     | [components.Extractionsummary](../../models/components/extractionsummary.md)                  | :heavy_minus_sign:                                                                            | Represents the summary of the extractions.                                                    |                                                                                               |
 | `time`                                                                                        | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Set the time of the message request.                                                          |                                                                                               |
 | `type`                                                                                        | [components.ScanresponseType](../../models/components/scanresponsetype.md)                    | :heavy_minus_sign:                                                                            | The type of text.                                                                             |                                                                                               |
