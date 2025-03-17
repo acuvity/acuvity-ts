@@ -7,6 +7,17 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+  inputs:
+    platform:
+      description: 'Which platform to target'
+      required: true
+      default: "prod"
+      type: choice
+      options:
+        - prod
+        - pre_prod
+        - dev
 
 defaults:
   run:
@@ -14,6 +25,9 @@ defaults:
 
 env:
   ACUVITY_TOKEN: ${{ secrets.ACUVITY_TOKEN }}
+  APPS_DEV_TOKEN: ${{ secrets.APPS_DEV_TOKEN }}
+  APPS_PRE_PROD_TOKEN: ${{ secrets.APPS_PRE_PROD_TOKEN }}
+  APPS_PROD_TOKEN: ${{ secrets.APPS_PROD_TOKEN }}
 
 jobs:
   sanity:
@@ -45,8 +59,18 @@ jobs:
 
       - name: test
         run: |
-          echo "Running all tests ..."
-          npx jest --debug
+          echo "Running unit tests ..."
+          npx jest ./tests/guard --debug
+
+      - name: e2e test
+        run: |
+          echo "Running e2e tests ..."
+          SELECTED_OPTION="${{ inputs.platform }}"
+          
+          if [ -z "$SELECTED_OPTION" ]; then
+            SELECTED_OPTION="prod"  # Default value when input is missing
+          fi
+          NODE_OPTIONS="$NODE_OPTIONS --experimental-vm-modules" npx jest -- platform=$SELECTED_OPTION ./tests/e2e/  --debug
 
       - name: Run examples
         run: |
