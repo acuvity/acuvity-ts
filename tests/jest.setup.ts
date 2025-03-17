@@ -7,7 +7,7 @@ module.exports = async () => {
         process.env["TEST_TOKEN"] = process.env['APPS_DEV_TOKEN']
     } else if (platform === "pre_prod") {
         process.env["TEST_TOKEN"] = process.env['APPS_PRE_PROD_TOKEN']
-    } else if (platform === "pre_prod")  {
+    } else if (platform === "prod")  {
         process.env["TEST_TOKEN"] = process.env['APPS_PROD_TOKEN']
     }
     else{
