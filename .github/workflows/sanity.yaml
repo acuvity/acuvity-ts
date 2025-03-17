@@ -8,16 +8,16 @@ on:
       - main
   pull_request:
   workflow_dispatch:
-  inputs:
-    platform:
-      description: 'Which platform to target'
-      required: true
-      default: "prod"
-      type: choice
-      options:
-        - prod
-        - pre_prod
-        - dev
+    inputs:
+      platform:
+        description: 'Which platform to target'
+        required: true
+        default: "prod"
+        type: choice
+        options:
+          - prod
+          - pre_prod
+          - dev
 
 defaults:
   run:
