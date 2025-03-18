@@ -2,7 +2,7 @@ module.exports = async () => {
   const platform = process.argv
     .find((arg) => arg.startsWith("platform="))
     ?.split("=")[1];
-  if (platform !== undefined) {
+  if (platform == undefined) {
     process.env["TEST_TOKEN"] = process.env["ACUVITY_TOKEN"];
   } else {
     if (platform === "dev") {
