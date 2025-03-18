@@ -18,7 +18,6 @@ beforeAll(async () => {
 describe("Standalone fucntion tests", () => {
   test("Check apexListAnalyzers", async () => {
     const result = await apexListAnalyzers(client);
-    console.log(result);
     expect(result.ok).toBe(true);
     expect(Array.isArray(result.value)).toBe(true);
   });
@@ -28,8 +27,7 @@ describe("Standalone fucntion tests", () => {
       messages: [EXAMPLES["prompt_injection"] ?? ""],
       type: "Input",
     });
-    console.log(result.value?.summary?.exploits);
-    expect(result.value?.summary?.exploits).toHaveProperty("prompt_injection");
     expect(result.ok).toBe(true);
+    expect(result.value?.summary?.exploits).toHaveProperty("prompt_injection");
   });
 });
