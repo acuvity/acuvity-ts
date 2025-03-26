@@ -15,7 +15,7 @@ beforeAll(async () => {
   );
 });
 
-describe("Standalone fucntion tests", () => {
+describe("Standalone function tests", () => {
   test("Check apexListAnalyzers", async () => {
     const result = await apexListAnalyzers(client);
     expect(result.ok).toBe(true);
