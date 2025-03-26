@@ -20,7 +20,7 @@ describe("Standalone function tests", () => {
     const result = await apexListAnalyzers(client);
     expect(result.ok).toBe(true);
     expect(Array.isArray(result.value)).toBe(true);
-  });
+  }, 8000);
 
   test("Check no apexScanRequest", async () => {
     const result = await apexScanRequest(client, {

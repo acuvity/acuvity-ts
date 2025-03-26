@@ -122,7 +122,7 @@ describe("Guardrail tests", () => {
         guard,
       );
     }
-  }, 90000);
+  }, 10000);
 
   describe.each([
     ["pii_detector", "multiple_pii_detector"],
