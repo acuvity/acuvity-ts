@@ -10,6 +10,7 @@ import { Alertevent } from "@acuvity/acuvity/models/components";
 let value: Alertevent = {
   alertDefinition: "warning-notification",
   principal: {
+    ip: "192.0.2.42",
     app: {
       component: "frontend",
       labels: [
@@ -17,8 +18,15 @@ let value: Alertevent = {
         "another-label",
       ],
       name: "MyApp",
+      user: {
+        email: "john.doe@acme.com",
+        name: "John Doe",
+        tokenValidated: false,
+      },
     },
-    team: "admins",
+    teams: [
+      "admins",
+    ],
     tokenName: "my-user-token",
     type: "User",
     user: {

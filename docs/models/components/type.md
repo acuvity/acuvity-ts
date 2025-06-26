@@ -7,7 +7,7 @@ The type of text.
 ```typescript
 import { Type } from "@acuvity/acuvity/models/components";
 
-let value: Type = "Output";
+let value: Type = "Input";
 ```
 
 ## Values

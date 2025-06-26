@@ -33,11 +33,35 @@ import {
   Latency$outboundSchema,
 } from "./latency.js";
 import {
+  Mcpmessage,
+  Mcpmessage$inboundSchema,
+  Mcpmessage$Outbound,
+  Mcpmessage$outboundSchema,
+} from "./mcpmessage.js";
+import {
   Principal,
   Principal$inboundSchema,
   Principal$Outbound,
   Principal$outboundSchema,
 } from "./principal.js";
+import {
+  Tool,
+  Tool$inboundSchema,
+  Tool$Outbound,
+  Tool$outboundSchema,
+} from "./tool.js";
+import {
+  Toolchoice,
+  Toolchoice$inboundSchema,
+  Toolchoice$Outbound,
+  Toolchoice$outboundSchema,
+} from "./toolchoice.js";
+import {
+  Traceref,
+  Traceref$inboundSchema,
+  Traceref$Outbound,
+  Traceref$outboundSchema,
+} from "./traceref.js";
 
 /**
  * Tell what was the decision about the data.
@@ -108,6 +132,14 @@ export type Scanresponse = {
    */
   latency?: Latency | undefined;
   /**
+   * Represents MCP message details.
+   */
+  mcpMessage?: Mcpmessage | undefined;
+  /**
+   * The model used by the request.
+   */
+  model?: string | undefined;
+  /**
    * The namespace of the object.
    */
   namespace?: string | undefined;
@@ -120,7 +152,7 @@ export type Scanresponse = {
    */
   principal: Principal;
   /**
-   * the provider to use.
+   * The provider to use.
    */
   provider?: string | undefined;
   /**
@@ -135,6 +167,18 @@ export type Scanresponse = {
    * Set the time of the message request.
    */
   time?: Date | undefined;
+  /**
+   * Represents the tool choice that can be passed along together with tools.
+   */
+  toolChoice?: Toolchoice | undefined;
+  /**
+   * The various tools used by the request.
+   */
+  tools?: { [k: string]: Tool } | undefined;
+  /**
+   * Holds all references to a trace which are also the essentials of the span data.
+   */
+  trace?: Traceref | undefined;
   /**
    * The type of text.
    */
@@ -196,6 +240,8 @@ export const Scanresponse$inboundSchema: z.ZodType<
   extractions: z.array(Extraction$inboundSchema).optional(),
   hash: z.string().optional(),
   latency: Latency$inboundSchema.optional(),
+  mcpMessage: Mcpmessage$inboundSchema.optional(),
+  model: z.string().optional(),
   namespace: z.string().optional(),
   pipelineName: z.string().optional(),
   principal: Principal$inboundSchema,
@@ -204,6 +250,9 @@ export const Scanresponse$inboundSchema: z.ZodType<
   summary: Extractionsummary$inboundSchema.optional(),
   time: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
+  toolChoice: Toolchoice$inboundSchema.optional(),
+  tools: z.record(Tool$inboundSchema).optional(),
+  trace: Traceref$inboundSchema.optional(),
   type: ScanresponseType$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -222,6 +271,8 @@ export type Scanresponse$Outbound = {
   extractions?: Array<Extraction$Outbound> | undefined;
   hash?: string | undefined;
   latency?: Latency$Outbound | undefined;
+  mcpMessage?: Mcpmessage$Outbound | undefined;
+  model?: string | undefined;
   namespace?: string | undefined;
   pipelineName?: string | undefined;
   principal: Principal$Outbound;
@@ -229,6 +280,9 @@ export type Scanresponse$Outbound = {
   reasons?: Array<string> | undefined;
   summary?: Extractionsummary$Outbound | undefined;
   time?: string | undefined;
+  toolChoice?: Toolchoice$Outbound | undefined;
+  tools?: { [k: string]: Tool$Outbound } | undefined;
+  trace?: Traceref$Outbound | undefined;
   type?: string | undefined;
 };
 
@@ -247,6 +301,8 @@ export const Scanresponse$outboundSchema: z.ZodType<
   extractions: z.array(Extraction$outboundSchema).optional(),
   hash: z.string().optional(),
   latency: Latency$outboundSchema.optional(),
+  mcpMessage: Mcpmessage$outboundSchema.optional(),
+  model: z.string().optional(),
   namespace: z.string().optional(),
   pipelineName: z.string().optional(),
   principal: Principal$outboundSchema,
@@ -254,6 +310,9 @@ export const Scanresponse$outboundSchema: z.ZodType<
   reasons: z.array(z.string()).optional(),
   summary: Extractionsummary$outboundSchema.optional(),
   time: z.date().transform(v => v.toISOString()).optional(),
+  toolChoice: Toolchoice$outboundSchema.optional(),
+  tools: z.record(Tool$outboundSchema).optional(),
+  trace: Traceref$outboundSchema.optional(),
   type: ScanresponseType$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {

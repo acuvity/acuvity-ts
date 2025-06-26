@@ -13,6 +13,7 @@ import { tool$apexScanRequest } from "./tools/apexScanRequest.js";
 
 export function createMCPServer(deps: {
   logger: ConsoleLogger;
+  allowedTools?: string[] | undefined;
   scopes?: MCPScope[] | undefined;
   serverURL?: string | undefined;
   security?: SDKOptions["security"] | undefined;
@@ -22,7 +23,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Acuvity",
-    version: "0.5.1",
+    version: "0.7.0",
   });
 
   const client = new AcuvityCore({
@@ -33,7 +34,14 @@ export function createMCPServer(deps: {
     apexPort: deps.apexPort,
   });
   const scopes = new Set(deps.scopes ?? mcpScopes);
-  const tool = createRegisterTool(deps.logger, server, client, scopes);
+  const allowedTools = deps.allowedTools && new Set(deps.allowedTools);
+  const tool = createRegisterTool(
+    deps.logger,
+    server,
+    client,
+    scopes,
+    allowedTools,
+  );
 
   tool(tool$apexListAnalyzers);
   tool(tool$apexScanRequest);
