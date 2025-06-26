@@ -112,6 +112,27 @@ async function run() {
       "key2": "value2",
     },
     bypassHash: "6f37d752-bce1-4973-88f6-28b6c100ceb8",
+    extractions: [
+      {
+        toolResults: [
+          {
+            callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+          },
+        ],
+        toolUses: [
+          {
+            callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+            name: "get_weather",
+            serverName: "deepwiki",
+          },
+          {
+            callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+            name: "get_weather",
+            serverName: "deepwiki",
+          },
+        ],
+      },
+    ],
     keywords: [
       "legal",
       "technical",
@@ -121,11 +142,1162 @@ async function run() {
       "Summarize the main points of this article in bullet points.",
       "Generate a list of creative product names for a futuristic tech gadget.",
     ],
+    model: "claude-3-7-sonnet",
     redactions: [
       "person",
       "ssn",
       "location",
     ],
+    tools: {
+      "0": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "1": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "2": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "3": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "4": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "5": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "6": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "7": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "8": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "9": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "10": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "11": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "12": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "13": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "14": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "15": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "16": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "17": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "18": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "19": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "20": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "21": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "22": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "23": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "24": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "25": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "26": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "27": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "28": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "29": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "30": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "31": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "32": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "33": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "34": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "35": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "36": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "37": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "38": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "39": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "40": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "41": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "42": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "43": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "44": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "45": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "46": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "47": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "48": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "49": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "50": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "51": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "52": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "53": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "54": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "55": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "56": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "57": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "58": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "59": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "60": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "61": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "62": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "63": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "64": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "65": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "66": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "67": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "68": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "69": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "70": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "71": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "72": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "73": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "74": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "75": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "76": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "77": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "78": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "79": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "80": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "81": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+    },
   });
 
   // Handle the result
@@ -161,6 +1333,27 @@ async function run() {
       "key2": "value2",
     },
     bypassHash: "6f37d752-bce1-4973-88f6-28b6c100ceb8",
+    extractions: [
+      {
+        toolResults: [
+          {
+            callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+          },
+        ],
+        toolUses: [
+          {
+            callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+            name: "get_weather",
+            serverName: "deepwiki",
+          },
+          {
+            callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+            name: "get_weather",
+            serverName: "deepwiki",
+          },
+        ],
+      },
+    ],
     keywords: [
       "legal",
       "technical",
@@ -170,11 +1363,1162 @@ async function run() {
       "Summarize the main points of this article in bullet points.",
       "Generate a list of creative product names for a futuristic tech gadget.",
     ],
+    model: "claude-3-7-sonnet",
     redactions: [
       "person",
       "ssn",
       "location",
     ],
+    tools: {
+      "0": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "1": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "2": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "3": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "4": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "5": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "6": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "7": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "8": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "9": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "10": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "11": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "12": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "13": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "14": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "15": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "16": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "17": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "18": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "19": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "20": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "21": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "22": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "23": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "24": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "25": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "26": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "27": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "28": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "29": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "30": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "31": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "32": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "33": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "34": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "35": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "36": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "37": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "38": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "39": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "40": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "41": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "42": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "43": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "44": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "45": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "46": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "47": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "48": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "49": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "50": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "51": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "52": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "53": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "54": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "55": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "56": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "57": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "58": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "59": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "60": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "61": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "62": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "63": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "64": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "65": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "66": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "67": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "68": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "69": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "70": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "71": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "72": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "73": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "74": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "75": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "76": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "77": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "78": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "79": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "80": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+      "81": {
+        mcpServer: {
+          allowedTools: [
+            "deepwiki_search",
+            "deepwiki_fetch",
+          ],
+          name: "deepwiki",
+          url: "https://mcp.deepwiki.com/mcp",
+        },
+        category: "Client",
+        description: "Get the current weather in a given location",
+        name: "get_weather",
+        type: "computer_20250124",
+      },
+    },
   });
 
   if (!res.ok) {

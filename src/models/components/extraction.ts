@@ -19,6 +19,18 @@ import {
   Textualdetection$Outbound,
   Textualdetection$outboundSchema,
 } from "./textualdetection.js";
+import {
+  Toolresult,
+  Toolresult$inboundSchema,
+  Toolresult$Outbound,
+  Toolresult$outboundSchema,
+} from "./toolresult.js";
+import {
+  Tooluse,
+  Tooluse$inboundSchema,
+  Tooluse$Outbound,
+  Tooluse$outboundSchema,
+} from "./tooluse.js";
 
 /**
  * Represents the extracted information to log.
@@ -74,6 +86,10 @@ export type Extraction = {
    * The data extracted.
    */
   data?: string | undefined;
+  /**
+   * The data sets found during classification.
+   */
+  dataSets?: { [k: string]: { [k: string]: number } } | undefined;
   /**
    * The textual detections found while applying policies.
    */
@@ -240,6 +256,14 @@ export type Extraction = {
    */
   secrets?: { [k: string]: number } | undefined;
   /**
+   * Tool call results which are passed in to this request.
+   */
+  toolResults?: Array<Toolresult> | undefined;
+  /**
+   * Tool uses as requested by a model.
+   */
+  toolUses?: Array<Tooluse> | undefined;
+  /**
    * The topic of the classification.
    *
    * @remarks
@@ -298,6 +322,7 @@ export const Extraction$inboundSchema: z.ZodType<
   confidentiality: z.number().optional(),
   customDataTypes: z.record(z.number()).optional(),
   data: z.string().optional(),
+  dataSets: z.record(z.record(z.number())).optional(),
   detections: z.array(Textualdetection$inboundSchema).optional(),
   exploits: z.record(z.number()).optional(),
   hash: z.string().optional(),
@@ -312,6 +337,8 @@ export const Extraction$inboundSchema: z.ZodType<
   modalities: z.array(Modality$inboundSchema).optional(),
   relevance: z.number().optional(),
   secrets: z.record(z.number()).optional(),
+  toolResults: z.array(Toolresult$inboundSchema).optional(),
+  toolUses: z.array(Tooluse$inboundSchema).optional(),
   topics: z.record(z.number()).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -327,6 +354,7 @@ export type Extraction$Outbound = {
   confidentiality?: number | undefined;
   customDataTypes?: { [k: string]: number } | undefined;
   data?: string | undefined;
+  dataSets?: { [k: string]: { [k: string]: number } } | undefined;
   detections?: Array<Textualdetection$Outbound> | undefined;
   exploits?: { [k: string]: number } | undefined;
   hash?: string | undefined;
@@ -341,6 +369,8 @@ export type Extraction$Outbound = {
   modalities?: Array<Modality$Outbound> | undefined;
   relevance?: number | undefined;
   secrets?: { [k: string]: number } | undefined;
+  toolResults?: Array<Toolresult$Outbound> | undefined;
+  toolUses?: Array<Tooluse$Outbound> | undefined;
   topics?: { [k: string]: number } | undefined;
 };
 
@@ -356,6 +386,7 @@ export const Extraction$outboundSchema: z.ZodType<
   confidentiality: z.number().optional(),
   customDataTypes: z.record(z.number()).optional(),
   data: z.string().optional(),
+  dataSets: z.record(z.record(z.number())).optional(),
   detections: z.array(Textualdetection$outboundSchema).optional(),
   exploits: z.record(z.number()).optional(),
   hash: z.string().optional(),
@@ -370,6 +401,8 @@ export const Extraction$outboundSchema: z.ZodType<
   modalities: z.array(Modality$outboundSchema).optional(),
   relevance: z.number().optional(),
   secrets: z.record(z.number()).optional(),
+  toolResults: z.array(Toolresult$outboundSchema).optional(),
+  toolUses: z.array(Tooluse$outboundSchema).optional(),
   topics: z.record(z.number()).optional(),
 }).transform((v) => {
   return remap$(v, {

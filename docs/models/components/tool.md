@@ -1,0 +1,35 @@
+# Tool
+
+Represents a tool that can enhance a genAI model's capabilities.
+
+## Example Usage
+
+```typescript
+import { Tool } from "@acuvity/acuvity/models/components";
+
+let value: Tool = {
+  mcpServer: {
+    allowedTools: [
+      "deepwiki_search",
+      "deepwiki_fetch",
+    ],
+    name: "deepwiki",
+    url: "https://mcp.deepwiki.com/mcp",
+  },
+  category: "Client",
+  description: "Get the current weather in a given location",
+  name: "get_weather",
+  type: "computer_20250124",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                           | Type                                                                                                                                                            | Required                                                                                                                                                        | Description                                                                                                                                                     | Example                                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mcpAnnotations`                                                                                                                                                | [components.Mcptoolannotations](../../models/components/mcptoolannotations.md)                                                                                  | :heavy_minus_sign:                                                                                                                                              | Represents the tool annotations as they can be optionally defined for MCP tools.                                                                                |                                                                                                                                                                 |
+| `mcpServer`                                                                                                                                                     | [components.Mcpserver](../../models/components/mcpserver.md)                                                                                                    | :heavy_minus_sign:                                                                                                                                              | Represents an MCP server object.                                                                                                                                |                                                                                                                                                                 |
+| `category`                                                                                                                                                      | [components.Category](../../models/components/category.md)                                                                                                      | :heavy_minus_sign:                                                                                                                                              | The category of the tool. This relays information about where the tool is being<br/>used. This can be empty if unknown or if this is a tool listing of MCP servers. | Client                                                                                                                                                          |
+| `description`                                                                                                                                                   | *string*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                              | The description of the tool.                                                                                                                                    | Get the current weather in a given location                                                                                                                     |
+| `name`                                                                                                                                                          | *string*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                              | The name of the tool.                                                                                                                                           | get_weather                                                                                                                                                     |
+| `type`                                                                                                                                                          | *string*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                              | The type of the tool as can be optionally passed by the provider.                                                                                               | computer_20250124                                                                                                                                               |

@@ -7,7 +7,20 @@ Represents the extraction that the user wants to extract.
 ```typescript
 import { Extractionrequest } from "@acuvity/acuvity/models/components";
 
-let value: Extractionrequest = {};
+let value: Extractionrequest = {
+  toolResults: [
+    {
+      callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+    },
+  ],
+  toolUses: [
+    {
+      callID: "toolu_019X5QaEeVTDFrQPHqMMgd1n",
+      name: "get_weather",
+      serverName: "deepwiki",
+    },
+  ],
+};
 ```
 
 ## Fields
@@ -20,3 +33,5 @@ let value: Extractionrequest = {};
 | `isFile`                                                                                                                                                 | *boolean*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                       | If true, the data of the extraction is a file.                                                                                                           |
 | `isStored`                                                                                                                                               | *boolean*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                       | If true, indicates that the file has been stored.                                                                                                        |
 | `label`                                                                                                                                                  | *string*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                       | A means of distinguishing what was extracted, such as prompt, input file or<br/>code.                                                                    |
+| `toolResults`                                                                                                                                            | [components.Toolresult](../../models/components/toolresult.md)[]                                                                                         | :heavy_minus_sign:                                                                                                                                       | Tool call results which are passed in to this request.                                                                                                   |
+| `toolUses`                                                                                                                                               | [components.Tooluse](../../models/components/tooluse.md)[]                                                                                               | :heavy_minus_sign:                                                                                                                                       | Tool uses as requested by a model.                                                                                                                       |

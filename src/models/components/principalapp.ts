@@ -6,6 +6,12 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  Principalappuser,
+  Principalappuser$inboundSchema,
+  Principalappuser$Outbound,
+  Principalappuser$outboundSchema,
+} from "./principalappuser.js";
 
 /**
  * Describes the principal information of an application.
@@ -23,6 +29,13 @@ export type Principalapp = {
    * The name of the application.
    */
   name?: string | undefined;
+  /**
+   * Describes the optional principal information of the user of an application which
+   *
+   * @remarks
+   * is being derived from a bearer token of a request.
+   */
+  user?: Principalappuser | undefined;
 };
 
 /** @internal */
@@ -34,6 +47,7 @@ export const Principalapp$inboundSchema: z.ZodType<
   component: z.string().optional(),
   labels: z.array(z.string()).optional(),
   name: z.string().optional(),
+  user: Principalappuser$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -41,6 +55,7 @@ export type Principalapp$Outbound = {
   component?: string | undefined;
   labels?: Array<string> | undefined;
   name?: string | undefined;
+  user?: Principalappuser$Outbound | undefined;
 };
 
 /** @internal */
@@ -52,6 +67,7 @@ export const Principalapp$outboundSchema: z.ZodType<
   component: z.string().optional(),
   labels: z.array(z.string()).optional(),
   name: z.string().optional(),
+  user: Principalappuser$outboundSchema.optional(),
 });
 
 /**
