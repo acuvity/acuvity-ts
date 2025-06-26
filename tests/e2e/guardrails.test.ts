@@ -81,6 +81,11 @@ describe("Guardrail tests", () => {
         continue;
       }
 
+      // Jailbreak is being updated and merged with prompt_injection
+      if (guard === "jailbreak") {
+        continue;
+      }
+
       const threshold = guard !== "modality" ? "> 0.1" : "0";
       let guardList: Guard[], guardJson: object;
       if (guard !== "keyword_detector") {
