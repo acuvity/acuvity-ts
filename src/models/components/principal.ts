@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
@@ -43,6 +44,7 @@ export type AuthType = ClosedEnum<typeof AuthType>;
 export const PrincipalType = {
   User: "User",
   App: "App",
+  External: "External",
 } as const;
 /**
  * The type of principal.
@@ -53,6 +55,10 @@ export type PrincipalType = ClosedEnum<typeof PrincipalType>;
  * Describe the principal.
  */
 export type Principal = {
+  /**
+   * The source IP address of the request.
+   */
+  ip?: string | undefined;
   /**
    * Describes the principal information of an application.
    */
@@ -66,9 +72,9 @@ export type Principal = {
    */
   claims?: Array<string> | undefined;
   /**
-   * The team that was used to authorize the request.
+   * The teams that were used to authorize the request.
    */
-  team?: string | undefined;
+  teams?: Array<string> | undefined;
   /**
    * The name of the token, if any.
    */
@@ -129,21 +135,27 @@ export const Principal$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  IP: z.string().optional(),
   app: Principalapp$inboundSchema.optional(),
   authType: AuthType$inboundSchema.optional(),
   claims: z.array(z.string()).optional(),
-  team: z.string().optional(),
+  teams: z.array(z.string()).optional(),
   tokenName: z.string().optional(),
   type: PrincipalType$inboundSchema,
   user: Principaluser$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "IP": "ip",
+  });
 });
 
 /** @internal */
 export type Principal$Outbound = {
+  IP?: string | undefined;
   app?: Principalapp$Outbound | undefined;
   authType?: string | undefined;
   claims?: Array<string> | undefined;
-  team?: string | undefined;
+  teams?: Array<string> | undefined;
   tokenName?: string | undefined;
   type: string;
   user?: Principaluser$Outbound | undefined;
@@ -155,13 +167,18 @@ export const Principal$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Principal
 > = z.object({
+  ip: z.string().optional(),
   app: Principalapp$outboundSchema.optional(),
   authType: AuthType$outboundSchema.optional(),
   claims: z.array(z.string()).optional(),
-  team: z.string().optional(),
+  teams: z.array(z.string()).optional(),
   tokenName: z.string().optional(),
   type: PrincipalType$outboundSchema,
   user: Principaluser$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    ip: "IP",
+  });
 });
 
 /**

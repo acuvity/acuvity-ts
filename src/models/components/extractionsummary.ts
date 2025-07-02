@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -13,13 +12,21 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  */
 export type Extractionsummary = {
   /**
-   * The PIIs found during classification.
-   */
-  piIs?: { [k: string]: any } | undefined;
-  /**
    * The categories are remapping of the modalities in a more human friendly way.
    */
   categories?: { [k: string]: any } | undefined;
+  /**
+   * The detected confidence levels.
+   */
+  confidenceLevels?: { [k: string]: any } | undefined;
+  /**
+   * The detected datasets.
+   */
+  dataSets?: { [k: string]: any } | undefined;
+  /**
+   * The detected dataTypes.
+   */
+  dataTypes?: { [k: string]: any } | undefined;
   /**
    * The various exploits attempts.
    */
@@ -45,10 +52,6 @@ export type Extractionsummary = {
    */
   modalities?: { [k: string]: any } | undefined;
   /**
-   * The secrets found during classification.
-   */
-  secrets?: { [k: string]: any } | undefined;
-  /**
    * The topic of the classification.
    */
   topics?: { [k: string]: any } | undefined;
@@ -60,33 +63,31 @@ export const Extractionsummary$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  PIIs: z.record(z.any()).optional(),
   categories: z.record(z.any()).optional(),
+  confidenceLevels: z.record(z.any()).optional(),
+  dataSets: z.record(z.any()).optional(),
+  dataTypes: z.record(z.any()).optional(),
   exploits: z.record(z.any()).optional(),
   intent: z.record(z.any()).optional(),
   keywords: z.record(z.any()).optional(),
   languages: z.record(z.any()).optional(),
   malcontents: z.record(z.any()).optional(),
   modalities: z.record(z.any()).optional(),
-  secrets: z.record(z.any()).optional(),
   topics: z.record(z.any()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "PIIs": "piIs",
-  });
 });
 
 /** @internal */
 export type Extractionsummary$Outbound = {
-  PIIs?: { [k: string]: any } | undefined;
   categories?: { [k: string]: any } | undefined;
+  confidenceLevels?: { [k: string]: any } | undefined;
+  dataSets?: { [k: string]: any } | undefined;
+  dataTypes?: { [k: string]: any } | undefined;
   exploits?: { [k: string]: any } | undefined;
   intent?: { [k: string]: any } | undefined;
   keywords?: { [k: string]: any } | undefined;
   languages?: { [k: string]: any } | undefined;
   malcontents?: { [k: string]: any } | undefined;
   modalities?: { [k: string]: any } | undefined;
-  secrets?: { [k: string]: any } | undefined;
   topics?: { [k: string]: any } | undefined;
 };
 
@@ -96,20 +97,17 @@ export const Extractionsummary$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Extractionsummary
 > = z.object({
-  piIs: z.record(z.any()).optional(),
   categories: z.record(z.any()).optional(),
+  confidenceLevels: z.record(z.any()).optional(),
+  dataSets: z.record(z.any()).optional(),
+  dataTypes: z.record(z.any()).optional(),
   exploits: z.record(z.any()).optional(),
   intent: z.record(z.any()).optional(),
   keywords: z.record(z.any()).optional(),
   languages: z.record(z.any()).optional(),
   malcontents: z.record(z.any()).optional(),
   modalities: z.record(z.any()).optional(),
-  secrets: z.record(z.any()).optional(),
   topics: z.record(z.any()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    piIs: "PIIs",
-  });
 });
 
 /**

@@ -28,14 +28,14 @@ targets:
         sourceRevisionDigest: sha256:fa75c6029999b4ca035da9f0175e64c5500e6518882f7a036765e33adcc90ec6
         sourceBlobDigest: sha256:bf90601d8f53ec558afad1bf6455e0dd5f884355b7dc3dd54a10c46be12f50ce
         codeSamplesNamespace: acuvity-oas-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:df80f4837d61ab0f3b8e8b67a038f73f4a7f6f63b94825194f50882776b58cd5
+        codeSamplesRevisionDigest: sha256:a82b3f76765c5f9c7584761999e6141232a8c1f9cf5cdbc77dadd91764c01196
 workflow:
     workflowVersion: 1.0.0
-    speakeasyVersion: latest
+    speakeasyVersion: 1.509.1
     sources:
         Acuvity-OAS:
             inputs:
-                - location: ./apex-openapi.yaml
+                - location: https://api.acuvity.dev/apex/v1/openapi.json?extensions=true
             registry:
                 location: registry.speakeasyapi.dev/acuvity/acuvity/acuvity-oas
     targets:

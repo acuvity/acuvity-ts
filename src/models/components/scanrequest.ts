@@ -13,6 +13,12 @@ import {
   Extractionrequest$Outbound,
   Extractionrequest$outboundSchema,
 } from "./extractionrequest.js";
+import {
+  Tool,
+  Tool$inboundSchema,
+  Tool$Outbound,
+  Tool$outboundSchema,
+} from "./tool.js";
 
 /**
  * How to anonymize the data. If deanonymize is true, then VariablSize is required.
@@ -129,9 +135,17 @@ export type Scanrequest = {
    */
   minimalLogging?: boolean | undefined;
   /**
+   * The model used by the request.
+   */
+  model?: string | undefined;
+  /**
    * The redactions to perform if they are detected.
    */
   redactions?: Array<string> | undefined;
+  /**
+   * The various tools used by the request.
+   */
+  tools?: { [k: string]: Tool } | undefined;
   /**
    * The type of text.
    */
@@ -195,7 +209,9 @@ export const Scanrequest$inboundSchema: z.ZodType<
   keywords: z.array(z.string()).optional(),
   messages: z.array(z.string()).optional(),
   minimalLogging: z.boolean().optional(),
+  model: z.string().optional(),
   redactions: z.array(z.string()).optional(),
+  tools: z.record(Tool$inboundSchema).optional(),
   type: Type$inboundSchema.optional(),
 });
 
@@ -211,7 +227,9 @@ export type Scanrequest$Outbound = {
   keywords?: Array<string> | undefined;
   messages?: Array<string> | undefined;
   minimalLogging?: boolean | undefined;
+  model?: string | undefined;
   redactions?: Array<string> | undefined;
+  tools?: { [k: string]: Tool$Outbound } | undefined;
   type?: string | undefined;
 };
 
@@ -231,7 +249,9 @@ export const Scanrequest$outboundSchema: z.ZodType<
   keywords: z.array(z.string()).optional(),
   messages: z.array(z.string()).optional(),
   minimalLogging: z.boolean().optional(),
+  model: z.string().optional(),
   redactions: z.array(z.string()).optional(),
+  tools: z.record(Tool$outboundSchema).optional(),
   type: Type$outboundSchema.optional(),
 });
 

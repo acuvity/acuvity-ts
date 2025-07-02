@@ -61,7 +61,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
   const serverParams: Params[] = [
     {
-      "apex_domain": options.apexDomain ?? "api.apex.acuvity.ai",
+      "apex_domain": options.apexDomain ?? "apex.acuvity.ai",
       "apex_port": options.apexPort ?? "443",
     },
   ];
@@ -83,7 +83,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
-  sdkVersion: "0.6.0",
+  sdkVersion: "0.7.0",
   genVersion: "2.539.1",
-  userAgent: "speakeasy-sdk/typescript 0.6.0 2.539.1 1.0 @acuvity/acuvity",
+  userAgent: "speakeasy-sdk/typescript 0.7.0 2.539.1 1.0 @acuvity/acuvity",
 } as const;

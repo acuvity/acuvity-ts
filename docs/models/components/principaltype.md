@@ -13,5 +13,5 @@ let value: PrincipalType = "User";
 ## Values
 
 ```typescript
-"User" | "App"
+"User" | "App" | "External"
 ```

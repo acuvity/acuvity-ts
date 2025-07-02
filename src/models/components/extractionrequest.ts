@@ -6,6 +6,18 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  Toolresult,
+  Toolresult$inboundSchema,
+  Toolresult$Outbound,
+  Toolresult$outboundSchema,
+} from "./toolresult.js";
+import {
+  Tooluse,
+  Tooluse$inboundSchema,
+  Tooluse$Outbound,
+  Tooluse$outboundSchema,
+} from "./tooluse.js";
 
 /**
  * Represents the extraction that the user wants to extract.
@@ -41,6 +53,14 @@ export type Extractionrequest = {
    * code.
    */
   label?: string | undefined;
+  /**
+   * Tool call results which are passed in to this request.
+   */
+  toolResults?: Array<Toolresult> | undefined;
+  /**
+   * Tool uses as requested by a model.
+   */
+  toolUses?: Array<Tooluse> | undefined;
 };
 
 /** @internal */
@@ -55,6 +75,8 @@ export const Extractionrequest$inboundSchema: z.ZodType<
   isFile: z.boolean().optional(),
   isStored: z.boolean().optional(),
   label: z.string().optional(),
+  toolResults: z.array(Toolresult$inboundSchema).optional(),
+  toolUses: z.array(Tooluse$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -65,6 +87,8 @@ export type Extractionrequest$Outbound = {
   isFile?: boolean | undefined;
   isStored?: boolean | undefined;
   label?: string | undefined;
+  toolResults?: Array<Toolresult$Outbound> | undefined;
+  toolUses?: Array<Tooluse$Outbound> | undefined;
 };
 
 /** @internal */
@@ -79,6 +103,8 @@ export const Extractionrequest$outboundSchema: z.ZodType<
   isFile: z.boolean().optional(),
   isStored: z.boolean().optional(),
   label: z.string().optional(),
+  toolResults: z.array(Toolresult$outboundSchema).optional(),
+  toolUses: z.array(Tooluse$outboundSchema).optional(),
 });
 
 /**
