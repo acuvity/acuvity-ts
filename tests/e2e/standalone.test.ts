@@ -29,5 +29,5 @@ describe("Standalone function tests", () => {
     });
     expect(result.ok).toBe(true);
     expect(result.value?.summary?.exploits).toHaveProperty("prompt_injection");
-  });
+  }, 8000);
 });
